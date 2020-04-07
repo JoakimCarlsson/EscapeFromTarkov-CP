@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Comfort.Common;
 using EFT;
 using EFT.Interactive;
+using EFT.UI;
 using SivaEftCheat.Utils;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace SivaEftCheat.Features.ESP
         private readonly List<ExfiltrationPoint> exfiltrationPoints = new List<ExfiltrationPoint>();
         private void Start()
         {
-            _coroutineUpdate = Updates(10f);
+            _coroutineUpdate = Updates(2.5f);
             StartCoroutine(_coroutineUpdate);
         }
 
@@ -30,23 +31,28 @@ namespace SivaEftCheat.Features.ESP
 
                 try
                 {
-                    int scavMask = 0;
-                    if (Main.LocalPlayer is ClientPlayer player)
-                        scavMask = player.ScavExfilMask;
-
-                    ExfiltrationPoint[] points;
-
-                    if (Main.LocalPlayer.Profile.Info.Side == EPlayerSide.Savage)
-                        points = Main.GameWorld.ExfiltrationController.ScavExfiltrationClaim(scavMask, Main.LocalPlayer.Profile.Id);
-                    else
-                        points = Main.GameWorld.ExfiltrationController.EligiblePoints(Main.LocalPlayer.Profile);
-
-                    foreach (ExfiltrationPoint exfiltrationPoint in points)
+                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                     {
-                        if (exfiltrationPoint == null)
-                            continue;
+                        int scavMask = 0;
+                        if (Main.LocalPlayer is ClientPlayer player)
+                            scavMask = player.ScavExfilMask;
 
-                        exfiltrationPoints.Add(exfiltrationPoint);
+                        ExfiltrationPoint[] points;
+
+                        if (Main.LocalPlayer.Profile.Info.Side == EPlayerSide.Savage)
+                            points = Main.GameWorld.ExfiltrationController.ScavExfiltrationClaim(scavMask,
+                                Main.LocalPlayer.Profile.Id);
+                        else
+                            points = Main.GameWorld.ExfiltrationController.EligiblePoints(Main.LocalPlayer.Profile);
+
+                        exfiltrationPoints.Clear();
+                        foreach (ExfiltrationPoint exfiltrationPoint in points)
+                        {
+                            if (exfiltrationPoint == null)
+                                continue;
+
+                            exfiltrationPoints.Add(exfiltrationPoint);
+                        }
                     }
                 }
                 catch { }
@@ -57,16 +63,20 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                foreach (ExfiltrationPoint exfiltrationPoint in exfiltrationPoints)
+                GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Debug text: {exfiltrationPoints.Count}" );
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
-                    Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(exfiltrationPoint.transform.position);
-                    bool isOnScreen = GameUtils.IsScreenPointVisible(screenPosition);
-                    float num = GameUtils.InPoint(Main.Camera.transform.position, exfiltrationPoint.transform.position);
-                    if (isOnScreen)
+                    foreach (ExfiltrationPoint exfiltrationPoint in exfiltrationPoints)
                     {
-                        string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{((int)Math.Sqrt(num)).ToString()} m]";
+                        Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(exfiltrationPoint.transform.position);
+                        bool isOnScreen = GameUtils.IsScreenPointVisible(screenPosition);
+                        float num = GameUtils.InPoint(Main.Camera.transform.position, exfiltrationPoint.transform.position);
+                        if (isOnScreen)
+                        {
+                            string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{((int)Math.Sqrt(num)).ToString()} m]";
 
-                        Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, Color.white, 12);
+                            Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, Color.white, 12);
+                        }
                     }
                 }
             }

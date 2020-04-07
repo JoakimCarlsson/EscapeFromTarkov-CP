@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Comfort.Common;
 using EFT;
+using EFT.UI;
 using SivaEftCheat.Features.ESP;
 using UnityEngine;
 
@@ -37,14 +38,15 @@ namespace SivaEftCheat
 
                 try
                 {
-                    if (GameWorld == null)
-                        GameWorld = Singleton<GameWorld>.Instance;
-
-                    if (Camera == null)
-                        Camera = Camera.main;
-
-                    if (LocalPlayer == null)
-                        LocalPlayer = GameWorld.RegisteredPlayers.Find(p => p.IsYourPlayer());
+                    //if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                    //{
+                        //if (GameWorld == null)
+                            GameWorld = Singleton<GameWorld>.Instance;
+                        //if (Camera == null)
+                            Camera = Camera.main;
+                       // if (LocalPlayer == null)
+                            LocalPlayer = GameWorld.RegisteredPlayers.Find(p => p.IsYourPlayer());
+                    //}
                 }
                 catch { }
             }
