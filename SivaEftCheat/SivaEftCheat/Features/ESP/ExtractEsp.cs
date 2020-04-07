@@ -8,6 +8,7 @@ using Comfort.Common;
 using EFT;
 using EFT.Interactive;
 using EFT.UI;
+using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace SivaEftCheat.Features.ESP
 
                 try
                 {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscOptions.ExtractEsp)
                     {
                         int scavMask = 0;
                         if (Main.LocalPlayer is ClientPlayer player)
@@ -63,8 +64,8 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Debug text: {exfiltrationPoints.Count}" );
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Extract Debug text: {exfiltrationPoints.Count}" );
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscOptions.ExtractEsp)
                 {
                     foreach (ExfiltrationPoint exfiltrationPoint in exfiltrationPoints)
                     {

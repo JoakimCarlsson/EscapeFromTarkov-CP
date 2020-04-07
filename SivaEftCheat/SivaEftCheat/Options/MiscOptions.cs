@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SivaEftCheat.Utils
+namespace SivaEftCheat.Options
 {
-    class Settings
+    static class MiscOptions
     {
+        internal static bool ExtractEsp = true;
     }
 }
