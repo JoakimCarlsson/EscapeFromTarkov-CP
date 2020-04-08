@@ -64,9 +64,12 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Extract Debug text: {exfiltrationPoints.Count}" );
+                GUI.Label(new Rect(20, 80, 1000, 500), $"Debug Text: Extract Count: {exfiltrationPoints.Count}");
+
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscOptions.ExtractEsp)
                 {
+                    //GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Extract Debug text: {exfiltrationPoints.Count}");
+
                     foreach (ExfiltrationPoint exfiltrationPoint in exfiltrationPoints)
                     {
                         Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(exfiltrationPoint.transform.position);

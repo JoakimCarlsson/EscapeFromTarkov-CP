@@ -13,7 +13,6 @@ namespace SivaEftCheat.Features.ESP
     class ItemEsp : MonoBehaviour
     {
         private IEnumerator _coroutineUpdate;
-        private readonly List<LootItem> _items = new List<LootItem>();
 
         private void Start()
         {
@@ -39,7 +38,6 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                GUI.Label(new Rect(20f, 40f, 500f, 500f), $"Items Debug text: {_items.Count}");
 
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && ItemOptions.DrawItems)
                 {

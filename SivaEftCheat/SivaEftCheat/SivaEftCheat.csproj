@@ -88,10 +88,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Access.cs" />
     <Compile Include="Features\ESP\ExtractEsp.cs" />
     <Compile Include="Features\ESP\ItemEsp.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Options\AimbotOptions.cs" />
     <Compile Include="Options\ItemOptions.cs" />
     <Compile Include="Options\MiscOptions.cs" />
@@ -100,8 +102,6 @@
     <Compile Include="Utils\GameUtils.cs" />
     <Compile Include="Utils\Render.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Menu\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
