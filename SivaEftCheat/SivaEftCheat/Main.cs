@@ -26,6 +26,7 @@ namespace SivaEftCheat
 
             HookObject = new GameObject();
             HookObject.AddComponent<ExtractEsp>();
+            HookObject.AddComponent<ItemEsp>();
 
             DontDestroyOnLoad(HookObject);
         }

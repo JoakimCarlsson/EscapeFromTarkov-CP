@@ -8,6 +8,12 @@ namespace SivaEftCheat.Options
 {
     class ItemOptions
     {
+        //Colors
+
+        public static bool DrawItems = true;
+        public static int DrawItemRange = 300;
+
+
 
         internal static readonly List<string> RareItems = new List<string>(new string[]
         {
@@ -197,7 +203,6 @@ namespace SivaEftCheat.Options
             "5e00c1ad86f774747333222c",
             "5e01ef6886f77445f643baa4"
         });
-
         internal static readonly List<string> MedsItems = new List<string>(new string[]
         {
             "544fb3f34bdc2d03748b456a",

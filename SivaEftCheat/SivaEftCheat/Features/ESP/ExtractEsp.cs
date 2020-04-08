@@ -74,7 +74,7 @@ namespace SivaEftCheat.Features.ESP
                         float num = GameUtils.InPoint(Main.Camera.transform.position, exfiltrationPoint.transform.position);
                         if (isOnScreen)
                         {
-                            string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{((int)Math.Sqrt(num)).ToString()} m]";
+                            string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{(int)Math.Sqrt(num)} m]";
 
                             Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, MiscOptions.ExtractColor, 12);
                         }

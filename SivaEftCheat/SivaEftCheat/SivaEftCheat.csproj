@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\ESP\ExtractEsp.cs" />
+    <Compile Include="Features\ESP\ItemEsp.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Options\AimbotOptions.cs" />

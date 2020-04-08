@@ -12,7 +12,7 @@ namespace SivaEftCheat.Utils
     {
         private static readonly LayerMask LayerMask = 1 << 12 | 1 << 16 | 1 << 18;
 
-        private float GetColorAlpha(float distance, float distanceMax)
+        public static float GetColorAlpha(float distance, float distanceMax)
         {
             float colorAlpha = 1f;
 
