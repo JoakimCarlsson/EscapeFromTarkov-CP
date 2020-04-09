@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using EFT.InventoryLogic;
+using SivaEftCheat.Options;
+using UnityEngine;
 
 namespace SivaEftCheat
 {
@@ -6,31 +8,25 @@ namespace SivaEftCheat
     {
         private Rect _mainWindow;
         private Rect _playerVisualWindow;
-        private Rect _miscVisualWindow;
+        private Rect _itemVisuals;
         private Rect _aimbotVisualWindow;
         private Rect _miscFeatureslVisualWindow;
-        private Rect _weaponVisualWindow;
-        private Rect _hotKeysVisualWindow;
-        private bool _visible = false;
+        private bool _visible = true;
 
         private bool _playerEspVisualVisible;
         private bool _miscVisualVisible;
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
-        private bool _weaponFeatureslVisible;
-        private bool _hotKeysVisualVisible;
 
         private string watermark = "TESTING";
 
         private void Start()
         {
             _mainWindow = new Rect(20f, 60f, 250f, 150f);
-            _playerVisualWindow = new Rect(275f, 60f, 250f, 150f);
-            _miscVisualWindow = new Rect(530f, 60f, 250f, 150f);
-            _aimbotVisualWindow = new Rect(785f, 60f, 250, 150f);
-            _miscFeatureslVisualWindow = new Rect(1040f, 60f, 250f, 150f);
-            _weaponVisualWindow = new Rect(1295f, 60f, 250f, 150f);
-            _hotKeysVisualWindow = new Rect(1555f, 60f, 250f, 150f);
+            _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
+            _itemVisuals = new Rect(530f, 60f, 350f, 150f);
+            _aimbotVisualWindow = new Rect(785f, 60f, 350f, 150f);
+            _miscFeatureslVisualWindow = new Rect(1040f, 60f, 350f, 150f);
         }
 
         private void Update()
@@ -46,6 +42,7 @@ namespace SivaEftCheat
             GUI.Label(new Rect(20, 40, 1000, 500), $"Debug Text: LootableContainers Count: {Main.LootableContainers.Count}");
             GUI.Label(new Rect(20, 60, 1000, 500), $"Debug Text: Corpse Count: {Main.Corpses.Count}");
             GUI.Label(new Rect(20, 100, 1000, 500), $"Debug Text: Players Count: {Main.GameWorld.RegisteredPlayers.Count}");
+
             if (!_visible)
                 return;
 
@@ -54,7 +51,7 @@ namespace SivaEftCheat
             if (_playerEspVisualVisible)
                 _playerVisualWindow = GUILayout.Window(1, _playerVisualWindow, RenderUi, "Player Visual");
             if (_miscVisualVisible)
-                _miscVisualWindow = GUILayout.Window(2, _miscVisualWindow, RenderUi, "Item Visual");
+                _itemVisuals = GUILayout.Window(2, _itemVisuals, RenderUi, "Item Visual");
             if (_aimbotVisualVisible)
                 _aimbotVisualWindow = GUILayout.Window(3, _aimbotVisualWindow, RenderUi, "Aimbot");
             if (_miscFeatureslVisible)
@@ -67,9 +64,9 @@ namespace SivaEftCheat
             switch (id)
             {
                 case 0:
-                    if (GUILayout.Button("Player Visual"))
+                    if (GUILayout.Button("Player Visuals"))
                         _playerEspVisualVisible = !_playerEspVisualVisible;
-                    if (GUILayout.Button("Misc Visual"))
+                    if (GUILayout.Button("Item Visuals"))
                         _miscVisualVisible = !_miscVisualVisible;
                     if (GUILayout.Button("Aimbot"))
                         _aimbotVisualVisible = !_aimbotVisualVisible;
@@ -82,7 +79,18 @@ namespace SivaEftCheat
                     break;
 
                 case 2:
+                    ItemOptions.DrawItems = GUILayout.Toggle(ItemOptions.DrawItems, "Draw Items");
+                    ItemOptions.DrawCommonItems = GUILayout.Toggle(ItemOptions.DrawCommonItems, "Draw Common Items");
+                    ItemOptions.DrawRareItems = GUILayout.Toggle(ItemOptions.DrawRareItems, "Draw Rare Items");
+                    ItemOptions.DrawSuperRareItems = GUILayout.Toggle(ItemOptions.DrawSuperRareItems, "Draw Super Rare Items");
+                    ItemOptions.DrawMedtems = GUILayout.Toggle(ItemOptions.DrawMedtems, "Draw Meds Items");
+                    ItemOptions.DrawSpecialItems = GUILayout.Toggle(ItemOptions.DrawSpecialItems, "Draw Special Items");
+                    ItemOptions.DrawQuestItems = GUILayout.Toggle(ItemOptions.DrawQuestItems, "Draw Quest Items");
 
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Item Distance {(int)ItemOptions.DrawItemRange} m");
+                    ItemOptions.DrawItemRange = GUILayout.HorizontalSlider(ItemOptions.DrawItemRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
                     break;
 
                 case 3:

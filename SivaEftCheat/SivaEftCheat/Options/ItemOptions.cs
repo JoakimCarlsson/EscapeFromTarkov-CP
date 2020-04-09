@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace SivaEftCheat.Options
 {
     class ItemOptions
     {
         //Colors
+        public static Color CommonColor = Color.white;
+        public static Color RareColor = Color.blue;
+        public static Color SuperRareColor = Color.cyan;
+        public static Color SpecialColor = Color.red;
+        public static Color MedColor = Color.green;
+        public static Color QuestItemsColor = Color.magenta;
+
 
         public static bool DrawItems = true;
-        public static int DrawItemRange = 300;
+        public static bool DrawCommonItems = true;
+        public static bool DrawRareItems = true;
+        public static bool DrawSuperRareItems = true;
+        public static bool DrawSpecialItems = true;
+        public static bool DrawMedtems = true;
+        public static bool DrawQuestItems = true;
 
+        public static float DrawItemRange = 300;
 
-
-        internal static readonly List<string> RareItems = new List<string>(new string[]
+        internal static readonly List<string> RareItems = new List<string>(new[]
         {
             "5448ba0b4bdc2d02308b456c",
             "544a5caa4bdc2d1a388b4568",

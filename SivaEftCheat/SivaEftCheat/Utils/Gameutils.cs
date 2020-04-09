@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EFT;
+using SivaEftCheat.Options;
 using UnityEngine;
 
 namespace SivaEftCheat.Utils
@@ -11,7 +12,15 @@ namespace SivaEftCheat.Utils
     class GameUtils
     {
         private static readonly LayerMask LayerMask = 1 << 12 | 1 << 16 | 1 << 18;
+        public static bool IsSpecialLootItem(string templateId)
+        {
+            return ItemOptions.RareItems.Contains(templateId);
+        }
 
+        public static bool IsMedItem(string templateId)
+        {
+            return ItemOptions.MedsItems.Contains(templateId);
+        }
         public static float GetColorAlpha(float distance, float distanceMax)
         {
             float colorAlpha = 1f;

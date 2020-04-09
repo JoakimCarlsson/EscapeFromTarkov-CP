@@ -7,7 +7,10 @@ using EFT;
 using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
+using JsonType;
 using SivaEftCheat.Features.ESP;
+using SivaEftCheat.Options;
+using SivaEftCheat.Utils;
 using UnityEngine;
 
 namespace SivaEftCheat
@@ -32,7 +35,7 @@ namespace SivaEftCheat
         {
             _coroutineUpdateMain = UpdateMain(10f);
             StartCoroutine(_coroutineUpdateMain);
-            _coroutineGetLists = GetLists(2.5f);
+            _coroutineGetLists = GetLists(1f);
             StartCoroutine(_coroutineGetLists);
 
             HookObject = new GameObject();
@@ -50,7 +53,6 @@ namespace SivaEftCheat
                 yield return new WaitForSeconds(waitTime);
                 try
                 {
-
                     if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                     {
                         List<GInterface7>.Enumerator enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer || item is Corpse).GetEnumerator();
@@ -63,9 +65,31 @@ namespace SivaEftCheat
 
                             if (ginterface is LootItem lootItem)
                             {
-                                if (lootItem.gameObject != null)
+                                if (lootItem.gameObject != null && ItemOptions.DrawItems)
                                 {
-                                    LootItems.Add(lootItem);
+                                    if (ItemOptions.DrawQuestItems)
+                                        if (lootItem.Item.QuestItem)
+                                            LootItems.Add(lootItem);
+
+                                    if (ItemOptions.DrawMedtems)
+                                        if (GameUtils.IsMedItem(lootItem.TemplateId))
+                                            LootItems.Add(lootItem);
+
+                                    if (ItemOptions.DrawSpecialItems)
+                                        if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
+                                            LootItems.Add(lootItem);
+
+                                    if (ItemOptions.DrawCommonItems)
+                                        if (lootItem.Item.Template.Rarity == ELootRarity.Common)
+                                             LootItems.Add(lootItem);
+
+                                    if (ItemOptions.DrawRareItems)
+                                        if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
+                                            LootItems.Add(lootItem);
+
+                                    if (ItemOptions.DrawSuperRareItems)
+                                        if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
+                                            LootItems.Add(lootItem);
                                 }
                             }
                             if (ginterface is LootableContainer lootableContainer)
