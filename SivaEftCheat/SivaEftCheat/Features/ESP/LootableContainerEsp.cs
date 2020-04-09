@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EFT.InventoryLogic;
+﻿using System.Linq;
 using EFT.UI;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
@@ -10,8 +8,6 @@ namespace SivaEftCheat.Features.ESP
 {
     class LootableContainerEsp : MonoBehaviour
     {
-        private List<Item> tempList = new List<Item>();
-
         private void OnGUI()
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && ItemOptions.DrawLootableContainers)

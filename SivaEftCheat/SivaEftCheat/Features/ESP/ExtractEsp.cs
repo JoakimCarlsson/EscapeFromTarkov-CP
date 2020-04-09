@@ -64,7 +64,7 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                GUI.Label(new Rect(20, 80, 1000, 500), $"Debug Text: Extract Count: {exfiltrationPoints.Count}");
+                //GUI.Label(new Rect(20, 80, 1000, 500), $"Debug Text: Extract Count: {exfiltrationPoints.Count}");
 
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscOptions.ExtractEsp)
                 {

@@ -92,6 +92,7 @@
     <Compile Include="Features\ESP\ExtractEsp.cs" />
     <Compile Include="Features\ESP\ItemEsp.cs" />
     <Compile Include="Features\ESP\LootableContainerEsp.cs" />
+    <Compile Include="Features\ESP\PlayerEsp.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Menu.cs" />

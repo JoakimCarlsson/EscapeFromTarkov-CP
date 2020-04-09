@@ -1,5 +1,4 @@
-﻿using EFT.InventoryLogic;
-using SivaEftCheat.Options;
+﻿using SivaEftCheat.Options;
 using UnityEngine;
 
 namespace SivaEftCheat
@@ -38,11 +37,12 @@ namespace SivaEftCheat
         private void OnGUI()
         {
             //GUI.Label(new Rect(20, 20, 1000, 500), watermark);
-            GUI.Label(new Rect(20, 20, 1000, 500), $"Debug Text: Loot Items Count: {Main.LootItems.Count}");
-            GUI.Label(new Rect(20, 40, 1000, 500), $"Debug Text: LootableContainers Count: {Main.LootableContainers.Count}");
-            GUI.Label(new Rect(20, 60, 1000, 500), $"Debug Text: Corpse Count: {Main.Corpses.Count}");
-            GUI.Label(new Rect(20, 100, 1000, 500), $"Debug Text: Players Count: {Main.GameWorld.RegisteredPlayers.Count}");
-
+            //GUI.Label(new Rect(20, 20, 1000, 500), $"Debug Text: Loot Items Count: {Main.LootItems.Count}");
+            //GUI.Label(new Rect(20, 40, 1000, 500), $"Debug Text: LootableContainers Count: {Main.LootableContainers.Count}");
+            //GUI.Label(new Rect(20, 60, 1000, 500), $"Debug Text: Corpse Count: {Main.Corpses.Count}");
+            //GUI.Label(new Rect(20, 100, 1000, 500), $"Debug Text: Players Count: {Main.GameWorld.RegisteredPlayers.Count}");
+            
+            GUI.color = Color.Lerp(Color.blue, Color.cyan, Mathf.PingPong(Time.time, 1));
             if (!_visible)
                 return;
 
@@ -60,9 +60,10 @@ namespace SivaEftCheat
 
         private void RenderUi(int id)
         {
-            GUI.color = new Color(28, 36, 33);
+
             switch (id)
             {
+
                 case 0:
                     if (GUILayout.Button("Player Visuals"))
                         _playerEspVisualVisible = !_playerEspVisualVisible;
@@ -76,6 +77,49 @@ namespace SivaEftCheat
 
                 case 1:
 
+                    GUILayout.Label("Players");
+                    PlayerOptions.DrawPlayers = GUILayout.Toggle(PlayerOptions.DrawPlayers, "Draw Players");
+                    PlayerOptions.DrawPlayerHealth = GUILayout.Toggle(PlayerOptions.DrawPlayerHealth, "Draw Player Health Bar");
+                    PlayerOptions.DrawPlayerHealthBar = GUILayout.Toggle(PlayerOptions.DrawPlayerHealthBar, "Draw Player Health");
+                    PlayerOptions.DrawPlayerName = GUILayout.Toggle(PlayerOptions.DrawPlayerName, "Draw Player Name");
+                    PlayerOptions.DrawPlayerLevel = GUILayout.Toggle(PlayerOptions.DrawPlayerLevel, "Draw Player Level");
+                    PlayerOptions.DrawPlayerWeapon = GUILayout.Toggle(PlayerOptions.DrawPlayerWeapon, "Draw Player Weapon");
+                    PlayerOptions.DrawPlayerSnapLine = GUILayout.Toggle(PlayerOptions.DrawPlayerSnapLine, "Draw Player SnapLine");
+                    PlayerOptions.DrawPlayerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerBox, "Draw Player Box");
+                    PlayerOptions.DrawPlayerSkeleton = GUILayout.Toggle(PlayerOptions.DrawPlayerSkeleton, "Draw Player Skeleton");
+                    PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distnace");
+                    
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Player Distance {(int)PlayerOptions.DrawPlayerRange} m");
+                    PlayerOptions.DrawPlayerRange = GUILayout.HorizontalSlider(PlayerOptions.DrawPlayerRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Skeleton Distance {(int)PlayerOptions.DrawPlayerSkeletonRange} m");
+                    PlayerOptions.DrawPlayerSkeletonRange = GUILayout.HorizontalSlider(PlayerOptions.DrawPlayerSkeletonRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
+
+                    GUILayout.Space(20);
+                    GUILayout.Label("Scavs");
+                    PlayerOptions.DrawScavs = GUILayout.Toggle(PlayerOptions.DrawScavs, "Draw Scavs");
+                    PlayerOptions.DrawScavHealthBar = GUILayout.Toggle(PlayerOptions.DrawScavHealthBar, "Draw Scav Health Bar");
+                    PlayerOptions.DrawScavHealth = GUILayout.Toggle(PlayerOptions.DrawScavHealth, "Draw Scav Health");
+                    PlayerOptions.DrawScavName = GUILayout.Toggle(PlayerOptions.DrawScavName, "Draw Scav Name");
+                    PlayerOptions.DrawScavWeapon = GUILayout.Toggle(PlayerOptions.DrawScavWeapon, "Draw Scav Weapon");
+                    PlayerOptions.DrawScavSnapLine = GUILayout.Toggle(PlayerOptions.DrawScavSnapLine, "Draw Scav SnapLine");
+                    PlayerOptions.DrawScavBox = GUILayout.Toggle(PlayerOptions.DrawScavBox, "Draw Scav Box");
+                    PlayerOptions.DrawScavSkeleton = GUILayout.Toggle(PlayerOptions.DrawScavSkeleton, "Draw Scav Skeleton");
+                    PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw Scav Distnace");
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Scav Distance {(int)PlayerOptions.DrawScavsRange} m");
+                    PlayerOptions.DrawScavsRange = GUILayout.HorizontalSlider(PlayerOptions.DrawScavsRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Scav Distance {(int)PlayerOptions.DrawScavsSkeletonRange} m");
+                    PlayerOptions.DrawScavsSkeletonRange = GUILayout.HorizontalSlider(PlayerOptions.DrawScavsSkeletonRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
                     break;
 
                 case 2:

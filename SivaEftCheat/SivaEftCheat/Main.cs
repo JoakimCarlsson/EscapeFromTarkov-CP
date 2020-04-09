@@ -25,7 +25,6 @@ namespace SivaEftCheat
         internal static List<LootableContainer> LootableContainers = new List<LootableContainer>();
         internal static List<Corpse> Corpses = new List<Corpse>();
 
-
         private IEnumerator _coroutineUpdateMain;
         private IEnumerator _coroutineGetLists;
         private static GameObject HookObject;

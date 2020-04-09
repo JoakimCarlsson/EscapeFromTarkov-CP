@@ -20,8 +20,6 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && ItemOptions.DrawItems)
                 {
-                    Color itemColor = Color.clear;
-
                     foreach (var lootItem in Main.LootItems)
                     {
                         float distance = Vector3.Distance(Main.LocalPlayer.Transform.position, lootItem.transform.position);
@@ -33,14 +31,19 @@ namespace SivaEftCheat.Features.ESP
                         if (!GameUtils.IsScreenPointVisible(screenPosition))
                             continue;
 
-                        if (lootItem.Item.Template.Rarity == ELootRarity.Common)
-                            itemColor = ItemOptions.CommonColor;
-
-                        if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
-                            itemColor = ItemOptions.RareColor;
-
-                        if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
-                            itemColor = ItemOptions.SuperRareColor;
+                        Color itemColor = default;
+                        switch (lootItem.Item.Template.Rarity)
+                        {
+                            case ELootRarity.Common:
+                                itemColor = ItemOptions.CommonColor;
+                                break;
+                            case ELootRarity.Rare:
+                                itemColor = ItemOptions.RareColor;
+                                break;
+                            case ELootRarity.Superrare:
+                                itemColor = ItemOptions.SuperRareColor;
+                                break;
+                        }
 
                         if (lootItem.Item.QuestItem)
                             itemColor = ItemOptions.QuestItemsColor;
