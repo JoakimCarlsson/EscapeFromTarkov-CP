@@ -42,6 +42,7 @@ namespace SivaEftCheat
             HookObject.AddComponent<Menu>();
             HookObject.AddComponent<ExtractEsp>();
             HookObject.AddComponent<ItemEsp>();
+            HookObject.AddComponent<LootableContainerEsp>();
 
             DontDestroyOnLoad(HookObject);
         }
@@ -96,7 +97,15 @@ namespace SivaEftCheat
                             {
                                 if (lootableContainer.gameObject != null)
                                 {
-                                    LootableContainers.Add(lootableContainer);
+                                    foreach (var allItem in lootableContainer.ItemOwner.RootItem.GetAllItems())
+                                    {
+                                        if (GameUtils.IsSpecialLootItem(allItem.TemplateId))
+                                        {
+                                            LootableContainers.Add(lootableContainer);
+                                            break;
+                                        }
+                                    }
+
                                 }
                             }
 

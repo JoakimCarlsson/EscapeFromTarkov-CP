@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace SivaEftCheat.Options
@@ -16,17 +12,22 @@ namespace SivaEftCheat.Options
         public static Color SpecialColor = Color.red;
         public static Color MedColor = Color.green;
         public static Color QuestItemsColor = Color.magenta;
+        public static Color LootableContainerColor = Color.white;
 
 
         public static bool DrawItems = true;
-        public static bool DrawCommonItems = true;
-        public static bool DrawRareItems = true;
-        public static bool DrawSuperRareItems = true;
+        public static bool DrawCommonItems = false;
+        public static bool DrawRareItems = false;
+        public static bool DrawSuperRareItems = false;
         public static bool DrawSpecialItems = true;
-        public static bool DrawMedtems = true;
-        public static bool DrawQuestItems = true;
+        public static bool DrawMedtems = false;
+        public static bool DrawQuestItems = false;
+        public static float DrawItemRange = 300f;
 
-        public static float DrawItemRange = 300;
+
+        public static bool DrawLootableContainers = true;
+        public static float DrawLootableContainersRange = 300f;
+
 
         internal static readonly List<string> RareItems = new List<string>(new[]
         {
@@ -216,7 +217,7 @@ namespace SivaEftCheat.Options
             "5e00c1ad86f774747333222c",
             "5e01ef6886f77445f643baa4"
         });
-        internal static readonly List<string> MedsItems = new List<string>(new string[]
+        internal static readonly List<string> MedsItems = new List<string>(new[]
         {
             "544fb3f34bdc2d03748b456a",
             "590c678286f77426c9660122",

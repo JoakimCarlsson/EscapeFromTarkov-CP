@@ -91,6 +91,14 @@ namespace SivaEftCheat
                     GUILayout.Label($"Item Distance {(int)ItemOptions.DrawItemRange} m");
                     ItemOptions.DrawItemRange = GUILayout.HorizontalSlider(ItemOptions.DrawItemRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
+
+                    GUILayout.Label("Lootable Container");
+                    GUILayout.Space(10);
+                    ItemOptions.DrawLootableContainers = GUILayout.Toggle(ItemOptions.DrawLootableContainers, "Draw Lootable Containers");
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Container Distance {(int)ItemOptions.DrawLootableContainersRange} m");
+                    ItemOptions.DrawLootableContainersRange = GUILayout.HorizontalSlider(ItemOptions.DrawLootableContainersRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
                     break;
 
                 case 3:
