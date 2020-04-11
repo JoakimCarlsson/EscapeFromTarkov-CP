@@ -20,6 +20,8 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && ItemOptions.DrawItems)
                 {
+                    Render.DrawTextOutline(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.black, Color.white);
+
                     foreach (var lootItem in Main.LootItems)
                     {
                         float distance = Vector3.Distance(Main.LocalPlayer.Transform.position, lootItem.transform.position);
@@ -55,7 +57,7 @@ namespace SivaEftCheat.Features.ESP
                             itemColor = ItemOptions.MedColor;
 
                         string text = $"{lootItem.Name.Localized()} [{(int)distance} M]";
-                        Render.DrawTextOutline(screenPosition, text, Color.black, itemColor, 12);
+                        Render.DrawTextOutline(screenPosition, text, Color.black, itemColor);
                     }
                 }
             }

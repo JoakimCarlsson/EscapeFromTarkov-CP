@@ -29,8 +29,13 @@ namespace SivaEftCheat
         private IEnumerator _coroutineGetLists;
         private static GameObject HookObject;
 
+        //    if (Input.GetKey(KeyCode.UpArrow))
+        //{
+        //    Main.LocalPlayer.MovementContext.FreefallTime = 0;
+        //    Main.LocalPlayer.Transform.position += Main.Camera.transform.forward* 0.2f;
+        //}
 
-        private void Start()
+    private void Start()
         {
             _coroutineUpdateMain = UpdateMain(10f);
             StartCoroutine(_coroutineUpdateMain);
@@ -42,6 +47,7 @@ namespace SivaEftCheat
             HookObject.AddComponent<ExtractEsp>();
             HookObject.AddComponent<ItemEsp>();
             HookObject.AddComponent<LootableContainerEsp>();
+            HookObject.AddComponent<PlayerEsp>();
 
             DontDestroyOnLoad(HookObject);
         }
@@ -55,60 +61,63 @@ namespace SivaEftCheat
                 {
                     if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                     {
-                        List<GInterface7>.Enumerator enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer || item is Corpse).GetEnumerator();
+                        List<GInterface7>.Enumerator enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer).GetEnumerator();
                         LootItems.Clear();
                         LootableContainers.Clear();
                         Corpses.Clear();
+
                         while (enumerator.MoveNext())
                         {
-                            GInterface7 ginterface = enumerator.Current;
+                            GInterface7 current = enumerator.Current;
 
-                            if (ginterface is LootItem lootItem)
+                            switch (current)
                             {
-                                if (lootItem.gameObject != null && ItemOptions.DrawItems)
+                                case LootItem lootItem:
                                 {
-                                    if (ItemOptions.DrawQuestItems)
-                                        if (lootItem.Item.QuestItem)
-                                            LootItems.Add(lootItem);
-
-                                    if (ItemOptions.DrawMedtems)
-                                        if (GameUtils.IsMedItem(lootItem.TemplateId))
-                                            LootItems.Add(lootItem);
-
-                                    if (ItemOptions.DrawSpecialItems)
-                                        if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
-                                            LootItems.Add(lootItem);
-
-                                    if (ItemOptions.DrawCommonItems)
-                                        if (lootItem.Item.Template.Rarity == ELootRarity.Common)
-                                             LootItems.Add(lootItem);
-
-                                    if (ItemOptions.DrawRareItems)
-                                        if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
-                                            LootItems.Add(lootItem);
-
-                                    if (ItemOptions.DrawSuperRareItems)
-                                        if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
-                                            LootItems.Add(lootItem);
-                                }
-                            }
-                            if (ginterface is LootableContainer lootableContainer)
-                            {
-                                if (lootableContainer.gameObject != null)
-                                {
-                                    foreach (var allItem in lootableContainer.ItemOwner.RootItem.GetAllItems())
+                                    if (lootItem.gameObject != null && ItemOptions.DrawItems)
                                     {
-                                        if (GameUtils.IsSpecialLootItem(allItem.TemplateId))
+                                        if (ItemOptions.DrawQuestItems)
+                                            if (lootItem.Item.QuestItem)
+                                                LootItems.Add(lootItem);
+
+                                        if (ItemOptions.DrawMedtems)
+                                            if (GameUtils.IsMedItem(lootItem.TemplateId))
+                                                LootItems.Add(lootItem);
+
+                                        if (ItemOptions.DrawSpecialItems)
+                                            if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
+                                                LootItems.Add(lootItem);
+
+                                        if (ItemOptions.DrawCommonItems)
+                                            if (lootItem.Item.Template.Rarity == ELootRarity.Common)
+                                                LootItems.Add(lootItem);
+
+                                        if (ItemOptions.DrawRareItems)
+                                            if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
+                                                LootItems.Add(lootItem);
+
+                                        if (ItemOptions.DrawSuperRareItems)
+                                            if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
+                                                LootItems.Add(lootItem);
+                                    }
+
+                                    break;
+                                }
+                                case LootableContainer lootableContainer:
+                                {
+                                    if (lootableContainer.gameObject != null)
+                                    {
+                                        if (lootableContainer.ItemOwner.RootItem.GetAllItems().Any(item => GameUtils.IsSpecialLootItem(item.TemplateId)))
                                         {
                                             LootableContainers.Add(lootableContainer);
-                                            break;
                                         }
                                     }
 
+                                    break;
                                 }
                             }
 
-                            if (ginterface is Corpse corpse)
+                            if (current is Corpse corpse)
                             {
                                 if (corpse.gameObject != null)
                                 {
@@ -127,7 +136,7 @@ namespace SivaEftCheat
             while (true)
             {
                 yield return new WaitForSeconds(waitTime);
-
+                    
                 try
                 {
                     if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)

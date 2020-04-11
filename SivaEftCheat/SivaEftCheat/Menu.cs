@@ -41,8 +41,8 @@ namespace SivaEftCheat
             //GUI.Label(new Rect(20, 40, 1000, 500), $"Debug Text: LootableContainers Count: {Main.LootableContainers.Count}");
             //GUI.Label(new Rect(20, 60, 1000, 500), $"Debug Text: Corpse Count: {Main.Corpses.Count}");
             //GUI.Label(new Rect(20, 100, 1000, 500), $"Debug Text: Players Count: {Main.GameWorld.RegisteredPlayers.Count}");
-            
-            GUI.color = Color.Lerp(Color.blue, Color.cyan, Mathf.PingPong(Time.time, 1));
+
+            GUI.color = Color.magenta;
             if (!_visible)
                 return;
 
@@ -85,18 +85,13 @@ namespace SivaEftCheat
                     PlayerOptions.DrawPlayerLevel = GUILayout.Toggle(PlayerOptions.DrawPlayerLevel, "Draw Player Level");
                     PlayerOptions.DrawPlayerWeapon = GUILayout.Toggle(PlayerOptions.DrawPlayerWeapon, "Draw Player Weapon");
                     PlayerOptions.DrawPlayerSnapLine = GUILayout.Toggle(PlayerOptions.DrawPlayerSnapLine, "Draw Player SnapLine");
-                    PlayerOptions.DrawPlayerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerBox, "Draw Player Box");
+                    PlayerOptions.DrawPlayerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerBox, "Draw Player DrawBox");
                     PlayerOptions.DrawPlayerSkeleton = GUILayout.Toggle(PlayerOptions.DrawPlayerSkeleton, "Draw Player Skeleton");
                     PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distnace");
                     
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Player Distance {(int)PlayerOptions.DrawPlayerRange} m");
                     PlayerOptions.DrawPlayerRange = GUILayout.HorizontalSlider(PlayerOptions.DrawPlayerRange, 0f, 1000f);
-                    GUILayout.EndHorizontal();
-
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Skeleton Distance {(int)PlayerOptions.DrawPlayerSkeletonRange} m");
-                    PlayerOptions.DrawPlayerSkeletonRange = GUILayout.HorizontalSlider(PlayerOptions.DrawPlayerSkeletonRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
 
                     GUILayout.Space(20);
@@ -107,7 +102,7 @@ namespace SivaEftCheat
                     PlayerOptions.DrawScavName = GUILayout.Toggle(PlayerOptions.DrawScavName, "Draw Scav Name");
                     PlayerOptions.DrawScavWeapon = GUILayout.Toggle(PlayerOptions.DrawScavWeapon, "Draw Scav Weapon");
                     PlayerOptions.DrawScavSnapLine = GUILayout.Toggle(PlayerOptions.DrawScavSnapLine, "Draw Scav SnapLine");
-                    PlayerOptions.DrawScavBox = GUILayout.Toggle(PlayerOptions.DrawScavBox, "Draw Scav Box");
+                    PlayerOptions.DrawScavBox = GUILayout.Toggle(PlayerOptions.DrawScavBox, "Draw Scav DrawBox");
                     PlayerOptions.DrawScavSkeleton = GUILayout.Toggle(PlayerOptions.DrawScavSkeleton, "Draw Scav Skeleton");
                     PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw Scav Distnace");
 
@@ -116,10 +111,6 @@ namespace SivaEftCheat
                     PlayerOptions.DrawScavsRange = GUILayout.HorizontalSlider(PlayerOptions.DrawScavsRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
 
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Scav Distance {(int)PlayerOptions.DrawScavsSkeletonRange} m");
-                    PlayerOptions.DrawScavsSkeletonRange = GUILayout.HorizontalSlider(PlayerOptions.DrawScavsSkeletonRange, 0f, 1000f);
-                    GUILayout.EndHorizontal();
                     break;
 
                 case 2:

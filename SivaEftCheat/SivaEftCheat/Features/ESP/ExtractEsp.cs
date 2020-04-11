@@ -79,7 +79,7 @@ namespace SivaEftCheat.Features.ESP
                         {
                             string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{(int)Math.Sqrt(num)} m]";
 
-                            Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, MiscOptions.ExtractColor, 12);
+                            Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, MiscOptions.ExtractColor);
                         }
                     }
                 }

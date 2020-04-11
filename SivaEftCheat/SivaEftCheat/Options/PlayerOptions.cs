@@ -2,7 +2,7 @@
 
 namespace SivaEftCheat.Options
 {
-    class PlayerOptions
+    static class PlayerOptions
     {
         public static Color PlayerColor = Color.red;
         public static Color Scav = Color.yellow;
@@ -10,7 +10,6 @@ namespace SivaEftCheat.Options
         public static Color FriendColor = Color.green;
 
         public static float DrawPlayerRange = 300f;
-        public static float DrawPlayerSkeletonRange = 100f;
 
         public static bool DrawPlayers = true;
         public static bool DrawPlayerHealth = true;
@@ -24,7 +23,6 @@ namespace SivaEftCheat.Options
         public static bool DrawPlayerDistance = true;
 
         public static float DrawScavsRange = 300f;
-        public static float DrawScavsSkeletonRange = 100f;
         public static bool DrawScavs = true;
         public static bool DrawScavHealth = true;
         public static bool DrawScavHealthBar = true;
