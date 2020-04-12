@@ -139,6 +139,22 @@ namespace SivaEftCheat
                     break;
 
                 case 3:
+                    AimbotOptions.Aimbot = GUILayout.Toggle(AimbotOptions.Aimbot, "Aimbot");
+                    AimbotOptions.DrawAimbotFov = GUILayout.Toggle(AimbotOptions.DrawAimbotFov, "Draw Aimbot Fov");
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Aimbot Fov {(int)AimbotOptions.AimbotFov} m");
+                    AimbotOptions.AimbotFov = GUILayout.HorizontalSlider(AimbotOptions.AimbotFov, 0f, 800f);
+                    GUILayout.EndHorizontal();
+
+                    AimbotOptions.SilentAim = GUILayout.Toggle(AimbotOptions.SilentAim, "Silent Aim");
+                    AimbotOptions.DrawSilentFov = GUILayout.Toggle(AimbotOptions.DrawSilentFov, "Draw Silent Aim Fov");
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Silent Aim Fov {(int)AimbotOptions.SilentAimFov} m");
+                    AimbotOptions.SilentAimFov = GUILayout.HorizontalSlider(AimbotOptions.SilentAimFov, 0f, 800f);
+                    GUILayout.EndHorizontal();
+
+                    if (GUILayout.Button("Aimbot Key: " + AimbotOptions.AimbotKey))
+                        AimbotOptions.AimbotKey = KeyCode.None;
 
                     break;
 
@@ -160,10 +176,15 @@ namespace SivaEftCheat
                     GUILayout.Label("Weapon Options");
                     MiscOptions.NoRecoil = GUILayout.Toggle(MiscOptions.NoRecoil, "No Recoil");
                     MiscOptions.NoSway = GUILayout.Toggle(MiscOptions.NoSway, "No Sway");
-
                     break;
             }
             GUI.DragWindow();
+
+            if (AimbotOptions.AimbotKey == KeyCode.None)
+            {
+                Event e = Event.current;
+                AimbotOptions.AimbotKey = e.keyCode;
+            }
         }
     }
 }

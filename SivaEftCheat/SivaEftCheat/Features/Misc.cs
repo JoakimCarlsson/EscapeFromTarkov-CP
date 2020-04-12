@@ -142,9 +142,22 @@ namespace SivaEftCheat.Features
                 try
                 {
                     DrawCrossHair();
+                    DrawFov();
                 }
                 catch { }
 
+            }
+        }
+
+        private void DrawFov()
+        {
+            if (AimbotOptions.DrawAimbotFov)
+            {
+                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40 );
+            }
+            if (AimbotOptions.DrawSilentFov)
+            {
+                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.SilentAimFov, Color.white, 0.5f, true, 40 );
             }
         }
 
