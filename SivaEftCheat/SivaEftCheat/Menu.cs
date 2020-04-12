@@ -63,7 +63,6 @@ namespace SivaEftCheat
 
             switch (id)
             {
-
                 case 0:
                     if (GUILayout.Button("Player Visuals"))
                         _playerEspVisualVisible = !_playerEspVisualVisible;
@@ -150,6 +149,23 @@ namespace SivaEftCheat
                     break;
 
                 case 4:
+                    MiscOptions.MaxSkills = GUILayout.Toggle(MiscOptions.MaxSkills, "Max Skills");
+                    MiscOptions.InfiniteStamina = GUILayout.Toggle(MiscOptions.InfiniteStamina, "Infinite Stamina");
+                    MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "SpeedHack");
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Speed Hack: {MiscOptions.SpeedHackValue}");
+                    MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
+                    GUILayout.EndHorizontal();
+                    MiscOptions.DoorUnlocker = GUILayout.Toggle(MiscOptions.DoorUnlocker, $"DoorUnlocker: {MiscOptions.DoorUnlockerKey}");
+                    MiscOptions.ThermalVison = GUILayout.Toggle(MiscOptions.ThermalVison, $"Thermal Vison: {MiscOptions.ThermalVisonKey}");
+                    MiscOptions.NightVison = GUILayout.Toggle(MiscOptions.NightVison, $"Night Vison: {MiscOptions.NightVisonKey}");
+                    MiscOptions.NoVisor = GUILayout.Toggle(MiscOptions.NoVisor, $"No Visor");
+                    MiscOptions.FlyHack = GUILayout.Toggle(MiscOptions.FlyHack, $"Fly Hack: {MiscOptions.FlyHackKey}");
+
+                    GUILayout.Space(20);
+                    GUILayout.Label("Weapon Options");
+                    MiscOptions.NoRecoil = GUILayout.Toggle(MiscOptions.NoRecoil, "No Recoil");
+                    MiscOptions.NoSway = GUILayout.Toggle(MiscOptions.NoSway, "No Sway");
 
                     break;
             }

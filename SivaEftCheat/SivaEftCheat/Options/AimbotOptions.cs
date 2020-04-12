@@ -9,9 +9,6 @@ namespace SivaEftCheat.Options
 {
     class AimbotOptions
     {
-        public static bool Aimbot = true;
-        public static KeyCode AimbotKey = KeyCode.LeftControl;
-        public static float Fov = 50f;
-        public static bool DrawFov = true;
+        
     }
 }
