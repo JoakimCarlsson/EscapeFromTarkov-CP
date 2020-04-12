@@ -116,22 +116,7 @@ namespace SivaEftCheat.Features
 
         private void NoRecoil()
         {
-            if (MiscOptions.NoRecoil)
-            {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.Intensity = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.ForceReact.Intensity = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Breath.Overweight = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Pitch = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.SwayFalloff = 0f;
-            }
-            else
-            {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.Intensity = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.ForceReact.Intensity = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Breath.Overweight = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Pitch = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.SwayFalloff = 1f;
-            }
+            Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.Intensity = MiscOptions.NoRecoil ? 0f : 1f;
         }
 
         private void DoNightVison()
@@ -167,11 +152,9 @@ namespace SivaEftCheat.Features
         {
             if (MiscVisualsOptions.DrawCrossHair)
             {
-                Render.DrawLine(new Vector2((float)(Screen.width / 2), (float)(Screen.height / 2 - 9)),
-                    new Vector2((float)(Screen.width / 2), (float)(Screen.height / 2 + 9)), MiscVisualsOptions.CorsshairColor, 0.5f,
+                Render.DrawLine(new Vector2(Screen.width / 2, Screen.height / 2 - 9), new Vector2(Screen.width / 2, Screen.height / 2 + 9), MiscVisualsOptions.CorsshairColor, 0.5f,
                     true);
-                Render.DrawLine(new Vector2((float)(Screen.width / 2 - 9), (float)(Screen.height / 2)),
-                    new Vector2((float)(Screen.width / 2 + 9), (float)(Screen.height / 2)), MiscVisualsOptions.CorsshairColor, 0.5f,
+                Render.DrawLine(new Vector2(Screen.width / 2 - 9, Screen.height / 2), new Vector2(Screen.width / 2 + 9, Screen.height / 2), MiscVisualsOptions.CorsshairColor, 0.5f,
                     true);
             }
         }

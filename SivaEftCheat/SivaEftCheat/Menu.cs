@@ -36,13 +36,6 @@ namespace SivaEftCheat
 
         private void OnGUI()
         {
-            //GUI.Label(new Rect(20, 20, 1000, 500), watermark);
-            //GUI.Label(new Rect(20, 20, 1000, 500), $"Debug Text: Loot Items Count: {Main.LootItems.Count}");
-            //GUI.Label(new Rect(20, 40, 1000, 500), $"Debug Text: LootableContainers Count: {Main.LootableContainers.Count}");
-            //GUI.Label(new Rect(20, 60, 1000, 500), $"Debug Text: Corpse Count: {Main.Corpses.Count}");
-            //GUI.Label(new Rect(20, 100, 1000, 500), $"Debug Text: Players Count: {Main.GameWorld.RegisteredPlayers.Count}");
-
-            GUI.color = Color.magenta;
             if (!_visible)
                 return;
 
@@ -87,7 +80,8 @@ namespace SivaEftCheat
                     PlayerOptions.DrawPlayerCornerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerCornerBox, "Draw Player DrawBox");
                     PlayerOptions.DrawPlayerSkeleton = GUILayout.Toggle(PlayerOptions.DrawPlayerSkeleton, "Draw Player Skeleton");
                     PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distnace");
-                    
+                    PlayerOptions.DrawCorpses = GUILayout.Toggle(PlayerOptions.DrawCorpses, "Draw Player Corpses");
+
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Player Distance {(int)PlayerOptions.DrawPlayerRange} m");
                     PlayerOptions.DrawPlayerRange = GUILayout.HorizontalSlider(PlayerOptions.DrawPlayerRange, 0f, 1000f);

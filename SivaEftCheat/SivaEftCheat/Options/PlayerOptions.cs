@@ -9,8 +9,8 @@ namespace SivaEftCheat.Options
         public static Color PlayerScav = Color.magenta;
         public static Color FriendColor = Color.green;
 
+        public static bool DrawCorpses = true;
         public static float DrawPlayerRange = 300f;
-
         public static bool DrawPlayers = true;
         public static bool DrawPlayerHealth = true;
         public static bool DrawPlayerHealthBar = true;
@@ -21,7 +21,6 @@ namespace SivaEftCheat.Options
         public static bool DrawPlayerCornerBox = true;
         public static bool DrawPlayerSkeleton = true;
         public static bool DrawPlayerDistance = true;
-
         public static float DrawScavsRange = 300f;
         public static bool DrawScavs = true;
         public static bool DrawScavHealth = true;

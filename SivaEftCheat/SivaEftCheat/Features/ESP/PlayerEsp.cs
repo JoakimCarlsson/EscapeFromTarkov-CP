@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EFT;
 using EFT.InventoryLogic;
 using EFT.UI;
@@ -43,7 +40,7 @@ namespace SivaEftCheat.Features.ESP
             return PlayerOptions.PlayerColor;
         }
 
-        public static Dictionary<HumanBones, Vector3> GetBones(EFT.Player player)
+        public static Dictionary<HumanBones, Vector3> GetBones(Player player)
         {
             try
             {
@@ -52,7 +49,7 @@ namespace SivaEftCheat.Features.ESP
                 {
                     return dictionary;
                 }
-                List<Transform> list = player.PlayerBody.SkeletonRootJoint.Bones.Values.ToList<Transform>();
+                List<Transform> list = player.PlayerBody.SkeletonRootJoint.Bones.Values.ToList();
                 if (list.Count == 0)
                 {
                     return dictionary;
@@ -65,7 +62,7 @@ namespace SivaEftCheat.Features.ESP
                         Vector3 vector = Main.Camera.WorldToScreenPoint(transform.position);
                         if (GameUtils.IsScreenPointVisible(vector))
                         {
-                            vector.y = (float)Screen.height - vector.y;
+                            vector.y = Screen.height - vector.y;
                             dictionary[(HumanBones)i] = vector;
                         }
                     }
@@ -183,12 +180,12 @@ namespace SivaEftCheat.Features.ESP
                                     }
                                     Vector2 vector3 = GUI.skin.GetStyle(text2).CalcSize(new GUIContent(text2));
 
-                                    Render.DrawTextOutline(new Vector2(headScreenPosition.x - vector3.x / 2f, (float)Screen.height - headScreenPosition.y - 20f), text2, Color.black, playerColor);
+                                    Render.DrawTextOutline(new Vector2(headScreenPosition.x - vector3.x / 2f, Screen.height - headScreenPosition.y - 20f), text2, Color.black, playerColor);
                                     
                                     if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
                                     {
                                         float num2 = Mathf.Abs(vector2.y - headScreenPosition.y) / 1.8f;
-                                        Render.DrawHealth(new Vector2(vector2.x - num2 / 2f, (float)Screen.height - vector2.y), num2, 5f, player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
+                                        Render.DrawHealth(new Vector2(vector2.x - num2 / 2f, Screen.height - vector2.y), num2, 5f, player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
                                     }
                                     if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
                                     {
@@ -197,7 +194,7 @@ namespace SivaEftCheat.Features.ESP
                                         {
                                             string text3 = $"{player.Weapon.ShortName.Localized()}";
                                             Vector2 vector4 = GUI.skin.GetStyle(text3).CalcSize(new GUIContent(text3));
-                                            Render.DrawTextOutline(new Vector2(vector2.x - vector4.x / 2f, (float)Screen.height - vector2.y + 5f), text3, Color.black, playerColor);
+                                            Render.DrawTextOutline(new Vector2(vector2.x - vector4.x / 2f, Screen.height - vector2.y + 5f), text3, Color.black, playerColor);
                                         }
                                     }
                                     if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))

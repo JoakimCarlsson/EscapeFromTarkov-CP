@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using EFT;
-using EFT.Interactive;
-using EFT.UI;
+﻿using EFT.UI;
 using JsonType;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;

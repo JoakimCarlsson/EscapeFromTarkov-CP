@@ -24,7 +24,6 @@ namespace SivaEftCheat
 
         internal static List<LootItem> LootItems = new List<LootItem>();
         internal static List<LootableContainer> LootableContainers = new List<LootableContainer>();
-        internal static List<Corpse> Corpses = new List<Corpse>();
 
         private IEnumerator _coroutineUpdateMain;
         private IEnumerator _coroutineGetLists;
@@ -50,6 +49,8 @@ namespace SivaEftCheat
             HookObject.AddComponent<LootableContainerEsp>();
             HookObject.AddComponent<PlayerEsp>();
             HookObject.AddComponent<Misc>();
+            HookObject.AddComponent<CorpseEsp>();
+            HookObject.AddComponent<Aimbot>();
 
             DontDestroyOnLoad(HookObject);
         }
@@ -66,7 +67,6 @@ namespace SivaEftCheat
                         List<GInterface7>.Enumerator enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer).GetEnumerator();
                         LootItems.Clear();
                         LootableContainers.Clear();
-                        Corpses.Clear();
 
                         while (enumerator.MoveNext())
                         {
@@ -116,14 +116,6 @@ namespace SivaEftCheat
                                     }
 
                                     break;
-                                }
-                            }
-
-                            if (current is Corpse corpse)
-                            {
-                                if (corpse.gameObject != null)
-                                {
-                                    Corpses.Add(corpse);
                                 }
                             }
                         }

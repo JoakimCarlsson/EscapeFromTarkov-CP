@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using EFT.UI;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;

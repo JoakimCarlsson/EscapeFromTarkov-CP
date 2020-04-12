@@ -10,11 +10,12 @@ namespace SivaEftCheat.Options
         public static Color RareColor = Color.blue;
         public static Color SuperRareColor = Color.cyan;
         public static Color SpecialColor = Color.red;
+        public static Color DeadColor = Color.red;
         public static Color MedColor = Color.green;
         public static Color QuestItemsColor = Color.magenta;
         public static Color LootableContainerColor = Color.white;
         public static Color CorsshairColor = Color.green;
-        internal static Color ExtractColor = Color.green;
+        public static Color ExtractColor = Color.green;
 
 
         public static bool DrawItems = true;

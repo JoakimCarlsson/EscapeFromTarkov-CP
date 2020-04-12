@@ -51,6 +51,7 @@
     <LangVersion>latest</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
@@ -99,13 +100,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="TestHook.cs" />
     <Compile Include="Enums\HumanBones.cs" />
     <Compile Include="Features\Aimbot.cs" />
+    <Compile Include="Features\ESP\CorpseEsp.cs" />
     <Compile Include="Features\ESP\ExtractEsp.cs" />
     <Compile Include="Features\ESP\ItemEsp.cs" />
     <Compile Include="Features\ESP\LootableContainerEsp.cs" />
     <Compile Include="Features\ESP\PlayerEsp.cs" />
     <Compile Include="Features\Misc.cs" />
+    <Compile Include="Features\SilentAim.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Menu.cs" />
