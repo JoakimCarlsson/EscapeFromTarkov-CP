@@ -14,12 +14,12 @@ namespace SivaEftCheat.Utils
         private static readonly LayerMask LayerMask = 1 << 12 | 1 << 16 | 1 << 18;
         public static bool IsSpecialLootItem(string templateId)
         {
-            return ItemOptions.RareItems.Contains(templateId);
+            return MiscVisualsOptions.RareItems.Contains(templateId);
         }
 
         public static bool IsMedItem(string templateId)
         {
-            return ItemOptions.MedsItems.Contains(templateId);
+            return MiscVisualsOptions.MedsItems.Contains(templateId);
         }
         public static float GetColorAlpha(float distance, float distanceMax)
         {
@@ -70,6 +70,7 @@ namespace SivaEftCheat.Utils
 
         public static bool IsVisible(Vector3 position)
         {
+            return false;
             return Physics.Linecast(Main.LocalPlayer.PlayerBones.Fireport.position, position, out var raycastHit, LayerMask, QueryTriggerInteraction.UseGlobal) && raycastHit.transform.name.Contains("Human");
         }
 

@@ -51,7 +51,7 @@ namespace SivaEftCheat
             if (_playerEspVisualVisible)
                 _playerVisualWindow = GUILayout.Window(1, _playerVisualWindow, RenderUi, "Player Visual");
             if (_miscVisualVisible)
-                _itemVisuals = GUILayout.Window(2, _itemVisuals, RenderUi, "Item Visual");
+                _itemVisuals = GUILayout.Window(2, _itemVisuals, RenderUi, "Miscellaneous Visual");
             if (_aimbotVisualVisible)
                 _aimbotVisualWindow = GUILayout.Window(3, _aimbotVisualWindow, RenderUi, "Aimbot");
             if (_miscFeatureslVisible)
@@ -67,7 +67,7 @@ namespace SivaEftCheat
                 case 0:
                     if (GUILayout.Button("Player Visuals"))
                         _playerEspVisualVisible = !_playerEspVisualVisible;
-                    if (GUILayout.Button("Item Visuals"))
+                    if (GUILayout.Button("Miscellaneous Visuals"))
                         _miscVisualVisible = !_miscVisualVisible;
                     if (GUILayout.Button("Aimbot"))
                         _aimbotVisualVisible = !_aimbotVisualVisible;
@@ -85,7 +85,7 @@ namespace SivaEftCheat
                     PlayerOptions.DrawPlayerLevel = GUILayout.Toggle(PlayerOptions.DrawPlayerLevel, "Draw Player Level");
                     PlayerOptions.DrawPlayerWeapon = GUILayout.Toggle(PlayerOptions.DrawPlayerWeapon, "Draw Player Weapon");
                     PlayerOptions.DrawPlayerSnapLine = GUILayout.Toggle(PlayerOptions.DrawPlayerSnapLine, "Draw Player SnapLine");
-                    PlayerOptions.DrawPlayerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerBox, "Draw Player DrawBox");
+                    PlayerOptions.DrawPlayerCornerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerCornerBox, "Draw Player DrawBox");
                     PlayerOptions.DrawPlayerSkeleton = GUILayout.Toggle(PlayerOptions.DrawPlayerSkeleton, "Draw Player Skeleton");
                     PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distnace");
                     
@@ -102,7 +102,7 @@ namespace SivaEftCheat
                     PlayerOptions.DrawScavName = GUILayout.Toggle(PlayerOptions.DrawScavName, "Draw Scav Name");
                     PlayerOptions.DrawScavWeapon = GUILayout.Toggle(PlayerOptions.DrawScavWeapon, "Draw Scav Weapon");
                     PlayerOptions.DrawScavSnapLine = GUILayout.Toggle(PlayerOptions.DrawScavSnapLine, "Draw Scav SnapLine");
-                    PlayerOptions.DrawScavBox = GUILayout.Toggle(PlayerOptions.DrawScavBox, "Draw Scav DrawBox");
+                    PlayerOptions.DrawScavCornerBox = GUILayout.Toggle(PlayerOptions.DrawScavCornerBox, "Draw Scav DrawBox");
                     PlayerOptions.DrawScavSkeleton = GUILayout.Toggle(PlayerOptions.DrawScavSkeleton, "Draw Scav Skeleton");
                     PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw Scav Distnace");
 
@@ -114,26 +114,35 @@ namespace SivaEftCheat
                     break;
 
                 case 2:
-                    ItemOptions.DrawItems = GUILayout.Toggle(ItemOptions.DrawItems, "Draw Items");
-                    ItemOptions.DrawCommonItems = GUILayout.Toggle(ItemOptions.DrawCommonItems, "Draw Common Items");
-                    ItemOptions.DrawRareItems = GUILayout.Toggle(ItemOptions.DrawRareItems, "Draw Rare Items");
-                    ItemOptions.DrawSuperRareItems = GUILayout.Toggle(ItemOptions.DrawSuperRareItems, "Draw Super Rare Items");
-                    ItemOptions.DrawMedtems = GUILayout.Toggle(ItemOptions.DrawMedtems, "Draw Meds Items");
-                    ItemOptions.DrawSpecialItems = GUILayout.Toggle(ItemOptions.DrawSpecialItems, "Draw Special Items");
-                    ItemOptions.DrawQuestItems = GUILayout.Toggle(ItemOptions.DrawQuestItems, "Draw Quest Items");
+                    MiscVisualsOptions.DrawItems = GUILayout.Toggle(MiscVisualsOptions.DrawItems, "Draw Items");
+                    MiscVisualsOptions.DrawCommonItems = GUILayout.Toggle(MiscVisualsOptions.DrawCommonItems, "Draw Common Items");
+                    MiscVisualsOptions.DrawRareItems = GUILayout.Toggle(MiscVisualsOptions.DrawRareItems, "Draw Rare Items");
+                    MiscVisualsOptions.DrawSuperRareItems = GUILayout.Toggle(MiscVisualsOptions.DrawSuperRareItems, "Draw Super Rare Items");
+                    MiscVisualsOptions.DrawMedtems = GUILayout.Toggle(MiscVisualsOptions.DrawMedtems, "Draw Meds Items");
+                    MiscVisualsOptions.DrawSpecialItems = GUILayout.Toggle(MiscVisualsOptions.DrawSpecialItems, "Draw Special Items");
+                    MiscVisualsOptions.DrawQuestItems = GUILayout.Toggle(MiscVisualsOptions.DrawQuestItems, "Draw Quest Items");
 
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Item Distance {(int)ItemOptions.DrawItemRange} m");
-                    ItemOptions.DrawItemRange = GUILayout.HorizontalSlider(ItemOptions.DrawItemRange, 0f, 1000f);
+                    GUILayout.Label($"Item Distance {(int)MiscVisualsOptions.DrawItemRange} m");
+                    MiscVisualsOptions.DrawItemRange = GUILayout.HorizontalSlider(MiscVisualsOptions.DrawItemRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
 
+                    GUILayout.Space(20);
+                    GUILayout.Label("Container ESP ");
                     GUILayout.Label("Lootable Container");
                     GUILayout.Space(10);
-                    ItemOptions.DrawLootableContainers = GUILayout.Toggle(ItemOptions.DrawLootableContainers, "Draw Lootable Containers");
+                    MiscVisualsOptions.DrawLootableContainers = GUILayout.Toggle(MiscVisualsOptions.DrawLootableContainers, "Draw Lootable Containers");
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Container Distance {(int)ItemOptions.DrawLootableContainersRange} m");
-                    ItemOptions.DrawLootableContainersRange = GUILayout.HorizontalSlider(ItemOptions.DrawLootableContainersRange, 0f, 1000f);
+                    GUILayout.Label($"Container Distance {(int)MiscVisualsOptions.DrawLootableContainersRange} m");
+                    MiscVisualsOptions.DrawLootableContainersRange = GUILayout.HorizontalSlider(MiscVisualsOptions.DrawLootableContainersRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
+
+                    GUILayout.Space(20);
+                    GUILayout.Label("Other Visuals");
+                    MiscVisualsOptions.DrawExtractEsp = GUILayout.Toggle(MiscVisualsOptions.DrawExtractEsp, "Draw Extracts");
+                    MiscVisualsOptions.DrawGrenadeEsp = GUILayout.Toggle(MiscVisualsOptions.DrawGrenadeEsp, "Draw Grenades");
+                    MiscVisualsOptions.DrawCrossHair = GUILayout.Toggle(MiscVisualsOptions.DrawCrossHair, "Draw Crosshair");
+
                     break;
 
                 case 3:

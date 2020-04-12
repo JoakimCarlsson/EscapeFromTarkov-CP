@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SivaEftCheat.Options
 {
-    class ItemOptions
+    class MiscVisualsOptions
     {
         //Colors
         public static Color CommonColor = Color.white;
@@ -13,6 +13,7 @@ namespace SivaEftCheat.Options
         public static Color MedColor = Color.green;
         public static Color QuestItemsColor = Color.magenta;
         public static Color LootableContainerColor = Color.white;
+        internal static Color ExtractColor = Color.green;
 
 
         public static bool DrawItems = true;
@@ -28,6 +29,9 @@ namespace SivaEftCheat.Options
         public static bool DrawLootableContainers = true;
         public static float DrawLootableContainersRange = 300f;
 
+        internal static bool DrawExtractEsp = true;
+        internal static bool DrawGrenadeEsp = true;
+        internal static bool DrawCrossHair = true;
 
         internal static readonly List<string> RareItems = new List<string>(new[]
         {

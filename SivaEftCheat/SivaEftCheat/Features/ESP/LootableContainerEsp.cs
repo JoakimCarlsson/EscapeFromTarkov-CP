@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EFT.UI;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
@@ -10,51 +11,61 @@ namespace SivaEftCheat.Features.ESP
     {
         private void OnGUI()
         {
-            if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && ItemOptions.DrawLootableContainers)
+            try
             {
-                Render.DrawTextOutline(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.black, Color.white);
-
-                int x = -20;
-
-                foreach (var lootableContainer in Main.LootableContainers)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive &&
+                    MiscVisualsOptions.DrawLootableContainers)
                 {
-                    float distance = Vector3.Distance(Main.LocalPlayer.Transform.position, lootableContainer.transform.position);
-                    Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(lootableContainer.transform.position);
+                    Render.DrawTextOutline(new Vector2(20, 60),
+                        $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.black, Color.white);
 
-                    if (!GameUtils.IsScreenPointVisible(screenPosition))
-                        continue;
+                    int x = -20;
 
-                    if (distance > ItemOptions.DrawLootableContainersRange)
-                        continue;
-
-                    var item = lootableContainer.ItemOwner.RootItem;
-
-                    if (item.GetAllItems().Count() == 1)
-                        continue;
-
-
-                    string lootItemName = item.Name.Localized();
-
-                    foreach (var allItem in item.GetAllItems())
+                    foreach (var lootableContainer in Main.LootableContainers)
                     {
-                        if (item.GetAllItems().First() == allItem)
-                        {
-                            lootItemName = $"{allItem.Name.Localized()} [{(int)distance} M]";
-                            ItemOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
-                        }
-                        else
-                        {
-                            if (!GameUtils.IsSpecialLootItem(allItem.TemplateId))
-                                continue;
+                        float distance = Vector3.Distance(Main.LocalPlayer.Transform.position,
+                            lootableContainer.transform.position);
+                        Vector3 screenPosition =
+                            GameUtils.WorldPointToScreenPoint(lootableContainer.transform.position);
 
-                            lootItemName = allItem.Name.Localized();
-                            ItemOptions.LootableContainerColor = Color.white;
+                        if (!GameUtils.IsScreenPointVisible(screenPosition))
+                            continue;
+
+                        if (distance > MiscVisualsOptions.DrawLootableContainersRange)
+                            continue;
+
+                        var item = lootableContainer.ItemOwner.RootItem;
+
+                        if (item.GetAllItems().Count() == 1)
+                            continue;
+
+
+                        string lootItemName = item.Name.Localized();
+
+                        foreach (var allItem in item.GetAllItems())
+                        {
+                            if (item.GetAllItems().First() == allItem)
+                            {
+                                lootItemName = $"{allItem.Name.Localized()} [{(int) distance} M]";
+                                MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
+                            }
+                            else
+                            {
+                                if (!GameUtils.IsSpecialLootItem(allItem.TemplateId))
+                                    continue;
+
+                                lootItemName = allItem.Name.Localized();
+                                MiscVisualsOptions.LootableContainerColor = Color.white;
+                            }
+
+                            Render.DrawTextOutline(new Vector2(screenPosition.x, screenPosition.y - x), lootItemName,
+                                Color.black, MiscVisualsOptions.LootableContainerColor);
+                            x -= 20;
                         }
-                        Render.DrawTextOutline(new Vector2(screenPosition.x, screenPosition.y - x), lootItemName, Color.black, ItemOptions.LootableContainerColor);
-                        x -= 20;
                     }
                 }
             }
+            catch { }
         }
     }
 }

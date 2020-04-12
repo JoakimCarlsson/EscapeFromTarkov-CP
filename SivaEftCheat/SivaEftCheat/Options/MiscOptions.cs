@@ -9,8 +9,6 @@ namespace SivaEftCheat.Options
 {
     static class MiscOptions
     {
-        internal static Color ExtractColor = Color.green;
-
-        internal static bool ExtractEsp = true;
+        public static Color CorsshairColor = Color.green;
     }
 }

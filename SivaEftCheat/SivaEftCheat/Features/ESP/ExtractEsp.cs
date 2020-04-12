@@ -32,7 +32,7 @@ namespace SivaEftCheat.Features.ESP
 
                 try
                 {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscOptions.ExtractEsp)
+                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp)
                     {
                         int scavMask = 0;
                         if (Main.LocalPlayer is ClientPlayer player)
@@ -66,7 +66,7 @@ namespace SivaEftCheat.Features.ESP
             {
                 //GUI.Label(new Rect(20, 80, 1000, 500), $"Debug Text: Extract Count: {exfiltrationPoints.Count}");
 
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscOptions.ExtractEsp)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp)
                 {
                     //GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Extract Debug text: {exfiltrationPoints.Count}");
 
@@ -79,7 +79,7 @@ namespace SivaEftCheat.Features.ESP
                         {
                             string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{(int)Math.Sqrt(num)} m]";
 
-                            Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, MiscOptions.ExtractColor);
+                            Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, MiscVisualsOptions.ExtractColor);
                         }
                     }
                 }

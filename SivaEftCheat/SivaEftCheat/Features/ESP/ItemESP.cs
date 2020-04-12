@@ -18,7 +18,7 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && ItemOptions.DrawItems)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawItems)
                 {
                     Render.DrawTextOutline(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.black, Color.white);
 
@@ -26,7 +26,7 @@ namespace SivaEftCheat.Features.ESP
                     {
                         float distance = Vector3.Distance(Main.LocalPlayer.Transform.position, lootItem.transform.position);
                         
-                        if (distance > ItemOptions.DrawItemRange)
+                        if (distance > MiscVisualsOptions.DrawItemRange)
                             continue;
                         Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(lootItem.transform.position);
 
@@ -37,24 +37,24 @@ namespace SivaEftCheat.Features.ESP
                         switch (lootItem.Item.Template.Rarity)
                         {
                             case ELootRarity.Common:
-                                itemColor = ItemOptions.CommonColor;
+                                itemColor = MiscVisualsOptions.CommonColor;
                                 break;
                             case ELootRarity.Rare:
-                                itemColor = ItemOptions.RareColor;
+                                itemColor = MiscVisualsOptions.RareColor;
                                 break;
                             case ELootRarity.Superrare:
-                                itemColor = ItemOptions.SuperRareColor;
+                                itemColor = MiscVisualsOptions.SuperRareColor;
                                 break;
                         }
 
                         if (lootItem.Item.QuestItem)
-                            itemColor = ItemOptions.QuestItemsColor;
+                            itemColor = MiscVisualsOptions.QuestItemsColor;
 
                         if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
-                            itemColor = ItemOptions.SpecialColor;
+                            itemColor = MiscVisualsOptions.SpecialColor;
 
                         if (GameUtils.IsMedItem(lootItem.TemplateId))
-                            itemColor = ItemOptions.MedColor;
+                            itemColor = MiscVisualsOptions.MedColor;
 
                         string text = $"{lootItem.Name.Localized()} [{(int)distance} M]";
                         Render.DrawTextOutline(screenPosition, text, Color.black, itemColor);

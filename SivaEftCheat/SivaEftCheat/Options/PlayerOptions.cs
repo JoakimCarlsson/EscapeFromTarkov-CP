@@ -18,7 +18,7 @@ namespace SivaEftCheat.Options
         public static bool DrawPlayerLevel = true;
         public static bool DrawPlayerWeapon = true;
         public static bool DrawPlayerSnapLine = true;
-        public static bool DrawPlayerBox = true;
+        public static bool DrawPlayerCornerBox = true;
         public static bool DrawPlayerSkeleton = true;
         public static bool DrawPlayerDistance = true;
 
@@ -29,7 +29,7 @@ namespace SivaEftCheat.Options
         public static bool DrawScavName = true;
         public static bool DrawScavWeapon = true;
         public static bool DrawScavSnapLine = true;
-        public static bool DrawScavBox = true;
+        public static bool DrawScavCornerBox = true;
         public static bool DrawScavSkeleton = true;
         public static bool DrawScavDistance = true;
     }

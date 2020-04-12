@@ -8,6 +8,7 @@ using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
 using JsonType;
+using SivaEftCheat.Features;
 using SivaEftCheat.Features.ESP;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
@@ -48,6 +49,7 @@ namespace SivaEftCheat
             HookObject.AddComponent<ItemEsp>();
             HookObject.AddComponent<LootableContainerEsp>();
             HookObject.AddComponent<PlayerEsp>();
+            HookObject.AddComponent<Misc>();
 
             DontDestroyOnLoad(HookObject);
         }
@@ -74,29 +76,29 @@ namespace SivaEftCheat
                             {
                                 case LootItem lootItem:
                                 {
-                                    if (lootItem.gameObject != null && ItemOptions.DrawItems)
+                                    if (lootItem.gameObject != null && MiscVisualsOptions.DrawItems)
                                     {
-                                        if (ItemOptions.DrawQuestItems)
+                                        if (MiscVisualsOptions.DrawQuestItems)
                                             if (lootItem.Item.QuestItem)
                                                 LootItems.Add(lootItem);
 
-                                        if (ItemOptions.DrawMedtems)
+                                        if (MiscVisualsOptions.DrawMedtems)
                                             if (GameUtils.IsMedItem(lootItem.TemplateId))
                                                 LootItems.Add(lootItem);
 
-                                        if (ItemOptions.DrawSpecialItems)
+                                        if (MiscVisualsOptions.DrawSpecialItems)
                                             if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
                                                 LootItems.Add(lootItem);
 
-                                        if (ItemOptions.DrawCommonItems)
+                                        if (MiscVisualsOptions.DrawCommonItems)
                                             if (lootItem.Item.Template.Rarity == ELootRarity.Common)
                                                 LootItems.Add(lootItem);
 
-                                        if (ItemOptions.DrawRareItems)
+                                        if (MiscVisualsOptions.DrawRareItems)
                                             if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
                                                 LootItems.Add(lootItem);
 
-                                        if (ItemOptions.DrawSuperRareItems)
+                                        if (MiscVisualsOptions.DrawSuperRareItems)
                                             if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
                                                 LootItems.Add(lootItem);
                                     }

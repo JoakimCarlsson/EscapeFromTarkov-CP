@@ -20,9 +20,11 @@ namespace SivaEftCheat.Features.ESP
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
             {
                 Render.DrawTextOutline(new Vector2(20, 20), $"Registerd Players: {Main.GameWorld.RegisteredPlayers.Count}", Color.black, Color.white);
+                //Render.DrawCircle(new Vector2(Screen.width / 2f, Screen.height / 2f), 500, Color.green, 1f, true, 30 );
                 Draw();
             }
         }
+
         public static Color GetPlayerColor(bool isVisible, bool isFriend, string side)
         {
             if (isVisible)
@@ -119,6 +121,7 @@ namespace SivaEftCheat.Features.ESP
             {
             }
         }
+
         public static void ConnectBones(Dictionary<HumanBones, Vector3> bones, HumanBones start, HumanBones stop)
         {
             try
@@ -165,10 +168,14 @@ namespace SivaEftCheat.Features.ESP
 
                                 if (GameUtils.IsScreenPointVisible(vector2) && GameUtils.IsScreenPointVisible(headScreenPosition))
                                 {
-                                    string text = isScav ? "SCAV" : player.Profile.Info.Nickname;
+                                    string nameText = isScav ? "SCAV" : player.Profile.Info.Nickname;
+
+                                    string healthNumberText = player.HealthController
+                                        .GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
                                     bool visible = GameUtils.IsVisible(headPosition);
-                                    Color playerColor = GetPlayerColor(visible, GameUtils.IsFriend(player), text);
-                                    string text2 = $"[{text}] {(int)distance} m] ";
+
+                                    Color playerColor = GetPlayerColor(visible, GameUtils.IsFriend(player), nameText);
+                                    string text2 = $"[{nameText}] [{healthNumberText} hp] [{(int)distance} m] ";
 
                                     if (PlayerOptions.DrawPlayerLevel && !isScav)
                                     {
@@ -193,12 +200,13 @@ namespace SivaEftCheat.Features.ESP
                                             Render.DrawTextOutline(new Vector2(vector2.x - vector4.x / 2f, (float)Screen.height - vector2.y + 5f), text3, Color.black, playerColor);
                                         }
                                     }
-                                    if ((isScav && PlayerOptions.DrawScavBox) || (!isScav && PlayerOptions.DrawPlayerBox))
+                                    if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
                                     {
                                         float num3 = Mathf.Abs(vector2.y - headScreenPosition.y);
-
-                                        Render.CornerBox(new Vector2(headScreenPosition.x, Screen.height - headScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
+                                        //Render.DrawBox(vector2.x, Screen.height - vector2.y, num3/ 1.8f, num3, playerColor);
+                                        Render.DrawCornerBox(new Vector2(headScreenPosition.x, Screen.height - headScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
                                     }
+
                                     if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
                                     {
                                         Dictionary<HumanBones, Vector3> bones = GetBones(player);
