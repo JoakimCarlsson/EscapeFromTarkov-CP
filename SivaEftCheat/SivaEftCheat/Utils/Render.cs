@@ -23,7 +23,56 @@ namespace SivaEftCheat.Utils
             GUI.color = color;
             GUI.DrawTexture(rect, texture2D_0);
         }
+        private static GUIStyle style = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 12
+        };
 
+        // Token: 0x0400001A RID: 26
+        private static GUIStyle outlineStyle = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 12
+        };
+
+        public static void DrawString1(Vector2 pos, string text, Color color, bool center = true, int size = 12, FontStyle fontStyle = FontStyle.Normal, int depth = 1)
+        {
+            style.fontSize = size;
+            style.richText = true;
+            style.normal.textColor = color;
+            style.fontStyle = fontStyle;
+            outlineStyle.fontSize = size;
+            outlineStyle.richText = true;
+            outlineStyle.normal.textColor = new Color(0f, 0f, 0f, 1f);
+            outlineStyle.fontStyle = fontStyle;
+            GUIContent contention = new GUIContent(text);
+            GUIContent contention2 = new GUIContent(text);
+            if (center)
+            {
+                pos.x -= style.CalcSize(contention).x / 2f;
+            }
+            switch (depth)
+            {
+                case 0:
+                    GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, style);
+                    break;
+                case 1:
+                    GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, style);
+                    break;
+                case 2:
+                    GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x - 1f, pos.y - 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, style);
+                    break;
+                case 3:
+                    GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x - 1f, pos.y - 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x, pos.y - 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x, pos.y + 1f, 300f, 25f), contention2, outlineStyle);
+                    GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, style);
+                    break;
+            }
+        }
         public static void DrawTextOutline(Vector2 position, string text, Color outColor, Color inColor)
         {
             GUIStyle espLabelStyle = EspLabelStyle;

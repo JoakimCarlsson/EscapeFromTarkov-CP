@@ -1,5 +1,9 @@
-﻿using BSG.CameraEffects;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BSG.CameraEffects;
+using EFT;
 using EFT.Interactive;
+using EFT.InventoryLogic;
 using EFT.UI;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
@@ -149,6 +153,8 @@ namespace SivaEftCheat.Features
             }
         }
 
+
+
         private void DrawFov()
         {
             if (AimbotOptions.DrawAimbotFov)
@@ -165,9 +171,9 @@ namespace SivaEftCheat.Features
         {
             if (MiscVisualsOptions.DrawCrossHair)
             {
-                Render.DrawLine(new Vector2(Screen.width / 2, Screen.height / 2 - 9), new Vector2(Screen.width / 2, Screen.height / 2 + 9), MiscVisualsOptions.CorsshairColor, 0.5f,
+                Render.DrawLine(new Vector2(Screen.width / 2, Screen.height / 2 - 9), new Vector2(Screen.width / 2, Screen.height / 2 + 9), MiscVisualsOptions.CrossHairColor, 0.5f,
                     true);
-                Render.DrawLine(new Vector2(Screen.width / 2 - 9, Screen.height / 2), new Vector2(Screen.width / 2 + 9, Screen.height / 2), MiscVisualsOptions.CorsshairColor, 0.5f,
+                Render.DrawLine(new Vector2(Screen.width / 2 - 9, Screen.height / 2), new Vector2(Screen.width / 2 + 9, Screen.height / 2), MiscVisualsOptions.CrossHairColor, 0.5f,
                     true);
             }
         }

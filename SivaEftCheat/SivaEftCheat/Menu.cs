@@ -146,6 +146,9 @@ namespace SivaEftCheat
                     AimbotOptions.AimbotFov = GUILayout.HorizontalSlider(AimbotOptions.AimbotFov, 0f, 800f);
                     GUILayout.EndHorizontal();
 
+                    if (GUILayout.Button("Aimbot Key: " + AimbotOptions.AimbotKey))
+                        AimbotOptions.AimbotKey = KeyCode.None;
+
                     AimbotOptions.SilentAim = GUILayout.Toggle(AimbotOptions.SilentAim, "Silent Aim");
                     AimbotOptions.DrawSilentFov = GUILayout.Toggle(AimbotOptions.DrawSilentFov, "Draw Silent Aim Fov");
                     GUILayout.BeginHorizontal();
@@ -153,9 +156,7 @@ namespace SivaEftCheat
                     AimbotOptions.SilentAimFov = GUILayout.HorizontalSlider(AimbotOptions.SilentAimFov, 0f, 800f);
                     GUILayout.EndHorizontal();
 
-                    if (GUILayout.Button("Aimbot Key: " + AimbotOptions.AimbotKey))
-                        AimbotOptions.AimbotKey = KeyCode.None;
-
+                    AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");
                     break;
 
                 case 4:

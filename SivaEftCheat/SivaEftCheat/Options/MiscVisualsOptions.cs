@@ -14,7 +14,7 @@ namespace SivaEftCheat.Options
         public static Color MedColor = Color.green;
         public static Color QuestItemsColor = Color.magenta;
         public static Color LootableContainerColor = Color.white;
-        public static Color CorsshairColor = Color.green;
+        public static Color CrossHairColor = Color.green;
         public static Color ExtractColor = Color.green;
 
 

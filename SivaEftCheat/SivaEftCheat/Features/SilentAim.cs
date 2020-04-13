@@ -20,7 +20,7 @@ namespace SivaEftCheat.Features
                     int num = (int)Vector2.Distance(Main.Camera.WorldToScreenPoint(target.PlayerBones.Head.position), vector);
                     int num2 = (int)Vector3.Distance(Main.LocalPlayer.Transform.position, target.Transform.position);
                     Vector3 vector2 = target.Transform.position - Main.Camera.transform.position;
-                    if (num2 <= AimbotOptions.Distnace && num <= AimbotOptions.SilentAimFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
+                    if (num2 <= AimbotOptions.AimbotDistnace && num <= AimbotOptions.SilentAimFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
                     {
                         dictionary.Add(target, num);
                     }
