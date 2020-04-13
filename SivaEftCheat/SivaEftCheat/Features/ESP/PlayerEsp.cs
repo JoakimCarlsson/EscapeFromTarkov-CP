@@ -175,7 +175,7 @@ namespace SivaEftCheat.Features.ESP
                                 }
                                 Vector2 vector3 = GUI.skin.GetStyle(text2).CalcSize(new GUIContent(text2));
 
-                                Render.DrawTextOutline(new Vector2(player.HeadScreenPosition.x - vector3.x / 2f, player.HeadScreenPosition.y - 20f), text2, Color.black, playerColor);
+                                Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text2, playerColor);
 
                                 if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
                                 {
@@ -189,7 +189,7 @@ namespace SivaEftCheat.Features.ESP
                                     {
                                         string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
                                         Vector2 vector4 = GUI.skin.GetStyle(text3).CalcSize(new GUIContent(text3));
-                                        Render.DrawTextOutline(new Vector2(player.ScreenPosition.x - vector4.x / 2f, player.ScreenPosition.y + 5f), text3, Color.black, playerColor);
+                                        Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3,  playerColor);
                                     }
                                 }
                                 if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))

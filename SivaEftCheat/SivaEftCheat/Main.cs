@@ -69,7 +69,6 @@ namespace SivaEftCheat
                     while (enumerator.MoveNext())
                     {
                         Player player = enumerator.Current;
-
                         if (player == null || player.IsYourPlayer())
                             continue;
                         

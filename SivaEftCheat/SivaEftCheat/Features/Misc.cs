@@ -14,7 +14,8 @@ namespace SivaEftCheat.Features
 {
     class Misc : MonoBehaviour
     {
-        private string _test = String.Empty;
+        private string _test = string.Empty;
+        private string _hud = string.Empty;
         private void FixedUpdate()
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
@@ -32,9 +33,32 @@ namespace SivaEftCheat.Features
                     UnlockDoors();
                     FlyHack();
                     AlwaysAutomatic();
+                    PrepareHud();
                 }
                 catch { }
             }
+        }
+
+        private void PrepareHud()
+        {
+            if (MiscOptions.DrawHud)
+            {
+                //player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current
+                string tempHealth = "💖";
+                string tempMag = string.Empty;
+
+                var weapon = Main.LocalPlayer.Weapon;
+                var mag = weapon?.GetCurrentMagazine();
+                if (mag != null)
+                {
+                    tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount} [{weapon.SelectedFireMode}]";
+                }
+
+                tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
+
+                _hud = $"HP: {tempHealth} Ammo: {tempMag}";
+            }
+
         }
 
         private void AlwaysAutomatic()
@@ -163,15 +187,23 @@ namespace SivaEftCheat.Features
             {
                 try
                 {
-                    Render.DrawTextOutline(new Vector2(20, 0),_test, Color.black, Color.white );
+                    Render.DrawTextOutline(new Vector2(20, 0), _test, Color.black, Color.white);
                     DrawCrossHair();
                     DrawFov();
+                    DrawHud();
                 }
                 catch { }
 
             }
         }
 
+        private void DrawHud()
+        {
+            if (MiscOptions.DrawHud)
+            {
+                Render.DrawString1(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);
+            }
+        }
 
 
         private void DrawFov()

@@ -120,8 +120,6 @@ namespace SivaEftCheat
 
                     GUILayout.Space(20);
                     GUILayout.Label("Container ESP ");
-                    GUILayout.Label("Lootable Container");
-                    GUILayout.Space(10);
                     MiscVisualsOptions.DrawLootableContainers = GUILayout.Toggle(MiscVisualsOptions.DrawLootableContainers, "Draw Lootable Containers");
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Container Distance {(int)MiscVisualsOptions.DrawLootableContainersRange} m");

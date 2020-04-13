@@ -31,5 +31,6 @@ namespace SivaEftCheat.Options
         public static bool InstantHit = false;
 
         public static float SpeedHackValue = 0f;
+        public static bool DrawHud = true;
     }
 }
