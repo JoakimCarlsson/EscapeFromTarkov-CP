@@ -23,8 +23,12 @@ namespace SivaEftCheat.Options
         public static bool NightVison = false;
         public static bool FlyHack = false;
 
+        //Weapon
         public static bool NoRecoil = true;
         public static bool NoSway = true;
+        public static bool AlwaysAutomatic = false;
+        public static bool BulletPenetration = false;
+        public static bool InstantHit = false;
 
         public static float SpeedHackValue = 0f;
     }

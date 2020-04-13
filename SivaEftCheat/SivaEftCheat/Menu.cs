@@ -68,7 +68,6 @@ namespace SivaEftCheat
                     break;
 
                 case 1:
-
                     GUILayout.Label("Players");
                     PlayerOptions.DrawPlayers = GUILayout.Toggle(PlayerOptions.DrawPlayers, "Draw Players");
                     PlayerOptions.DrawPlayerHealth = GUILayout.Toggle(PlayerOptions.DrawPlayerHealth, "Draw Player Health Bar");
@@ -103,7 +102,6 @@ namespace SivaEftCheat
                     GUILayout.Label($"Scav Distance {(int)PlayerOptions.DrawScavsRange} m");
                     PlayerOptions.DrawScavsRange = GUILayout.HorizontalSlider(PlayerOptions.DrawScavsRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
-
                     break;
 
                 case 2:
@@ -177,6 +175,9 @@ namespace SivaEftCheat
                     GUILayout.Label("Weapon Options");
                     MiscOptions.NoRecoil = GUILayout.Toggle(MiscOptions.NoRecoil, "No Recoil");
                     MiscOptions.NoSway = GUILayout.Toggle(MiscOptions.NoSway, "No Sway");
+                    MiscOptions.AlwaysAutomatic = GUILayout.Toggle(MiscOptions.AlwaysAutomatic, "Always Automatic");
+                    MiscOptions.BulletPenetration = GUILayout.Toggle(MiscOptions.BulletPenetration, "Bullet Penetration");
+                    MiscOptions.InstantHit = GUILayout.Toggle(MiscOptions.InstantHit, "Instant Hit");
                     break;
             }
             GUI.DragWindow();

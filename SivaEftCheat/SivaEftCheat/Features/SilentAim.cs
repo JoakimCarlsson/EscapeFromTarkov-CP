@@ -34,6 +34,7 @@ namespace SivaEftCheat.Features
                     Weapon weapon2 = Main.LocalPlayer.Weapon;
                     if (vector3.z > 0.01 && weapon2 != null)
                     {
+                        player2.PlayerBones.Head.position += new Vector3(0f, 0.07246377f, 0f);
                         direction = (player2.PlayerBones.Head.position - origin).normalized;
                     }
                 }

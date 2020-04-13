@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EFT.UI;
+using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -8,32 +10,31 @@ namespace SivaEftCheat.Features.ESP
 {
     class LootableContainerEsp : MonoBehaviour
     {
+        private void FixedUpdate()
+        {
+            try
+            {
+                foreach (GameLootContainer gameLootContainer in Main.LootableContainers)
+                    gameLootContainer.RecalculateDynamics();
+            }
+            catch { }
+        }
+
         private void OnGUI()
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive &&
-                    MiscVisualsOptions.DrawLootableContainers)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawLootableContainers)
                 {
-                    Render.DrawTextOutline(new Vector2(20, 60),
-                        $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.black, Color.white);
+                    Render.DrawTextOutline(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.black, Color.white);
 
                     int x = -20;
-
                     foreach (var lootableContainer in Main.LootableContainers)
                     {
-                        float distance = Vector3.Distance(Main.LocalPlayer.Transform.position,
-                            lootableContainer.transform.position);
-                        Vector3 screenPosition =
-                            GameUtils.WorldPointToScreenPoint(lootableContainer.transform.position);
-
-                        if (!GameUtils.IsScreenPointVisible(screenPosition))
+                        if (!GameUtils.IsLootableContainerValid(lootableContainer.LootableContainer) || !lootableContainer.IsOnScreen || lootableContainer.Distance > MiscVisualsOptions.DrawLootableContainersRange)
                             continue;
 
-                        if (distance > MiscVisualsOptions.DrawLootableContainersRange)
-                            continue;
-
-                        var item = lootableContainer.ItemOwner.RootItem;
+                        var item = lootableContainer.LootableContainer.ItemOwner.RootItem;
 
                         if (item.GetAllItems().Count() == 1)
                             continue;
@@ -45,7 +46,7 @@ namespace SivaEftCheat.Features.ESP
                         {
                             if (item.GetAllItems().First() == allItem)
                             {
-                                lootItemName = $"{allItem.Name.Localized()} [{(int) distance} M]";
+                                lootItemName = $"{allItem.Name.Localized()} [{lootableContainer.FormattedDistance} M]";
                                 MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
                             }
                             else
@@ -57,8 +58,7 @@ namespace SivaEftCheat.Features.ESP
                                 MiscVisualsOptions.LootableContainerColor = Color.white;
                             }
 
-                            Render.DrawTextOutline(new Vector2(screenPosition.x, screenPosition.y - x), lootItemName,
-                                Color.black, MiscVisualsOptions.LootableContainerColor);
+                            Render.DrawTextOutline(new Vector2(lootableContainer.ScreenPosition.x, lootableContainer.ScreenPosition.y - x), lootItemName, Color.black, MiscVisualsOptions.LootableContainerColor);
                             x -= 20;
                         }
                     }

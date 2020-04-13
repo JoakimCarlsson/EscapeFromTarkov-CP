@@ -1,5 +1,6 @@
 ﻿using EFT.UI;
 using JsonType;
+using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -8,6 +9,16 @@ namespace SivaEftCheat.Features.ESP
 {
     class ItemEsp : MonoBehaviour
     {
+        private void FixedUpdate()
+        {
+            try
+            {
+                foreach (GameLootItem gameLootItem in Main.LootItems)
+                    gameLootItem.RecalculateDynamics();
+            }
+            catch { }
+        }
+
         private void OnGUI()
         {
             try
@@ -18,17 +29,11 @@ namespace SivaEftCheat.Features.ESP
 
                     foreach (var lootItem in Main.LootItems)
                     {
-                        float distance = Vector3.Distance(Main.LocalPlayer.Transform.position, lootItem.transform.position);
-                        
-                        if (distance > MiscVisualsOptions.DrawItemRange)
-                            continue;
-                        Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(lootItem.transform.position);
-
-                        if (!GameUtils.IsScreenPointVisible(screenPosition))
+                        if (lootItem.Distance > MiscVisualsOptions.DrawItemRange || !lootItem.IsOnScreen)
                             continue;
 
                         Color itemColor = default;
-                        switch (lootItem.Item.Template.Rarity)
+                        switch (lootItem.LootItem.Item.Template.Rarity)
                         {
                             case ELootRarity.Common:
                                 itemColor = MiscVisualsOptions.CommonColor;
@@ -41,17 +46,18 @@ namespace SivaEftCheat.Features.ESP
                                 break;
                         }
 
-                        if (lootItem.Item.QuestItem)
+                        if (lootItem.LootItem.Item.QuestItem)
                             itemColor = MiscVisualsOptions.QuestItemsColor;
 
-                        if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
+                        if (GameUtils.IsSpecialLootItem(lootItem.LootItem.TemplateId))
                             itemColor = MiscVisualsOptions.SpecialColor;
 
-                        if (GameUtils.IsMedItem(lootItem.TemplateId))
+                        if (GameUtils.IsMedItem(lootItem.LootItem.TemplateId))
                             itemColor = MiscVisualsOptions.MedColor;
 
-                        string text = $"{lootItem.Name.Localized()} [{(int)distance} M]";
-                        Render.DrawTextOutline(screenPosition, text, Color.black, itemColor);
+                        string text = $"{lootItem.LootItem.Item.Name.Localized()} {lootItem.FormattedDistance}";
+                        //Render.DrawTextOutline(lootItem.ScreenPosition, text, Color.black, itemColor);
+                        Render.DrawString1(lootItem.ScreenPosition, text, itemColor);
                     }
                 }
             }

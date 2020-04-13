@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BSG.CameraEffects;
 using EFT;
@@ -13,6 +14,7 @@ namespace SivaEftCheat.Features
 {
     class Misc : MonoBehaviour
     {
+        private string _test = String.Empty;
         private void FixedUpdate()
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
@@ -29,14 +31,30 @@ namespace SivaEftCheat.Features
                     SpeedHack();
                     UnlockDoors();
                     FlyHack();
+                    AlwaysAutomatic();
                 }
                 catch { }
             }
         }
 
+        private void AlwaysAutomatic()
+        {
+            if (MiscOptions.AlwaysAutomatic && Main.LocalPlayer.HandsController.Item is Weapon)
+            {
+                Main.LocalPlayer.Weapon.GetItemComponent<FireModeComponent>().FireMode = Weapon.EFireMode.fullauto;
+                Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.BoltAction = false;
+                Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate = 3000;
+                _test = Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate.ToString();
+            }
+        }
+
         private void FlyHack()
         {
-            
+            //    if (Input.GetKey(KeyCode.UpArrow))
+            //{
+            //    Main.LocalPlayer.MovementContext.FreefallTime = 0;
+            //    Main.LocalPlayer.Transform.position += Main.Camera.transform.forward* 0.2f;
+            //}
         }
 
         private void UnlockDoors()
@@ -145,6 +163,7 @@ namespace SivaEftCheat.Features
             {
                 try
                 {
+                    Render.DrawTextOutline(new Vector2(20, 0),_test, Color.black, Color.white );
                     DrawCrossHair();
                     DrawFov();
                 }
@@ -159,11 +178,11 @@ namespace SivaEftCheat.Features
         {
             if (AimbotOptions.DrawAimbotFov)
             {
-                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40 );
+                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40);
             }
             if (AimbotOptions.DrawSilentFov)
             {
-                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.SilentAimFov, Color.white, 0.5f, true, 40 );
+                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.SilentAimFov, Color.white, 0.5f, true, 40);
             }
         }
 

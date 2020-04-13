@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EFT;
+using EFT.Interactive;
 using SivaEftCheat.Options;
 using UnityEngine;
 
@@ -16,7 +17,10 @@ namespace SivaEftCheat.Utils
         {
             return MiscVisualsOptions.RareItems.Contains(templateId);
         }
-
+        public static bool IsLootableContainerValid(LootableContainer lootableContainer)
+        {
+            return lootableContainer != null && lootableContainer.Template != null;
+        }
         public static bool IsMedItem(string templateId)
         {
             return MiscVisualsOptions.MedsItems.Contains(templateId);
@@ -45,7 +49,10 @@ namespace SivaEftCheat.Utils
 
             return player.HealthController.IsAlive;
         }
-
+        public static bool IsLootItemValid(LootItem lootItem)
+        {
+            return lootItem != null && lootItem.Item != null && lootItem.Item.Template != null;
+        }
         public static bool IsPlayerValid(Player player)
         {
             return player != null && player.Transform != null && player.PlayerBones != null && player.PlayerBones.transform != null;

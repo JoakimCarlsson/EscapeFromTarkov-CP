@@ -3,6 +3,7 @@ using System.Linq;
 using EFT;
 using EFT.InventoryLogic;
 using EFT.UI;
+using SivaEftCheat.Data;
 using SivaEftCheat.Enums;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
@@ -12,12 +13,17 @@ namespace SivaEftCheat.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {
+        private void FixedUpdate()
+        {
+            foreach (GamePlayer gamePlayer in Main.Players)
+                gamePlayer.RecalculateDynamics();
+        }
+
         private void OnGUI()
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
             {
-                Render.DrawTextOutline(new Vector2(20, 20), $"Registerd Players: {Main.GameWorld.RegisteredPlayers.Count}", Color.black, Color.white);
-                //Render.DrawCircle(new Vector2(Screen.width / 2f, Screen.height / 2f), 500, Color.green, 1f, true, 30 );
+                Render.DrawTextOutline(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.black, Color.white);
                 Draw();
             }
         }
@@ -138,79 +144,66 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                var enumerator = Main.GameWorld.RegisteredPlayers.GetEnumerator();
-                while (enumerator.MoveNext())
+                foreach (var player in Main.Players)
                 {
-                    var player = enumerator.Current;
-                    if (player != null && player.Profile != null && !player.IsYourPlayer())
+                    bool isScav = player.IsAI;
+
+                    if ((!isScav || PlayerOptions.DrawScavs) && (isScav || PlayerOptions.DrawPlayers))
                     {
-                        bool isScav = player.Profile.Info.RegistrationDate <= 0;
-                        if ((!isScav || PlayerOptions.DrawScavs) && (isScav || PlayerOptions.DrawPlayers))
+                        bool inRange = isScav && player.Distance <= PlayerOptions.DrawScavsRange;
+
+                        if (!isScav && player.Distance <= PlayerOptions.DrawPlayerRange)
                         {
-                            Vector3 headPosition = player.PlayerBones.Head.position;
-                            Vector3 position = player.Transform.position;
-                            float distance = Vector3.Distance(Main.LocalPlayer.Transform.position, player.Transform.position);
+                            inRange = true;
+                        }
 
-                            bool inRange = isScav && distance <= PlayerOptions.DrawScavsRange;
-
-                            if (!isScav && distance <= PlayerOptions.DrawPlayerRange)
+                        if (inRange)
+                        {
+                            if (player.IsOnScreen)
                             {
-                                inRange = true;
-                            }
+                                string nameText = isScav ? "SCAV" : player.Player.Profile.Info.Nickname;
 
-                            if (inRange)
-                            {
-                                Vector3 headScreenPosition = Main.Camera.WorldToScreenPoint(headPosition);
-                                Vector3 vector2 = Main.Camera.WorldToScreenPoint(position);
+                                string healthNumberText = player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
+                                bool visible = GameUtils.IsVisible(player.Player.PlayerBones.Head.position);
 
-                                if (GameUtils.IsScreenPointVisible(vector2) && GameUtils.IsScreenPointVisible(headScreenPosition))
+                                Color playerColor = GetPlayerColor(visible, GameUtils.IsFriend(player.Player), nameText);
+                                string text2 = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
+
+                                if (PlayerOptions.DrawPlayerLevel && !isScav)
                                 {
-                                    string nameText = isScav ? "SCAV" : player.Profile.Info.Nickname;
+                                    text2 += $" [{player.Player.Profile.Info.Level} lvl]";
+                                }
+                                Vector2 vector3 = GUI.skin.GetStyle(text2).CalcSize(new GUIContent(text2));
 
-                                    string healthNumberText = player.HealthController
-                                        .GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
-                                    bool visible = GameUtils.IsVisible(headPosition);
+                                Render.DrawTextOutline(new Vector2(player.HeadScreenPosition.x - vector3.x / 2f, player.HeadScreenPosition.y - 20f), text2, Color.black, playerColor);
 
-                                    Color playerColor = GetPlayerColor(visible, GameUtils.IsFriend(player), nameText);
-                                    string text2 = $"[{nameText}] [{healthNumberText} hp] [{(int)distance} m] ";
-
-                                    if (PlayerOptions.DrawPlayerLevel && !isScav)
+                                if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
+                                {
+                                    float num2 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y) / 1.8f;
+                                    Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
+                                }
+                                if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
+                                {
+                                    Player.AbstractHandsController handsController = player.Player.HandsController;
+                                    if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
                                     {
-                                        text2 += $" [{player.Profile.Info.Level} lvl]";
+                                        string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
+                                        Vector2 vector4 = GUI.skin.GetStyle(text3).CalcSize(new GUIContent(text3));
+                                        Render.DrawTextOutline(new Vector2(player.ScreenPosition.x - vector4.x / 2f, player.ScreenPosition.y + 5f), text3, Color.black, playerColor);
                                     }
-                                    Vector2 vector3 = GUI.skin.GetStyle(text2).CalcSize(new GUIContent(text2));
+                                }
+                                if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
+                                {
+                                    float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
+                                    Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
+                                }
 
-                                    Render.DrawTextOutline(new Vector2(headScreenPosition.x - vector3.x / 2f, Screen.height - headScreenPosition.y - 20f), text2, Color.black, playerColor);
-                                    
-                                    if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
+                                if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
+                                {
+                                    Dictionary<HumanBones, Vector3> bones = GetBones(player.Player);
+                                    if (bones.Count != 0)
                                     {
-                                        float num2 = Mathf.Abs(vector2.y - headScreenPosition.y) / 1.8f;
-                                        Render.DrawHealth(new Vector2(vector2.x - num2 / 2f, Screen.height - vector2.y), num2, 5f, player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
-                                    }
-                                    if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
-                                    {
-                                        Player.AbstractHandsController handsController = player.HandsController;
-                                        if (((handsController != null) ? handsController.Item : null) is Weapon && player.Weapon.ShortName != null)
-                                        {
-                                            string text3 = $"{player.Weapon.ShortName.Localized()}";
-                                            Vector2 vector4 = GUI.skin.GetStyle(text3).CalcSize(new GUIContent(text3));
-                                            Render.DrawTextOutline(new Vector2(vector2.x - vector4.x / 2f, Screen.height - vector2.y + 5f), text3, Color.black, playerColor);
-                                        }
-                                    }
-                                    if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
-                                    {
-                                        float num3 = Mathf.Abs(vector2.y - headScreenPosition.y);
-                                        //Render.DrawBox(vector2.x, Screen.height - vector2.y, num3/ 1.8f, num3, playerColor);
-                                        Render.DrawCornerBox(new Vector2(headScreenPosition.x, Screen.height - headScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
-                                    }
-
-                                    if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
-                                    {
-                                        Dictionary<HumanBones, Vector3> bones = GetBones(player);
-                                        if (bones.Count != 0)
-                                        {
-                                            DrawSkeleton(bones);
-                                        }
+                                        DrawSkeleton(bones);
                                     }
                                 }
                             }
