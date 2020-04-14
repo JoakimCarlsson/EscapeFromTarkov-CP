@@ -84,7 +84,7 @@ namespace SivaEftCheat.Features
         {
             if (Input.GetKey(MiscOptions.FlyHackKey) && MiscOptions.FlyHack)
             {
-                Main.LocalPlayer.MovementContext.FreefallTime = 0;
+                Main.LocalPlayer.MovementContext.FreefallTime = -0.2f;
             }
         }
 
