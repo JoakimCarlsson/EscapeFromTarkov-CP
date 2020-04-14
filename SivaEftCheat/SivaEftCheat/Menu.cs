@@ -128,6 +128,7 @@ namespace SivaEftCheat
 
                     GUILayout.Space(20);
                     GUILayout.Label("Other Visuals");
+                    MiscOptions.DrawHud = GUILayout.Toggle(MiscOptions.DrawHud, "Draw Hud");
                     MiscVisualsOptions.DrawExtractEsp = GUILayout.Toggle(MiscVisualsOptions.DrawExtractEsp, "Draw Extracts");
                     MiscVisualsOptions.DrawGrenadeEsp = GUILayout.Toggle(MiscVisualsOptions.DrawGrenadeEsp, "Draw Grenades");
                     MiscVisualsOptions.DrawCrossHair = GUILayout.Toggle(MiscVisualsOptions.DrawCrossHair, "Draw Crosshair");
@@ -176,6 +177,7 @@ namespace SivaEftCheat
                     MiscOptions.AlwaysAutomatic = GUILayout.Toggle(MiscOptions.AlwaysAutomatic, "Always Automatic");
                     MiscOptions.BulletPenetration = GUILayout.Toggle(MiscOptions.BulletPenetration, "Bullet Penetration");
                     MiscOptions.InstantHit = GUILayout.Toggle(MiscOptions.InstantHit, "Instant Hit");
+                    MiscOptions.DontMoveWeaponCloser = GUILayout.Toggle(MiscOptions.DontMoveWeaponCloser, "Don't move weapon closer.");
                     break;
             }
             GUI.DragWindow();

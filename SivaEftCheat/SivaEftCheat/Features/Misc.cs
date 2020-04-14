@@ -34,8 +34,17 @@ namespace SivaEftCheat.Features
                     FlyHack();
                     AlwaysAutomatic();
                     PrepareHud();
+                    DontMoveWeaponCloser();
                 }
                 catch { }
+            }
+        }
+
+        private void DontMoveWeaponCloser()
+        {
+            if (MiscOptions.DontMoveWeaponCloser)
+            {
+               Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EFT.Animations.EProceduralAnimationMask.ForceReaction;
             }
         }
 
@@ -43,7 +52,6 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud)
             {
-                //player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current
                 string tempHealth = "💖";
                 string tempMag = string.Empty;
 
@@ -74,11 +82,10 @@ namespace SivaEftCheat.Features
 
         private void FlyHack()
         {
-            //    if (Input.GetKey(KeyCode.UpArrow))
-            //{
-            //    Main.LocalPlayer.MovementContext.FreefallTime = 0;
-            //    Main.LocalPlayer.Transform.position += Main.Camera.transform.forward* 0.2f;
-            //}
+            if (Input.GetKey(MiscOptions.FlyHackKey) && MiscOptions.FlyHack)
+            {
+                Main.LocalPlayer.MovementContext.FreefallTime = 0;
+            }
         }
 
         private void UnlockDoors()
@@ -162,7 +169,21 @@ namespace SivaEftCheat.Features
 
         private void NoRecoil()
         {
-            Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.Intensity = MiscOptions.NoRecoil ? 0f : 1f;
+            if (MiscOptions.NoRecoil)
+            {
+                Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthXy = Vector2.zero;
+                Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthZ = Vector2.zero;
+                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.x = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.y = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.z = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.x = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.y = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.z = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.Breath.HipPenalty = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.x = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.y = 0f;
+                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.z = 0f;
+            }
         }
 
         private void DoNightVison()
