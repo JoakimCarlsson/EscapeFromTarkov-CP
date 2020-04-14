@@ -46,7 +46,7 @@ namespace SivaEftCheat.Features.ESP
                         {
                             if (item.GetAllItems().First() == allItem)
                             {
-                                lootItemName = $"{allItem.Name.Localized()} [{lootableContainer.FormattedDistance} M]";
+                                lootItemName = $"{allItem.Name.Localized()} {lootableContainer.FormattedDistance}";
                                 MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
                             }
                             else

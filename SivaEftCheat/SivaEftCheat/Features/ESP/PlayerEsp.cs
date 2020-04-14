@@ -44,14 +44,14 @@ namespace SivaEftCheat.Features.ESP
                                     Color playerColor = GetPlayerColor(player.IsVisible, GameUtils.IsFriend(player.Player), nameText);
 
 
-                                    string text2 = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
+                                    string text = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
 
                                     if (PlayerOptions.DrawPlayerLevel && !isScav)
                                     {
-                                        text2 += $" [{player.Player.Profile.Info.Level} lvl]";
+                                        text += $" [{player.Player.Profile.Info.Level} lvl]";
                                     }
 
-                                    Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text2, playerColor);
+                                    Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, playerColor);
 
 
                                     if ((isScav && PlayerOptions.DrawScavAimPos) || (!isScav && PlayerOptions.DrawPlayerAimPos))
