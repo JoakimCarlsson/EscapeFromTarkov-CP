@@ -12,6 +12,7 @@ namespace SivaEftCheat.Utils
         private static readonly GUIStyle EspLabelStyle = new GUIStyle {fontSize = 11,};
         private static Texture2D texture2D_0 = new Texture2D(1, 1);
         private static Texture2D test = new Texture2D(2, 2, TextureFormat.ARGB32, false);
+        private static Texture2D testCast = new Texture2D(2, 2, TextureFormat.ARGB32, false);
         private static Rect lineRect = new Rect(0f, 0f, 1f, 1f);
 
 
@@ -28,12 +29,13 @@ namespace SivaEftCheat.Utils
             fontSize = 12
         };
 
-        // Token: 0x0400001A RID: 26
         private static GUIStyle outlineStyle = new GUIStyle(GUI.skin.label)
         {
             fontSize = 12
         };
 
+
+        //Credits too who ever that made this
         public static void DrawString1(Vector2 pos, string text, Color color, bool center = true, int size = 12, FontStyle fontStyle = FontStyle.Normal, int depth = 1)
         {
             style.fontSize = size;
@@ -280,5 +282,6 @@ namespace SivaEftCheat.Utils
                 GL.PopMatrix();
             }
         }
+
     }
 }

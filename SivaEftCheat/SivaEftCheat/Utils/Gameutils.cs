@@ -12,7 +12,15 @@ namespace SivaEftCheat.Utils
 {
     class GameUtils
     {
-        private static readonly LayerMask LayerMask = 1 << 12 | 1 << 16 | 1 << 18;
+        public static Vector3 FinalVector(Diz.Skinning.Skeleton skeletor, int BoneId)
+        {
+            try
+            {
+                return skeletor.Bones.ElementAt(BoneId).Value.position;
+            }
+            catch { return Vector3.zero; }
+        }
+
         public static bool IsSpecialLootItem(string templateId)
         {
             return MiscVisualsOptions.RareItems.Contains(templateId);
@@ -73,12 +81,6 @@ namespace SivaEftCheat.Utils
         public static bool IsScreenPointVisible(Vector3 screenPoint)
         {
             return screenPoint.z > 0.01f && screenPoint.x > -5f && screenPoint.y > -5f && screenPoint.x < Screen.width && screenPoint.y < Screen.height;
-        }
-
-        public static bool IsVisible(Vector3 position)
-        {
-            return false;
-            return Physics.Linecast(Main.LocalPlayer.PlayerBones.Fireport.position, position, out var raycastHit, LayerMask, QueryTriggerInteraction.UseGlobal) && raycastHit.transform.name.Contains("Human");
         }
 
         public static bool IsFriend(Player player)

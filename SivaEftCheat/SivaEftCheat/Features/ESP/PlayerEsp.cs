@@ -24,7 +24,85 @@ namespace SivaEftCheat.Features.ESP
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
             {
                 Render.DrawTextOutline(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.black, Color.white);
-                Draw();
+                try
+                {
+                    foreach (var player in Main.Players)
+                    {
+                        bool isScav = player.IsAI;
+
+                        if ((!isScav || PlayerOptions.DrawScavs) && (isScav || PlayerOptions.DrawPlayers))
+                        {
+                            bool inRange = isScav && player.Distance <= PlayerOptions.DrawScavsRange;
+
+                            if (!isScav && player.Distance <= PlayerOptions.DrawPlayerRange)
+                            {
+                                inRange = true;
+                            }
+
+                            if (inRange)
+                            {
+                                if (player.IsOnScreen)
+                                {
+                                    string nameText = isScav ? "SCAV" : player.Player.Profile.Info.Nickname;
+
+                                    string healthNumberText = player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
+
+                                    Color playerColor = GetPlayerColor(player.IsVisible, GameUtils.IsFriend(player.Player), nameText);
+                                    if ((isScav && PlayerOptions.DrawScavAimPos) || (!isScav && PlayerOptions.DrawPlayerAimPos))
+                                    {
+                                        //TODO MOVE THIS SO IT'S WE DON'T DO MATH INSIDE ONGUI
+                                        Vector3 end = RayCast.BarrelRayCast(player.Player);
+                                        Vector3 start = player.Player.Fireport.position;
+
+                                        Vector3 endScreen = GameUtils.WorldPointToScreenPoint(end);
+                                        Vector3 startScreen = GameUtils.WorldPointToScreenPoint(start);
+
+                                        Render.DrawLine(startScreen, endScreen, playerColor, 0.5f, true);
+                                    }
+
+                                    string text2 = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
+
+                                    if (PlayerOptions.DrawPlayerLevel && !isScav)
+                                    {
+                                        text2 += $" [{player.Player.Profile.Info.Level} lvl]";
+                                    }
+
+                                    Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text2, playerColor);
+
+                                    if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
+                                    {
+                                        float num2 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y) / 1.8f;
+                                        Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
+                                    }
+                                    if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
+                                    {
+                                        Player.AbstractHandsController handsController = player.Player.HandsController;
+                                        if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
+                                        {
+                                            string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
+                                            Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3, playerColor);
+                                        }
+                                    }
+                                    if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
+                                    {
+                                        float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
+                                        Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
+                                    }
+
+                                    if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
+                                    {
+                                        Dictionary<HumanBones, Vector3> bones = GetBones(player.Player);
+                                        if (bones.Count != 0)
+                                        {
+                                            DrawSkeleton(bones);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch { }
             }
         }
 
@@ -138,80 +216,6 @@ namespace SivaEftCheat.Features.ESP
             catch
             {
             }
-        }
-
-        public static void Draw()
-        {
-            try
-            {
-                foreach (var player in Main.Players)
-                {
-                    bool isScav = player.IsAI;
-
-                    if ((!isScav || PlayerOptions.DrawScavs) && (isScav || PlayerOptions.DrawPlayers))
-                    {
-                        bool inRange = isScav && player.Distance <= PlayerOptions.DrawScavsRange;
-
-                        if (!isScav && player.Distance <= PlayerOptions.DrawPlayerRange)
-                        {
-                            inRange = true;
-                        }
-
-                        if (inRange)
-                        {
-                            if (player.IsOnScreen)
-                            {
-                                string nameText = isScav ? "SCAV" : player.Player.Profile.Info.Nickname;
-
-                                string healthNumberText = player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
-                                bool visible = GameUtils.IsVisible(player.Player.PlayerBones.Head.position);
-
-                                Color playerColor = GetPlayerColor(visible, GameUtils.IsFriend(player.Player), nameText);
-                                string text2 = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
-
-                                if (PlayerOptions.DrawPlayerLevel && !isScav)
-                                {
-                                    text2 += $" [{player.Player.Profile.Info.Level} lvl]";
-                                }
-                                Vector2 vector3 = GUI.skin.GetStyle(text2).CalcSize(new GUIContent(text2));
-
-                                Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text2, playerColor);
-
-                                if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
-                                {
-                                    float num2 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y) / 1.8f;
-                                    Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
-                                }
-                                if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
-                                {
-                                    Player.AbstractHandsController handsController = player.Player.HandsController;
-                                    if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
-                                    {
-                                        string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
-                                        Vector2 vector4 = GUI.skin.GetStyle(text3).CalcSize(new GUIContent(text3));
-                                        Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3,  playerColor);
-                                    }
-                                }
-                                if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
-                                {
-                                    float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
-                                    Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
-                                }
-
-                                if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
-                                {
-                                    Dictionary<HumanBones, Vector3> bones = GetBones(player.Player);
-                                    if (bones.Count != 0)
-                                    {
-                                        DrawSkeleton(bones);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch { }
         }
 
         public static readonly List<HumanBones> NeededBones = new List<HumanBones>

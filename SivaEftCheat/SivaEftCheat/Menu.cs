@@ -78,7 +78,8 @@ namespace SivaEftCheat
                     PlayerOptions.DrawPlayerSnapLine = GUILayout.Toggle(PlayerOptions.DrawPlayerSnapLine, "Draw Player SnapLine");
                     PlayerOptions.DrawPlayerCornerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerCornerBox, "Draw Player DrawBox");
                     PlayerOptions.DrawPlayerSkeleton = GUILayout.Toggle(PlayerOptions.DrawPlayerSkeleton, "Draw Player Skeleton");
-                    PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distnace");
+                    PlayerOptions.DrawPlayerAimPos = GUILayout.Toggle(PlayerOptions.DrawPlayerAimPos, "Draw Player Aim Pos");
+                    PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distance");
                     PlayerOptions.DrawCorpses = GUILayout.Toggle(PlayerOptions.DrawCorpses, "Draw Player Corpses");
 
                     GUILayout.BeginHorizontal();
@@ -96,7 +97,8 @@ namespace SivaEftCheat
                     PlayerOptions.DrawScavSnapLine = GUILayout.Toggle(PlayerOptions.DrawScavSnapLine, "Draw Scav SnapLine");
                     PlayerOptions.DrawScavCornerBox = GUILayout.Toggle(PlayerOptions.DrawScavCornerBox, "Draw Scav DrawBox");
                     PlayerOptions.DrawScavSkeleton = GUILayout.Toggle(PlayerOptions.DrawScavSkeleton, "Draw Scav Skeleton");
-                    PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw Scav Distnace");
+                    PlayerOptions.DrawScavAimPos = GUILayout.Toggle(PlayerOptions.DrawScavAimPos, "Draw Scav Aim Pos");
+                    PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw Scav Distance");
 
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Scav Distance {(int)PlayerOptions.DrawScavsRange} m");

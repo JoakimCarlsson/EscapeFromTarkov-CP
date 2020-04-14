@@ -20,7 +20,7 @@ namespace SivaEftCheat.Data
         public bool IsOnScreen { get; private set; }
 
         public float Distance { get; private set; }
-
+        public bool IsVisible { get; set; }
         public bool IsAI { get; private set; }
 
         private static string Group = string.Empty;
@@ -41,6 +41,7 @@ namespace SivaEftCheat.Data
             IsOnScreen = false;
             Distance = 0f;
             IsAI = true;
+            IsVisible = false;
         }
 
         public void RecalculateDynamics()
@@ -55,7 +56,7 @@ namespace SivaEftCheat.Data
 
             IsOnScreen = GameUtils.IsScreenPointVisible(screenPosition);
             Distance = Vector3.Distance(Main.Camera.transform.position, Player.Transform.position);
-
+            IsVisible = RayCast.IsVisible(Player);
             if ((Player.Profile != null) && (Player.Profile.Info != null))
                 IsAI = (Player.Profile.Info.RegistrationDate <= 0);
 

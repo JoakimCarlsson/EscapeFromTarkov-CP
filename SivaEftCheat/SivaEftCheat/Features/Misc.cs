@@ -248,6 +248,12 @@ namespace SivaEftCheat.Features
                 Render.DrawLine(new Vector2(Screen.width / 2 - 9, Screen.height / 2), new Vector2(Screen.width / 2 + 9, Screen.height / 2), MiscVisualsOptions.CrossHairColor, 0.5f,
                     true);
             }
+            //else
+            //{
+            //    Vector3 crosshair = RayCast.BarrelRayCast(Main.LocalPlayer);
+            //    Vector3 screenPos = Main.Camera.WorldToScreenPoint(crosshair);
+            //    Render.DrawTextOutline(screenPos, "X", Color.black, Color.red );
+            //}
         }
     }
 }
