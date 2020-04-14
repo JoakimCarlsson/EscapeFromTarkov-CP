@@ -32,33 +32,17 @@ namespace SivaEftCheat.Features.ESP
 
                         if ((!isScav || PlayerOptions.DrawScavs) && (isScav || PlayerOptions.DrawPlayers))
                         {
-                            bool inRange = isScav && player.Distance <= PlayerOptions.DrawScavsRange;
-
-                            if (!isScav && player.Distance <= PlayerOptions.DrawPlayerRange)
-                            {
-                                inRange = true;
-                            }
+                            bool inRange = isScav && player.Distance <= PlayerOptions.DrawScavsRange || !isScav && player.Distance <= PlayerOptions.DrawPlayerRange;
 
                             if (inRange)
                             {
                                 if (player.IsOnScreen)
                                 {
                                     string nameText = isScav ? "SCAV" : player.Player.Profile.Info.Nickname;
-
                                     string healthNumberText = player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
 
                                     Color playerColor = GetPlayerColor(player.IsVisible, GameUtils.IsFriend(player.Player), nameText);
-                                    if ((isScav && PlayerOptions.DrawScavAimPos) || (!isScav && PlayerOptions.DrawPlayerAimPos))
-                                    {
-                                        //TODO MOVE THIS SO IT'S WE DON'T DO MATH INSIDE ONGUI
-                                        Vector3 end = RayCast.BarrelRayCast(player.Player);
-                                        Vector3 start = player.Player.Fireport.position;
 
-                                        Vector3 endScreen = GameUtils.WorldPointToScreenPoint(end);
-                                        Vector3 startScreen = GameUtils.WorldPointToScreenPoint(start);
-
-                                        Render.DrawLine(startScreen, endScreen, playerColor, 0.5f, true);
-                                    }
 
                                     string text2 = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
 
@@ -69,34 +53,24 @@ namespace SivaEftCheat.Features.ESP
 
                                     Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text2, playerColor);
 
+
+                                    if ((isScav && PlayerOptions.DrawScavAimPos) || (!isScav && PlayerOptions.DrawPlayerAimPos))
+                                        DrawPlayerAim(player, playerColor);
+
                                     if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
-                                    {
-                                        float num2 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y) / 1.8f;
-                                        Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
-                                    }
+                                        DrawHealthBar(player);
+
                                     if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
-                                    {
-                                        Player.AbstractHandsController handsController = player.Player.HandsController;
-                                        if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
-                                        {
-                                            string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
-                                            Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3, playerColor);
-                                        }
-                                    }
+                                        DrawWeaponText(player, playerColor);
+
+                                    if ((isScav && PlayerOptions.DrawScavValue) || (!isScav && PlayerOptions.DrawPlayerValue))
+                                        DrawValueText(player, playerColor);
+
                                     if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
-                                    {
-                                        float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
-                                        Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
-                                    }
+                                        DrawBox(player, playerColor);
 
                                     if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
-                                    {
-                                        Dictionary<HumanBones, Vector3> bones = GetBones(player.Player);
-                                        if (bones.Count != 0)
-                                        {
-                                            DrawSkeleton(bones);
-                                        }
-                                    }
+                                        DrawSkeleton(player.Player);
                                 }
                             }
                         }
@@ -104,6 +78,49 @@ namespace SivaEftCheat.Features.ESP
                 }
                 catch { }
             }
+        }
+
+        private static void DrawPlayerAim(GamePlayer player, Color playerColor)
+        {
+            //TODO MOVE THIS SO IT'S WE DON'T DO MATH INSIDE ONGUI
+            Vector3 end = RayCast.BarrelRayCast(player.Player);
+            Vector3 start = player.Player.Fireport.position;
+
+            Vector3 endScreen = GameUtils.WorldPointToScreenPoint(end);
+            Vector3 startScreen = GameUtils.WorldPointToScreenPoint(start);
+
+            Render.DrawLine(startScreen, endScreen, playerColor, 0.5f, true);
+        }
+
+        private static void DrawHealthBar(GamePlayer player)
+        {
+            float num2 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y) / 1.8f;
+            Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f,
+                player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current,
+                player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
+        }
+
+        private static void DrawWeaponText(GamePlayer player, Color playerColor)
+        {
+            Player.AbstractHandsController handsController = player.Player.HandsController;
+            if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
+            {
+                string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
+                Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3, playerColor);
+            }
+        }
+
+        private static void DrawValueText(GamePlayer player, Color playerColor)
+        {
+            string text3 = $"$ {player.FormattedValue}";
+            Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 15f), text3, playerColor);
+        }
+
+        private static void DrawBox(GamePlayer player, Color playerColor)
+        {
+            float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
+            Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3,
+                playerColor, true);
         }
 
         public static Color GetPlayerColor(bool isVisible, bool isFriend, string side)
@@ -159,10 +176,11 @@ namespace SivaEftCheat.Features.ESP
             return null;
         }
 
-        public static void DrawSkeleton(Dictionary<HumanBones, Vector3> bones)
+        public static void DrawSkeleton(Player player)
         {
             try
             {
+                Dictionary<HumanBones, Vector3> bones = GetBones(player);
                 if (bones.Count != 0)
                 {
                     ConnectBones(bones, HumanBones.HumanPelvis, HumanBones.HumanLThigh1);
