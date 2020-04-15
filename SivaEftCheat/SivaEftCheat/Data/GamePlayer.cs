@@ -18,13 +18,14 @@ namespace SivaEftCheat.Data
         public Vector3 HeadScreenPosition => _headScreenPosition;
 
         public bool IsOnScreen { get; private set; }
-
         public float Distance { get; private set; }
         public float DistanceFromCenter { get; set; }
         public bool IsVisible { get; set; }
         public bool IsAI { get; private set; }
         public static int Value { get; set; }
         public bool TeamMate { get; set; }
+        public Vector3 StartPosition { get; set; }
+        public Vector3 EndPosition { get; set; }
 
         private static string Group = string.Empty;
 
@@ -71,20 +72,21 @@ namespace SivaEftCheat.Data
             TeamMate = IsInYourGroup(Player);
             Value = CalculateValue(Player);
             DistanceFromCenter = Vector2.Distance(Main.Camera.WorldToScreenPoint(Player.PlayerBones.Head.position), GameUtils.ScreenCenter);
+
+            EndPosition = GameUtils.WorldPointToScreenPoint(RayCast.BarrelRayCast(Player));
+            StartPosition = GameUtils.WorldPointToScreenPoint(Player.Fireport.position);
         }
 
         public bool IsInYourGroup(Player player)
         {
             return Group == player.Profile.Info.GroupId && Group != "0" && Group != "" && Group != null;
         }
-        private static List<EFT.InventoryLogic.Item> _listToExclude;
         private static EFT.InventoryLogic.Item _tempItem;
         public static IEnumerator<EFT.InventoryLogic.Item> EquipItemList;
 
         public int CalculateValue(Player player)
         {
             int value = 0;
-            _listToExclude = new List<EFT.InventoryLogic.Item>();
             EquipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
             while (EquipItemList.MoveNext())
             {

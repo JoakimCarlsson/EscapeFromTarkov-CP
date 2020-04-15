@@ -23,7 +23,7 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawItems)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawItems && Main.Camera != null)
                 {
                     Render.DrawTextOutline(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.black, Color.white);
 

@@ -59,7 +59,6 @@ namespace SivaEftCheat.Features.ESP
 
                                     Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, playerColor);
 
-
                                     if ((player.IsAI && PlayerOptions.DrawScavAimPos) || (!player.IsAI && PlayerOptions.DrawPlayerAimPos))
                                         DrawPlayerAim(player, playerColor);
 
@@ -88,14 +87,7 @@ namespace SivaEftCheat.Features.ESP
 
         private static void DrawPlayerAim(GamePlayer player, Color playerColor)
         {
-            //TODO MOVE THIS SO IT'S WE DON'T DO MATH INSIDE ONGUI
-            Vector3 end = RayCast.BarrelRayCast(player.Player);
-            Vector3 start = player.Player.Fireport.position;
-
-            Vector3 endScreen = GameUtils.WorldPointToScreenPoint(end);
-            Vector3 startScreen = GameUtils.WorldPointToScreenPoint(start);
-
-            Render.DrawLine(startScreen, endScreen, playerColor, 0.5f, true);
+            Render.DrawLine(player.StartPosition, player.EndPosition, playerColor, 0.5f, true);
         }
 
         private static void DrawHealthBar(GamePlayer player)

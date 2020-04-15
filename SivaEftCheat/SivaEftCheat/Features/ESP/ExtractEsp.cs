@@ -35,7 +35,7 @@ namespace SivaEftCheat.Features.ESP
 
                 try
                 {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp)
+                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp && Main.Camera != null)
                     {
                         int scavMask = 0;
                         if (Main.LocalPlayer is ClientPlayer player)

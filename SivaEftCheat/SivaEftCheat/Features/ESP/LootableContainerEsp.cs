@@ -24,7 +24,7 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawLootableContainers)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawLootableContainers && Main.Camera != null)
                 {
                     Render.DrawTextOutline(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.black, Color.white);
 

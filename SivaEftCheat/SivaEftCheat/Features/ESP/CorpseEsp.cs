@@ -16,7 +16,7 @@ namespace SivaEftCheat.Features.ESP
             {
                 int x = -20;
 
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && PlayerOptions.DrawCorpses)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && PlayerOptions.DrawCorpses && Main.Camera != null)
                 {
                     var enumerator = Main.GameWorld.LootList.FindAll(item => item is Corpse).GetEnumerator();
                     while (enumerator.MoveNext())
