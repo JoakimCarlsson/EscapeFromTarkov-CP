@@ -4,6 +4,7 @@ using EFT;
 using EFT.Ballistics;
 using EFT.InventoryLogic;
 using EFT.UI;
+using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace SivaEftCheat.Features
 {
     class Aimbot : MonoBehaviour
     {
-        public static string _hud = string.Empty;
         public static bool NotHooked = true;
         public static TestHook createShotHook;
+        private GamePlayer _target;
 
         private void Update()
         {
@@ -29,11 +30,34 @@ namespace SivaEftCheat.Features
                         createShotHook.Hook();
                         NotHooked = false;
                     }
+
+                    _target = GetTarget();
                 }
             }
             catch { }
         }
 
+        private GamePlayer GetTarget()
+        {
+            Dictionary<GamePlayer, int> dictionary = new Dictionary<GamePlayer, int>();
+            Vector3 zero = Vector3.zero;
+            foreach (var player in Main.Players)
+            {
+                Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
+                if (player.Distance <= AimbotOptions.AimbotDistnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
+                {
+                    dictionary.Add(player, (int)player.DistanceFromCenter);
+                }
+            }
+
+            if (dictionary.Count > 0.01)
+            {
+                dictionary = (from pair in dictionary orderby pair.Value select pair).ToDictionary(pair => pair.Key, pair => pair.Value);
+                return dictionary.Keys.First();
+            }
+
+            return null;
+        }
         private void OnGUI()
         {
             try
@@ -42,6 +66,7 @@ namespace SivaEftCheat.Features
                 {
                     TargetSnapLine();
                     DoAimbot();
+                    DrawFov();
                 }
             }
             catch { }
@@ -51,75 +76,43 @@ namespace SivaEftCheat.Features
         {
             if (AimbotOptions.Aimbot && Input.GetKey(AimbotOptions.AimbotKey))
             {
-                Dictionary<Player, int> dictionary = new Dictionary<Player, int>();
-                Vector2 centerOfScreen = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                Vector3 aimPos = Vector3.zero;
-                foreach (var player in Main.GameWorld.RegisteredPlayers)
+                Vector3 aimPosition = Vector3.zero;
                 {
-                    int distanceFromCenter = (int)Vector2.Distance(Main.Camera.WorldToScreenPoint(player.PlayerBones.Head.position), centerOfScreen);
-                    int distanceFromPlayer = (int)Vector3.Distance(Main.LocalPlayer.Transform.position, player.Transform.position);
-                    Vector3 vector3 = player.Transform.position - Main.Camera.transform.position;
-                    if (distanceFromPlayer <= AimbotOptions.AimbotDistnace && distanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector3) > 0f)
-                    {
-                        dictionary.Add(player, distanceFromCenter);
-                    }
-                }
-                if (dictionary.Count > 0.01)
-                {
-                    dictionary = (from pair in dictionary orderby pair.Value select pair).ToDictionary(pair => pair.Key, pair => pair.Value);
-                    Player player = dictionary.Keys.First();
-                    //Vector3 bottomPosition = Main.Camera.WorldToScreenPoint(player.Transform.position);
-                    float distance = Vector3.Distance(Main.Camera.transform.position, player.Transform.position);
+                    GamePlayer player = _target;
 
-                    Vector3 headPosition = player.PlayerBones.Head.position;
+                    Vector3 headPosition = player.Player.PlayerBones.Head.position;
 
                     Weapon weapon = Main.LocalPlayer.Weapon;
-                    if (/*bottomPosition.z > 0.01 && */weapon != null)
+                    if (weapon != null)
                     {
-                        float travelTime = distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
-                        headPosition.x += player.Velocity.x * travelTime;
-                        headPosition.y += player.Velocity.y * travelTime;
-                        aimPos = headPosition;
+                        float travelTime = _target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
+                        headPosition.x += player.Player.Velocity.x * travelTime;
+                        headPosition.y += player.Player.Velocity.y * travelTime;
+                        aimPosition = headPosition;
                         //Render.DrawString1(new Vector2(bottomPosition.x, (float)Screen.height - bottomPosition.y + 20f), "This dude is about to die", Color.red, true, 12, FontStyle.Bold, 3);
                     }
-                }
-                if (aimPos != Vector3.zero)
-                {
-                    AimAtPos(aimPos);
+
+                    if (aimPosition != Vector3.zero)
+                        AimAtPos(aimPosition);
                 }
             }
         }
 
         private void TargetSnapLine()
         {
-            if (AimbotOptions.TargetSnapLine)
+            if (AimbotOptions.TargetSnapLine && AimbotOptions.Aimbot)
             {
-                Dictionary<Player, int> dictionary = new Dictionary<Player, int>();
-                Vector2 vector = new Vector2(Screen.width / 2f, Screen.height / 2f);
-                Vector3 zero = Vector3.zero;
-                foreach (var player in Main.GameWorld.RegisteredPlayers)
+
+                if (_target == null)
+                    return;
+
+                Weapon weapon = Main.LocalPlayer.Weapon;
+
+                if (_target.HeadScreenPosition.z > 0.01 && weapon != null)
                 {
-                    int num = (int)Vector2.Distance(Main.Camera.WorldToScreenPoint(player.PlayerBones.Head.position), vector);
-                    int num2 = (int)Vector3.Distance(Main.LocalPlayer.Transform.position, player.Transform.position);
-                    Vector3 vector2 = player.Transform.position - Main.Camera.transform.position;
-                    if (num2 <= AimbotOptions.AimbotDistnace && num <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
-                    {
-                        dictionary.Add(player, num);
-                    }
+                    Render.DrawLine(GameUtils.ScreenCenter, _target.HeadScreenPosition, MiscVisualsOptions.CrossHairColor, 0.5f, true);
                 }
-                if (dictionary.Count > 0.01)
-                {
-                    dictionary = (from pair in dictionary orderby pair.Value select pair).ToDictionary(pair => pair.Key, pair => pair.Value);
-                    Player player = dictionary.Keys.First();
-                    Camera.main.WorldToScreenPoint(player.Transform.position);
-                    player.PlayerBones.Head.position += new Vector3(0f, 0.07246377f, 0f);
-                    Vector3 vector3 = Main.Camera.WorldToScreenPoint(player.PlayerBones.Head.position);
-                    Weapon weapon = Main.LocalPlayer.Weapon;
-                    if (vector3.z > 0.01 && weapon != null)
-                    {
-                        Render.DrawLine(new Vector2(Screen.width / 2f, Screen.height / 2f), new Vector2(vector3.x, Screen.height - vector3.y), MiscVisualsOptions.CrossHairColor, 0.5f, true);
-                    }
-                }
+
             }
         }
 
@@ -129,10 +122,21 @@ namespace SivaEftCheat.Features
             {
                 Vector3 eulerAngles = Quaternion.LookRotation((position - Main.LocalPlayer.Fireport.position).normalized).eulerAngles;
                 if (eulerAngles.x > 180f)
-                {
                     eulerAngles.x -= 360f;
-                }
+
                 Main.LocalPlayer.MovementContext.Rotation = new Vector2(eulerAngles.y, eulerAngles.x);
+            }
+        }
+
+        private void DrawFov()
+        {
+            if (AimbotOptions.DrawAimbotFov && AimbotOptions.Aimbot)
+            {
+                Render.DrawCircle(GameUtils.ScreenCenter, AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40);
+            }
+            if (AimbotOptions.DrawSilentFov && AimbotOptions.SilentAim)
+            {
+                Render.DrawCircle(GameUtils.ScreenCenter, AimbotOptions.SilentAimFov, Color.white, 0.5f, true, 40);
             }
         }
     }

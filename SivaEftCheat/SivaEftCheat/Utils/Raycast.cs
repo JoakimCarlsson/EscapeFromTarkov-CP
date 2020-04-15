@@ -20,7 +20,7 @@ namespace SivaEftCheat.Utils
         {
             Vector3 BodyPartToAim = GameUtils.FinalVector(player.PlayerBody.SkeletonRootJoint, bodypart);
             return Physics.Linecast(
-                Camera.main.transform.position,
+                Main.Camera.transform.position,
                 BodyPartToAim,
                 out _raycastHit,
                 LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;

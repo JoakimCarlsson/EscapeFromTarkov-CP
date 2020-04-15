@@ -66,13 +66,12 @@ namespace SivaEftCheat
                 {
                     Players.Clear();
                     var enumerator = GameWorld.RegisteredPlayers.GetEnumerator();
-
                     while (enumerator.MoveNext())
                     {
                         Player player = enumerator.Current;
                         if (player == null || player.IsYourPlayer())
                             continue;
-                        
+
                         Players.Add(new GamePlayer(player));
                     }
                 }

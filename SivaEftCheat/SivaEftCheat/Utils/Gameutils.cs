@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using EFT;
 using EFT.Interactive;
 using SivaEftCheat.Options;
@@ -12,6 +8,7 @@ namespace SivaEftCheat.Utils
 {
     class GameUtils
     {
+        public static Vector2 ScreenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
         public static Vector3 FinalVector(Diz.Skinning.Skeleton skeletor, int BoneId)
         {
             try

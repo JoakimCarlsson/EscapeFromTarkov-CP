@@ -62,7 +62,7 @@ namespace SivaEftCheat.Features
                     tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount} [{weapon.SelectedFireMode}]";
                 }
 
-                tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
+                tempHealth = $"💖 {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
 
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
             }
@@ -209,7 +209,6 @@ namespace SivaEftCheat.Features
                 {
                     Render.DrawTextOutline(new Vector2(20, 0), _test, Color.black, Color.white);
                     DrawCrossHair();
-                    DrawFov();
                     DrawHud();
                 }
                 catch { }
@@ -222,19 +221,6 @@ namespace SivaEftCheat.Features
             if (MiscOptions.DrawHud)
             {
                 Render.DrawString1(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);
-            }
-        }
-
-
-        private void DrawFov()
-        {
-            if (AimbotOptions.DrawAimbotFov)
-            {
-                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40);
-            }
-            if (AimbotOptions.DrawSilentFov)
-            {
-                Render.DrawCircle(new Vector2(Screen.width / 2, Screen.height / 2), AimbotOptions.SilentAimFov, Color.white, 0.5f, true, 40);
             }
         }
 

@@ -3,6 +3,7 @@ using System.Linq;
 using EFT;
 using EFT.InventoryLogic;
 using SivaEftCheat.Options;
+using SivaEftCheat.Utils;
 using UnityEngine;
 
 namespace SivaEftCheat.Features
@@ -35,7 +36,6 @@ namespace SivaEftCheat.Features
                     Vector3 test = player2.PlayerBones.Neck.position + new Vector3(0f, 0.07246377f, 0f);
                     if (vector3.z > 0.01 && weapon2 != null)
                     {
-                        
                         direction = (test - origin).normalized;
                     }
                 }

@@ -13,13 +13,14 @@ namespace SivaEftCheat.Data
     {
         public Player Player { get; }
 
-        public Vector3 ScreenPosition => screenPosition;
+        public Vector3 ScreenPosition => _screenPosition;
 
-        public Vector3 HeadScreenPosition => headScreenPosition;
+        public Vector3 HeadScreenPosition => _headScreenPosition;
 
         public bool IsOnScreen { get; private set; }
 
         public float Distance { get; private set; }
+        public float DistanceFromCenter { get; set; }
         public bool IsVisible { get; set; }
         public bool IsAI { get; private set; }
         public static int Value { get; set; }
@@ -30,8 +31,8 @@ namespace SivaEftCheat.Data
         public string FormattedDistance => $"{(int)Math.Round(Distance)}m";
         public string FormattedValue = $"{Value}K";
 
-        private Vector3 screenPosition;
-        private Vector3 headScreenPosition;
+        private Vector3 _screenPosition;
+        private Vector3 _headScreenPosition;
 
         public GamePlayer(Player player)
         {
@@ -39,14 +40,15 @@ namespace SivaEftCheat.Data
                 throw new ArgumentNullException(nameof(player));
 
             Player = player;
-            screenPosition = default;
-            headScreenPosition = default;
+            _screenPosition = default;
+            _headScreenPosition = default;
             IsOnScreen = false;
             Distance = 0f;
             Value = 0;
             IsAI = true;
             IsVisible = false;
             TeamMate = false;
+            DistanceFromCenter = 0f;
         }
 
         public void RecalculateDynamics()
@@ -54,20 +56,21 @@ namespace SivaEftCheat.Data
             if (!GameUtils.IsPlayerValid(Player))
                 return;
 
-            screenPosition = GameUtils.WorldPointToScreenPoint(Player.Transform.position);
+            _screenPosition = GameUtils.WorldPointToScreenPoint(Player.Transform.position);
 
             if (Player.PlayerBones != null)
-                headScreenPosition = GameUtils.WorldPointToScreenPoint(Player.PlayerBones.Head.position);
+                _headScreenPosition = GameUtils.WorldPointToScreenPoint(Player.PlayerBones.Head.position);
 
             if ((Player.Profile != null) && (Player.Profile.Info != null))
                 IsAI = (Player.Profile.Info.RegistrationDate <= 0);
 
 
-            IsOnScreen = GameUtils.IsScreenPointVisible(screenPosition);
+            IsOnScreen = GameUtils.IsScreenPointVisible(_screenPosition);
             Distance = Vector3.Distance(Main.Camera.transform.position, Player.Transform.position);
             IsVisible = RayCast.IsVisible(Player);
             TeamMate = IsInYourGroup(Player);
             Value = CalculateValue(Player);
+            DistanceFromCenter = Vector2.Distance(Main.Camera.WorldToScreenPoint(Player.PlayerBones.Head.position), GameUtils.ScreenCenter);
         }
 
         public bool IsInYourGroup(Player player)
