@@ -166,7 +166,7 @@ namespace SivaEftCheat
                     MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "SpeedHack");
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Speed Hack: {MiscOptions.SpeedHackValue}");
-                    MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
+                    MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider((float) MiscOptions.SpeedHackValue, 0f, 1f);
                     GUILayout.EndHorizontal();
                     MiscOptions.DoorUnlocker = GUILayout.Toggle(MiscOptions.DoorUnlocker, $"DoorUnlocker: {MiscOptions.DoorUnlockerKey}");
                     MiscOptions.ThermalVison = GUILayout.Toggle(MiscOptions.ThermalVison, $"Thermal Vison: {MiscOptions.ThermalVisonKey}");

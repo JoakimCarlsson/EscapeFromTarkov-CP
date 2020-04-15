@@ -109,13 +109,13 @@ namespace SivaEftCheat.Features
         private void SpeedHack()
         {
             if (Input.GetKey(KeyCode.W))
-                Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * MiscOptions.SpeedHackValue;
+                Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * (float) MiscOptions.SpeedHackValue;
             if (Input.GetKey(KeyCode.S))
-                Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * MiscOptions.SpeedHackValue;
+                Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * (float) MiscOptions.SpeedHackValue;
             if (Input.GetKey(KeyCode.A))
-                Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
+                Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * (float) MiscOptions.SpeedHackValue;
             if (Input.GetKey(KeyCode.D))
-                Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
+                Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * (float) MiscOptions.SpeedHackValue;
         }
 
         private void InfiniteStamina()

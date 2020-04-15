@@ -21,6 +21,12 @@ namespace SivaEftCheat.Features.ESP
             StartCoroutine(_coroutineUpdate);
         }
 
+        private void FixedUpdate()
+        {
+            foreach (var exfiltrationPoint in exfiltrationPoints)
+                exfiltrationPoint.RecalculateDynamics();
+        }
+
         private IEnumerator Updates(float waitTime)
         {
             while (true)
