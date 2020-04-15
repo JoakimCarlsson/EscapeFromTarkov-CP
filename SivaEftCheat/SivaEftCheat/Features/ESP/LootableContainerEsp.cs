@@ -26,7 +26,7 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawLootableContainers && Main.Camera != null)
                 {
-                    Render.DrawTextOutline(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.black, Color.white);
+                    Render.DrawString1(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.white);
 
                     int x = -20;
                     foreach (var lootableContainer in Main.LootableContainers)
@@ -58,7 +58,7 @@ namespace SivaEftCheat.Features.ESP
                                 MiscVisualsOptions.LootableContainerColor = Color.white;
                             }
 
-                            Render.DrawTextOutline(new Vector2(lootableContainer.ScreenPosition.x, lootableContainer.ScreenPosition.y - x), lootItemName, Color.black, MiscVisualsOptions.LootableContainerColor);
+                            Render.DrawString1(new Vector2(lootableContainer.ScreenPosition.x, lootableContainer.ScreenPosition.y - x), lootItemName, MiscVisualsOptions.LootableContainerColor);
                             x -= 20;
                         }
                     }

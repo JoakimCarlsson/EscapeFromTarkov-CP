@@ -24,8 +24,6 @@ namespace SivaEftCheat.Data
         public bool IsAI { get; private set; }
         public static int Value { get; set; }
         public bool TeamMate { get; set; }
-        public Vector3 StartPosition { get; set; }
-        public Vector3 EndPosition { get; set; }
 
         private static string Group = string.Empty;
 
@@ -73,8 +71,7 @@ namespace SivaEftCheat.Data
             Value = CalculateValue(Player);
             DistanceFromCenter = Vector2.Distance(Main.Camera.WorldToScreenPoint(Player.PlayerBones.Head.position), GameUtils.ScreenCenter);
 
-            EndPosition = GameUtils.WorldPointToScreenPoint(RayCast.BarrelRayCast(Player));
-            StartPosition = GameUtils.WorldPointToScreenPoint(Player.Fireport.position);
+
         }
 
         public bool IsInYourGroup(Player player)

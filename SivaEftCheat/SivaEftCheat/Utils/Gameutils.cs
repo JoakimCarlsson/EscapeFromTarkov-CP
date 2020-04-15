@@ -74,10 +74,6 @@ namespace SivaEftCheat.Utils
 
             return screenPoint;
         }
-        public static float InPoint(Vector3 c1, Vector3 c2)
-        {
-            return (c1 - c2).sqrMagnitude;
-        }
         public static bool IsScreenPointVisible(Vector3 screenPoint)
         {
             return screenPoint.z > 0.01f && screenPoint.x > -5f && screenPoint.y > -5f && screenPoint.x < Screen.width && screenPoint.y < Screen.height;

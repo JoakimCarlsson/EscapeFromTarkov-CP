@@ -25,7 +25,7 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawItems && Main.Camera != null)
                 {
-                    Render.DrawTextOutline(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.black, Color.white);
+                    Render.DrawString1(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.white);
 
                     foreach (var lootItem in Main.LootItems)
                     {

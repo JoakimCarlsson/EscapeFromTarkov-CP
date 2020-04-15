@@ -14,7 +14,7 @@ namespace SivaEftCheat.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {
-        private void FixedUpdate()
+        private void Update()
         {
             foreach (GamePlayer gamePlayer in Main.Players)
                 gamePlayer.RecalculateDynamics();
@@ -24,7 +24,7 @@ namespace SivaEftCheat.Features.ESP
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
             {
-                Render.DrawTextOutline(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.black, Color.white);
+                Render.DrawString1(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white);
                 try
                 {
                     foreach (var player in Main.Players)
@@ -87,7 +87,9 @@ namespace SivaEftCheat.Features.ESP
 
         private static void DrawPlayerAim(GamePlayer player, Color playerColor)
         {
-            Render.DrawLine(player.StartPosition, player.EndPosition, playerColor, 0.5f, true);
+            Vector3 endPosition = GameUtils.WorldPointToScreenPoint(RayCast.BarrelRayCast(player.Player));
+            Vector3 startPosition = GameUtils.WorldPointToScreenPoint(player.Player.Fireport.position);
+            Render.DrawLine(startPosition, endPosition, playerColor, 0.5f, true);
         }
 
         private static void DrawHealthBar(GamePlayer player)
@@ -236,7 +238,7 @@ namespace SivaEftCheat.Features.ESP
                 if (bones.ContainsKey(start) && bones.ContainsKey(stop) && GameUtils.IsScreenPointVisible(bones[start]) && GameUtils.IsScreenPointVisible(bones[stop]))
                 {
                     //GameUtils.IsVisible(bones[stop])?  Color.green : Color.red
-                    Render.DrawLine(bones[start], bones[stop], 2.5f, Color.white);
+                    Render.DrawLine(bones[start], bones[stop], 2.5f, Color.red);
                 }
             }
             catch

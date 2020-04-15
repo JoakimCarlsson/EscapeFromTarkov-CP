@@ -14,7 +14,6 @@ namespace SivaEftCheat.Features
 {
     class Misc : MonoBehaviour
     {
-        private string _test = string.Empty;
         private string _hud = string.Empty;
         private void FixedUpdate()
         {
@@ -62,7 +61,7 @@ namespace SivaEftCheat.Features
                     tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount} [{weapon.SelectedFireMode}]";
                 }
 
-                tempHealth = $"💖 {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
+                tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
 
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
             }
@@ -76,7 +75,6 @@ namespace SivaEftCheat.Features
                 Main.LocalPlayer.Weapon.GetItemComponent<FireModeComponent>().FireMode = Weapon.EFireMode.fullauto;
                 Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.BoltAction = false;
                 Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate = 1000;
-                _test = Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate.ToString();
             }
         }
 
@@ -207,7 +205,6 @@ namespace SivaEftCheat.Features
             {
                 try
                 {
-                    Render.DrawTextOutline(new Vector2(20, 0), _test, Color.black, Color.white);
                     DrawCrossHair();
                     DrawHud();
                 }

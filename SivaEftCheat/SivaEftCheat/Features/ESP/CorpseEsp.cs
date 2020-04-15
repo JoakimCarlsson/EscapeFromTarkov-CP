@@ -53,7 +53,7 @@ namespace SivaEftCheat.Features.ESP
                                             lootItemName = allItem.Name.Localized();
                                             MiscVisualsOptions.LootableContainerColor = Color.white;
                                         }
-                                        Render.DrawTextOutline(new Vector2(screenPosition.x, screenPosition.y - x), lootItemName, Color.black, MiscVisualsOptions.LootableContainerColor);
+                                        Render.DrawString1(new Vector2(screenPosition.x, screenPosition.y - x), lootItemName, MiscVisualsOptions.LootableContainerColor);
                                         x -= 20;
                                     }
                                 }
