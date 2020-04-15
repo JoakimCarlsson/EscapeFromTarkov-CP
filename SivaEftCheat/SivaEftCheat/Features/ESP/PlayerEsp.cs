@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EFT;
 using EFT.InventoryLogic;
@@ -28,48 +29,53 @@ namespace SivaEftCheat.Features.ESP
                 {
                     foreach (var player in Main.Players)
                     {
-                        bool isScav = player.IsAI;
-
-                        if ((!isScav || PlayerOptions.DrawScavs) && (isScav || PlayerOptions.DrawPlayers))
+                        if ((!player.IsAI || PlayerOptions.DrawScavs) && (player.IsAI || PlayerOptions.DrawPlayers))
                         {
-                            bool inRange = isScav && player.Distance <= PlayerOptions.DrawScavsRange || !isScav && player.Distance <= PlayerOptions.DrawPlayerRange;
+                            bool inRange = player.IsAI && player.Distance <= PlayerOptions.DrawScavsRange || !player.IsAI && player.Distance <= PlayerOptions.DrawPlayerRange;
 
                             if (inRange)
                             {
                                 if (player.IsOnScreen)
                                 {
-                                    string nameText = isScav ? "SCAV" : player.Player.Profile.Info.Nickname;
-                                    string healthNumberText = player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current.ToString();
+                                    Color playerColor = GetPlayerColor(player);
 
-                                    Color playerColor = GetPlayerColor(player.IsVisible, GameUtils.IsFriend(player.Player), nameText);
+                                    string nameText = string.Empty;
+                                    string healthNumberText = string.Empty;
+                                    string distanceText = string.Empty;
 
+                                    if ((player.IsAI && PlayerOptions.DrawScavName) || (!player.IsAI && PlayerOptions.DrawPlayerName))
+                                        nameText = player.IsAI ? "[SCAV]" : $"[{player.Player.Profile.Info.Nickname}]";
 
-                                    string text = $"[{nameText}] [{healthNumberText} hp] [{player.FormattedDistance}] ";
+                                    if ((player.IsAI && PlayerOptions.DrawScavHealth) || (!player.IsAI && PlayerOptions.DrawPlayerHealth))
+                                        healthNumberText = $"[{player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current}  hp]";
 
-                                    if (PlayerOptions.DrawPlayerLevel && !isScav)
-                                    {
+                                    if ((player.IsAI && PlayerOptions.DrawScavDistance) || (!player.IsAI && PlayerOptions.DrawPlayerDistance))
+                                        distanceText = $"[{player.FormattedDistance}]";
+
+                                    string text = $"{nameText} {healthNumberText} {distanceText} ";
+
+                                    if (PlayerOptions.DrawPlayerLevel && !player.IsAI)
                                         text += $" [{player.Player.Profile.Info.Level} lvl]";
-                                    }
 
                                     Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, playerColor);
 
 
-                                    if ((isScav && PlayerOptions.DrawScavAimPos) || (!isScav && PlayerOptions.DrawPlayerAimPos))
+                                    if ((player.IsAI && PlayerOptions.DrawScavAimPos) || (!player.IsAI && PlayerOptions.DrawPlayerAimPos))
                                         DrawPlayerAim(player, playerColor);
 
-                                    if ((isScav && PlayerOptions.DrawScavHealthBar) || (!isScav && PlayerOptions.DrawPlayerHealthBar))
+                                    if ((player.IsAI && PlayerOptions.DrawScavHealthBar) || (!player.IsAI && PlayerOptions.DrawPlayerHealthBar))
                                         DrawHealthBar(player);
 
-                                    if ((isScav && PlayerOptions.DrawScavWeapon) || (!isScav && PlayerOptions.DrawPlayerWeapon))
+                                    if ((player.IsAI && PlayerOptions.DrawScavWeapon) || (!player.IsAI && PlayerOptions.DrawPlayerWeapon))
                                         DrawWeaponText(player, playerColor);
 
-                                    if ((isScav && PlayerOptions.DrawScavValue) || (!isScav && PlayerOptions.DrawPlayerValue))
+                                    if ((player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue))
                                         DrawValueText(player, playerColor);
 
-                                    if ((isScav && PlayerOptions.DrawScavCornerBox) || (!isScav && PlayerOptions.DrawPlayerCornerBox))
+                                    if ((player.IsAI && PlayerOptions.DrawScavCornerBox) || (!player.IsAI && PlayerOptions.DrawPlayerCornerBox))
                                         DrawBox(player, playerColor);
 
-                                    if ((isScav && PlayerOptions.DrawScavSkeleton) || (!isScav && PlayerOptions.DrawPlayerSkeleton))
+                                    if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
                                         DrawSkeleton(player.Player);
                                 }
                             }
@@ -123,20 +129,30 @@ namespace SivaEftCheat.Features.ESP
                 playerColor, true);
         }
 
-        public static Color GetPlayerColor(bool isVisible, bool isFriend, string side)
+        public static Color GetPlayerColor(GamePlayer player)
         {
-            if (isVisible)
+            if (player.IsVisible)
             {
                 return Color.green;
             }
-            if (isFriend)
+            if (GameUtils.IsFriend(player.Player))
             {
                 return PlayerOptions.FriendColor;
             }
-            if (side != null && side == "SCAV")
+            if (player.Player.Profile.Info.Settings.IsBoss())
             {
-                return PlayerOptions.Scav;
+                return PlayerOptions.BossColor;
             }
+            if (player.IsAI)
+            {
+                return PlayerOptions.ScavColor;
+            }
+
+            if (player.Player.Profile.Info.Side == EPlayerSide.Savage)
+            {
+                return PlayerOptions.PlayerScavColor;
+            }
+
 
             return PlayerOptions.PlayerColor;
         }

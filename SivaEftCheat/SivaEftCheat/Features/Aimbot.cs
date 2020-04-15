@@ -25,7 +25,7 @@ namespace SivaEftCheat.Features
                     if (AimbotOptions.SilentAim && NotHooked)
                     {
                         createShotHook = new TestHook();
-                        createShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(SilentAim).GetMethod("SilentAimHook"));
+                        createShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
                         createShotHook.Hook();
                         NotHooked = false;
                     }

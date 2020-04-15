@@ -20,7 +20,10 @@ namespace SivaEftCheat.Utils
             }
             catch { return Vector3.zero; }
         }
-
+        public static bool IsExfiltrationPointValid(ExfiltrationPoint extractPoint)
+        {
+            return extractPoint != null;
+        }
         public static bool IsSpecialLootItem(string templateId)
         {
             return MiscVisualsOptions.RareItems.Contains(templateId);

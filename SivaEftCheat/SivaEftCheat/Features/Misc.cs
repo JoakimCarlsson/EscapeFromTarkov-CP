@@ -75,7 +75,7 @@ namespace SivaEftCheat.Features
             {
                 Main.LocalPlayer.Weapon.GetItemComponent<FireModeComponent>().FireMode = Weapon.EFireMode.fullauto;
                 Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.BoltAction = false;
-                Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate = 3000;
+                Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate = 1000;
                 _test = Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate.ToString();
             }
         }
@@ -94,10 +94,9 @@ namespace SivaEftCheat.Features
             {
                 if (Input.GetKeyDown(MiscOptions.DoorUnlockerKey))
                 {
-                    foreach (var door in FindObjectsOfType<WorldInteractiveObject>())
+                    foreach (var door in LocationScene.GetAllObjects<WorldInteractiveObject>())
                     {
-                        if (door.DoorState == EDoorState.Open ||
-                            Vector3.Distance(door.transform.position, Main.LocalPlayer.Position) > 10f)
+                        if (door.DoorState == EDoorState.Open || Vector3.Distance(door.transform.position, Main.LocalPlayer.Position) > 10f)
                             continue;
 
                         door.DoorState = EDoorState.Shut;

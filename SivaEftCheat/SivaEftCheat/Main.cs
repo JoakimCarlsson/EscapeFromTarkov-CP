@@ -52,6 +52,7 @@ namespace SivaEftCheat
             HookObject.AddComponent<Misc>();
             HookObject.AddComponent<CorpseEsp>();
             HookObject.AddComponent<Aimbot>();
+            HookObject.AddComponent<GrenadeEsp>();
 
             DontDestroyOnLoad(HookObject);
         }

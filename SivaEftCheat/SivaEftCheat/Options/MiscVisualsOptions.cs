@@ -17,7 +17,6 @@ namespace SivaEftCheat.Options
         public static Color CrossHairColor = Color.green;
         public static Color ExtractColor = Color.green;
 
-
         public static bool DrawItems = true;
         public static bool DrawCommonItems = false;
         public static bool DrawRareItems = false;
@@ -245,6 +244,5 @@ namespace SivaEftCheat.Options
             "5d02778e86f774203e7dedbe",
             "5755383e24597772cb798966"
         });
-
     }
 }

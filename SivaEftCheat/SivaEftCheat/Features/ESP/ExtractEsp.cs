@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using EFT;
 using EFT.Interactive;
 using EFT.UI;
+using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace SivaEftCheat.Features.ESP
     class ExtractEsp : MonoBehaviour
     {
         private IEnumerator _coroutineUpdate;
-        private readonly List<ExfiltrationPoint> exfiltrationPoints = new List<ExfiltrationPoint>();
+        private readonly List<GameExtractPoint> exfiltrationPoints = new List<GameExtractPoint>();
         private void Start()
         {
             _coroutineUpdate = Updates(2.5f);
@@ -48,7 +49,7 @@ namespace SivaEftCheat.Features.ESP
                             if (exfiltrationPoint == null)
                                 continue;
 
-                            exfiltrationPoints.Add(exfiltrationPoint);
+                            exfiltrationPoints.Add(new GameExtractPoint(exfiltrationPoint));
                         }
                     }
                 }
@@ -60,22 +61,15 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                //GUI.Label(new Rect(20, 80, 1000, 500), $"Debug Text: Extract Count: {exfiltrationPoints.Count}");
-
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp)
                 {
-                    //GUI.Label(new Rect(20f, 20f, 500f, 500f), $"Extract Debug text: {exfiltrationPoints.Count}");
-
-                    foreach (ExfiltrationPoint exfiltrationPoint in exfiltrationPoints)
+                    foreach (GameExtractPoint exfiltrationPoint in exfiltrationPoints)
                     {
-                        Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(exfiltrationPoint.transform.position);
-                        bool isOnScreen = GameUtils.IsScreenPointVisible(screenPosition);
-                        float num = GameUtils.InPoint(Main.Camera.transform.position, exfiltrationPoint.transform.position);
-                        if (isOnScreen)
+                        if (exfiltrationPoint.IsOnScreen)
                         {
-                            string exfiltrationPointText = $"{exfiltrationPoint.Settings.Name} [{(int)Math.Sqrt(num)} m]";
+                            string exfiltrationPointText = $"{exfiltrationPoint.Name} [{exfiltrationPoint.FormattedDistance}]";
 
-                            Render.DrawTextOutline(screenPosition, exfiltrationPointText, Color.black, MiscVisualsOptions.ExtractColor);
+                            Render.DrawString1(exfiltrationPoint.ScreenPosition, exfiltrationPointText, MiscVisualsOptions.ExtractColor);
                         }
                     }
                 }

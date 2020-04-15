@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SivaEftCheat.Features
 {
-    public class SilentAim
+    public class HookObject
     {
         public object SilentAimHook(object ammo, Vector3 origin, Vector3 direction, int fireIndex, Player player, Item weapon, float speedFactor = 1f, int fragmentIndex = 0)
         {
@@ -32,10 +32,11 @@ namespace SivaEftCheat.Features
                     Main.Camera.WorldToScreenPoint(player2.Transform.position);
                     Vector3 vector3 = Main.Camera.WorldToScreenPoint(player2.Transform.position);
                     Weapon weapon2 = Main.LocalPlayer.Weapon;
+                    Vector3 test = player2.PlayerBones.Neck.position + new Vector3(0f, 0.07246377f, 0f);
                     if (vector3.z > 0.01 && weapon2 != null)
                     {
-                        player2.PlayerBones.Head.position += new Vector3(0f, 0.07246377f, 0f);
-                        direction = (player2.PlayerBones.Head.position - origin).normalized;
+                        
+                        direction = (test - origin).normalized;
                     }
                 }
             }

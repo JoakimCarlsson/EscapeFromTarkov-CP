@@ -100,9 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="Data\GameExtractPoint.cs" />
     <Compile Include="Data\GameLootContainer.cs" />
     <Compile Include="Data\GameLootItem.cs" />
     <Compile Include="Data\GamePlayer.cs" />
+    <Compile Include="Features\ESP\GrenadeEsp.cs" />
     <Compile Include="TestHook.cs" />
     <Compile Include="Enums\HumanBones.cs" />
     <Compile Include="Features\Aimbot.cs" />
@@ -112,7 +114,7 @@
     <Compile Include="Features\ESP\LootableContainerEsp.cs" />
     <Compile Include="Features\ESP\PlayerEsp.cs" />
     <Compile Include="Features\Misc.cs" />
-    <Compile Include="Features\SilentAim.cs" />
+    <Compile Include="Features\HookObject.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Menu.cs" />

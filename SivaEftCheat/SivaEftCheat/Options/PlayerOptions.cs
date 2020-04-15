@@ -5,9 +5,11 @@ namespace SivaEftCheat.Options
     static class PlayerOptions
     {
         public static Color PlayerColor = Color.red;
-        public static Color Scav = Color.yellow;
-        public static Color PlayerScav = Color.magenta;
+        public static Color ScavColor = Color.yellow;
+        public static Color PlayerScavColor = Color.magenta;
         public static Color FriendColor = Color.green;
+        public static Color BossColor = Color.red;
+
 
         public static bool DrawCorpses = true;
         public static float DrawPlayerRange = 300f;
