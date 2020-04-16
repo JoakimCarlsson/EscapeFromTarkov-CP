@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using BSG.CameraEffects;
 using EFT;
+using EFT.Ballistics;
 using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
+using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -15,6 +17,9 @@ namespace SivaEftCheat.Features
     class Misc : MonoBehaviour
     {
         private string _hud = string.Empty;
+        public static bool NotHooked = true;
+        public static TestHook BulletPenetrationHook;
+
         private void FixedUpdate()
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
@@ -34,8 +39,60 @@ namespace SivaEftCheat.Features
                     AlwaysAutomatic();
                     PrepareHud();
                     DontMoveWeaponCloser();
+                    BulletPenetration();
+                    FullBrightUpdate();
+                    FullBrightCreateObject();
+
                 }
                 catch { }
+            }
+        }
+
+        private void FullBrightCreateObject()
+        {
+            if (!GameFullBright.LightCalled && GameFullBright.Enabled)
+            {
+                GameFullBright.LightGameObject = new GameObject("Fullbright");
+                GameFullBright.FullBrightLight = GameFullBright.LightGameObject.AddComponent<Light>();
+                GameFullBright.FullBrightLight.color = new Color(1f, 0.839f, 0.66f, 1f);
+                GameFullBright.FullBrightLight.range = 2000f;
+                GameFullBright.FullBrightLight.intensity = 0.6f;
+                GameFullBright.LightCalled = true;
+            }
+        }
+
+        private static Vector3 tempPosition = Vector3.zero;
+
+        private void FullBrightUpdate()
+        {
+                if (MiscOptions.ForceLight)
+                {
+                    GameFullBright.Enabled = true;
+
+                    if (GameFullBright.FullBrightLight == null) 
+                        return;
+
+                    tempPosition = Main.LocalPlayer.Transform.position;
+                    tempPosition.y += .2f;
+                    GameFullBright.LightGameObject.transform.position = tempPosition;
+                }
+                else
+                {
+                    if (GameFullBright.FullBrightLight != null)
+                        Destroy(GameFullBright.FullBrightLight);
+
+                    GameFullBright.LightCalled = false;
+                }
+        }
+
+        private void BulletPenetration()
+        {
+            if (MiscOptions.BulletPenetration && NotHooked)
+            {
+                BulletPenetrationHook = new TestHook();
+                BulletPenetrationHook.Init(typeof(BallisticsCalculator).GetMethod("GetAmmoPenetrationPower"), typeof(HookObject).GetMethod("BulletPenetration"));
+                BulletPenetrationHook.Hook();
+                NotHooked = false;
             }
         }
 
@@ -43,7 +100,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DontMoveWeaponCloser)
             {
-               Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EFT.Animations.EProceduralAnimationMask.ForceReaction;
+                Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EFT.Animations.EProceduralAnimationMask.ForceReaction;
             }
         }
 
@@ -106,14 +163,18 @@ namespace SivaEftCheat.Features
 
         private void SpeedHack()
         {
-            if (Input.GetKey(KeyCode.W))
-                Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * (float) MiscOptions.SpeedHackValue;
-            if (Input.GetKey(KeyCode.S))
-                Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * (float) MiscOptions.SpeedHackValue;
-            if (Input.GetKey(KeyCode.A))
-                Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * (float) MiscOptions.SpeedHackValue;
-            if (Input.GetKey(KeyCode.D))
-                Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * (float) MiscOptions.SpeedHackValue;
+            if (MiscOptions.SpeedHack)
+            {
+                if (Input.GetKey(KeyCode.W))
+                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * (float)MiscOptions.SpeedHackValue;
+                if (Input.GetKey(KeyCode.S))
+                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * (float)MiscOptions.SpeedHackValue;
+                if (Input.GetKey(KeyCode.A))
+                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * (float)MiscOptions.SpeedHackValue;
+                if (Input.GetKey(KeyCode.D))
+                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * (float)MiscOptions.SpeedHackValue;
+            }
+
         }
 
         private void InfiniteStamina()

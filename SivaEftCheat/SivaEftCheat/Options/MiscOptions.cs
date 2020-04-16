@@ -31,7 +31,8 @@ namespace SivaEftCheat.Options
         public static bool InstantHit = false;
         public static bool DontMoveWeaponCloser = true;
 
-        public static double SpeedHackValue = 0f;
+        public static float SpeedHackValue = 0f;
         public static bool DrawHud = true;
+        public static bool ForceLight = false;
     }
 }

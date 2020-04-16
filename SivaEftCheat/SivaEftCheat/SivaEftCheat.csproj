@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Access.cs" />
     <Compile Include="Data\GameExtractPoint.cs" />
+    <Compile Include="Data\GameFullBright.cs" />
     <Compile Include="Data\GameLootContainer.cs" />
     <Compile Include="Data\GameLootItem.cs" />
     <Compile Include="Data\GamePlayer.cs" />

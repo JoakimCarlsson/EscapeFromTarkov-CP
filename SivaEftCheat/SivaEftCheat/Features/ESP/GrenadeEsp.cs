@@ -18,10 +18,7 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                if (Input.GetKey(KeyCode.T))
-                {
 
-                }
             }
             catch { }
         }

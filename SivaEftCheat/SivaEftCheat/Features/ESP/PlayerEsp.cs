@@ -24,7 +24,7 @@ namespace SivaEftCheat.Features.ESP
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
             {
-                Render.DrawString1(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white);
+                Render.DrawString1(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white, false);
                 try
                 {
                     foreach (var player in Main.Players)
@@ -68,7 +68,7 @@ namespace SivaEftCheat.Features.ESP
                                     if ((player.IsAI && PlayerOptions.DrawScavWeapon) || (!player.IsAI && PlayerOptions.DrawPlayerWeapon))
                                         DrawWeaponText(player, playerColor);
 
-                                    if ((player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue))
+                                    if (player.Value != 0 && (player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue) )
                                         DrawValueText(player, playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavCornerBox) || (!player.IsAI && PlayerOptions.DrawPlayerCornerBox))
@@ -76,6 +76,11 @@ namespace SivaEftCheat.Features.ESP
 
                                     if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
                                         DrawSkeleton(player.Player);
+
+                                    if (player.HasSpecialItem)
+                                    {
+                                        Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
+                                    }
                                 }
                             }
                         }
@@ -238,7 +243,7 @@ namespace SivaEftCheat.Features.ESP
                 if (bones.ContainsKey(start) && bones.ContainsKey(stop) && GameUtils.IsScreenPointVisible(bones[start]) && GameUtils.IsScreenPointVisible(bones[stop]))
                 {
                     //GameUtils.IsVisible(bones[stop])?  Color.green : Color.red
-                    Render.DrawLine(bones[start], bones[stop], 2.5f, Color.red);
+                    Render.DrawLine(bones[start], bones[stop], 2.5f, Color.white);
                 }
             }
             catch

@@ -1,4 +1,5 @@
-﻿using SivaEftCheat.Options;
+﻿using System;
+using SivaEftCheat.Options;
 using UnityEngine;
 
 namespace SivaEftCheat
@@ -165,13 +166,14 @@ namespace SivaEftCheat
                     MiscOptions.InfiniteStamina = GUILayout.Toggle(MiscOptions.InfiniteStamina, "Infinite Stamina");
                     MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "SpeedHack");
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Speed Hack: {MiscOptions.SpeedHackValue}");
-                    MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider((float) MiscOptions.SpeedHackValue, 0f, 1f);
+                    GUILayout.Label($"Speed Hack: {(float)Math.Round(MiscOptions.SpeedHackValue, 1, MidpointRounding.ToEven)}");
+                    MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
                     GUILayout.EndHorizontal();
                     MiscOptions.DoorUnlocker = GUILayout.Toggle(MiscOptions.DoorUnlocker, $"DoorUnlocker: {MiscOptions.DoorUnlockerKey}");
                     MiscOptions.ThermalVison = GUILayout.Toggle(MiscOptions.ThermalVison, $"Thermal Vison: {MiscOptions.ThermalVisonKey}");
                     MiscOptions.NightVison = GUILayout.Toggle(MiscOptions.NightVison, $"Night Vison: {MiscOptions.NightVisonKey}");
-                    MiscOptions.NoVisor = GUILayout.Toggle(MiscOptions.NoVisor, $"No Visor");
+                    MiscOptions.NoVisor = GUILayout.Toggle(MiscOptions.NoVisor, "No Visor");
+                    MiscOptions.ForceLight = GUILayout.Toggle(MiscOptions.ForceLight, "Force Light");
                     MiscOptions.FlyHack = GUILayout.Toggle(MiscOptions.FlyHack, $"Fly Hack: {MiscOptions.FlyHackKey}");
 
                     GUILayout.Space(20);

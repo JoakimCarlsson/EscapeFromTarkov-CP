@@ -55,5 +55,10 @@ namespace SivaEftCheat.Features
             Aimbot.createShotHook.Hook();
             return result;
         }
+
+        public static float BulletPenetration(object ammo, int randomInt, object randoms)
+        {
+            return 500000f;
+        }
     }
 }

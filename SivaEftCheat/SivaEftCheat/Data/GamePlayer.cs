@@ -22,13 +22,15 @@ namespace SivaEftCheat.Data
         public float DistanceFromCenter { get; set; }
         public bool IsVisible { get; set; }
         public bool IsAI { get; private set; }
-        public static int Value { get; set; }
+        public int Value { get; set; }
         public bool TeamMate { get; set; }
+
+        public bool  HasSpecialItem { get; set; }
 
         private static string Group = string.Empty;
 
         public string FormattedDistance => $"{(int)Math.Round(Distance)}m";
-        public string FormattedValue = $"{Value}K";
+        public string FormattedValue => $"{Value}K";
 
         private Vector3 _screenPosition;
         private Vector3 _headScreenPosition;
@@ -48,6 +50,7 @@ namespace SivaEftCheat.Data
             IsVisible = false;
             TeamMate = false;
             DistanceFromCenter = 0f;
+            HasSpecialItem = false;
         }
 
         public void RecalculateDynamics()
@@ -63,15 +66,13 @@ namespace SivaEftCheat.Data
             if ((Player.Profile != null) && (Player.Profile.Info != null))
                 IsAI = (Player.Profile.Info.RegistrationDate <= 0);
 
-
             IsOnScreen = GameUtils.IsScreenPointVisible(_screenPosition);
             Distance = Vector3.Distance(Main.Camera.transform.position, Player.Transform.position);
             IsVisible = RayCast.IsVisible(Player);
             TeamMate = IsInYourGroup(Player);
             Value = CalculateValue(Player);
             DistanceFromCenter = Vector2.Distance(Main.Camera.WorldToScreenPoint(Player.PlayerBones.Head.position), GameUtils.ScreenCenter);
-
-
+            //HasSpecialItem = HasSpecialItems(Player);
         }
 
         public bool IsInYourGroup(Player player)
@@ -100,5 +101,27 @@ namespace SivaEftCheat.Data
             }
             return (value / 1000);
         }
+
+        //public bool HasSpecialItems(Player player)
+        //{
+        //    EquipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
+        //    while (EquipItemList.MoveNext())
+        //    {
+        //        _tempItem = EquipItemList.Current;
+        //        if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
+        //        {
+        //            var x = _tempItem.GetAllItems().GetEnumerator();
+        //            while (x.MoveNext())
+        //            {
+        //                if (x.Current != null && GameUtils.IsSpecialLootItem(x.Current.TemplateId))
+        //                {
+        //                    return true;
+        //                }
+        //            }
+        //        }
+
+        //    }
+        //    return false;
+        //}
     }
 }

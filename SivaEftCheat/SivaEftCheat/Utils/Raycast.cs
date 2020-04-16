@@ -19,11 +19,8 @@ namespace SivaEftCheat.Utils
         public static bool IsBodyPartVisible(Player player, int bodypart)
         {
             Vector3 BodyPartToAim = GameUtils.FinalVector(player.PlayerBody.SkeletonRootJoint, bodypart);
-            return Physics.Linecast(
-                Main.Camera.transform.position,
-                BodyPartToAim,
-                out _raycastHit,
-                LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
+            return Physics.Linecast(Main.Camera.transform.position, BodyPartToAim,
+                out _raycastHit, LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
         }
         public static Vector3 BarrelRayCast(Player player)
         {
