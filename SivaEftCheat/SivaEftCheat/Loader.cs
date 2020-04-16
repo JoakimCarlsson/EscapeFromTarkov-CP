@@ -2,38 +2,66 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SivaEftCheat.Features;
+using SivaEftCheat.Features.ESP;
 using UnityEngine;
 
 namespace SivaEftCheat
 {
     public class Loader
     {
-        public static GameObject HookObject;
-        public static Texture2D GreenTexture;
-        public static Texture2D RedTexture;
-
+        public static GameObject MainObject;
+        public static GameObject MenuObject;
+        public static GameObject ExtractObject;
+        public static GameObject ItemObject;
+        public static GameObject LootObject; 
+        public static GameObject PlayerObject;
+        public static GameObject MiscObject;
+        public static GameObject CorpseObject;
+        public static GameObject AimbotObject;
+        public static GameObject GrenadeObject;
 
         public void Start()
         {
-            RedTexture = new Texture2D(2, 2, TextureFormat.ARGB32, false);
-            RedTexture.SetPixel(0, 0, Color.red);
-            RedTexture.SetPixel(1, 0, Color.red);
-            RedTexture.SetPixel(0, 1, Color.red);
-            RedTexture.SetPixel(1, 1, Color.red);
-            RedTexture.Apply();
-            GreenTexture = new Texture2D(2, 2, TextureFormat.ARGB32, false);
-            GreenTexture.SetPixel(0, 0, Color.green);
-            GreenTexture.SetPixel(1, 0, Color.green);
-            GreenTexture.SetPixel(0, 1, Color.green);
-            GreenTexture.SetPixel(1, 1, Color.green);
-            GreenTexture.Apply();
+
         }
 
         public static void Load()
         {
-            HookObject = new GameObject();
-            HookObject.AddComponent<Main>();
-            Object.DontDestroyOnLoad(HookObject);
+            //Don't ask me why I did this. I don't know. 
+            
+            MainObject = new GameObject();
+            MenuObject = new GameObject();
+            ExtractObject = new GameObject();
+            ItemObject = new GameObject();
+            LootObject = new GameObject();
+            PlayerObject = new GameObject();
+            MiscObject = new GameObject();
+            CorpseObject = new GameObject();
+            AimbotObject = new GameObject();
+            GrenadeObject = new GameObject();
+
+            MainObject.AddComponent<Main>();
+            MenuObject.AddComponent<Menu>();
+            ExtractObject.AddComponent<ExtractEsp>();
+            ItemObject.AddComponent<ItemEsp>();
+            LootObject.AddComponent<LootableContainerEsp>();
+            PlayerObject.AddComponent<PlayerEsp>();
+            MiscObject.AddComponent<Misc>();
+            CorpseObject.AddComponent<CorpseEsp>();
+            AimbotObject.AddComponent<Aimbot>();
+            GrenadeObject.AddComponent<GrenadeEsp>();
+
+            Object.DontDestroyOnLoad(MainObject);
+            Object.DontDestroyOnLoad(MenuObject);
+            Object.DontDestroyOnLoad(ExtractObject);
+            Object.DontDestroyOnLoad(ItemObject);
+            Object.DontDestroyOnLoad(LootObject);
+            Object.DontDestroyOnLoad(PlayerObject);
+            Object.DontDestroyOnLoad(MiscObject);
+            Object.DontDestroyOnLoad(CorpseObject);
+            Object.DontDestroyOnLoad(AimbotObject);
+            Object.DontDestroyOnLoad(GrenadeObject);
         }
     }
 }

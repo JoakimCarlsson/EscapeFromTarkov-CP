@@ -11,6 +11,7 @@ using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
+using Random = System.Random;
 
 namespace SivaEftCheat.Features
 {
@@ -19,6 +20,7 @@ namespace SivaEftCheat.Features
         private string _hud = string.Empty;
         public static bool NotHooked = true;
         public static TestHook BulletPenetrationHook;
+        private static Vector3 _tempPosition = Vector3.zero;
 
         private void FixedUpdate()
         {
@@ -61,28 +63,27 @@ namespace SivaEftCheat.Features
             }
         }
 
-        private static Vector3 tempPosition = Vector3.zero;
 
         private void FullBrightUpdate()
         {
-                if (MiscOptions.ForceLight)
-                {
-                    GameFullBright.Enabled = true;
+            if (MiscOptions.ForceLight)
+            {
+                GameFullBright.Enabled = true;
 
-                    if (GameFullBright.FullBrightLight == null) 
-                        return;
+                if (GameFullBright.FullBrightLight == null)
+                    return;
 
-                    tempPosition = Main.LocalPlayer.Transform.position;
-                    tempPosition.y += .2f;
-                    GameFullBright.LightGameObject.transform.position = tempPosition;
-                }
-                else
-                {
-                    if (GameFullBright.FullBrightLight != null)
-                        Destroy(GameFullBright.FullBrightLight);
+                _tempPosition = Main.LocalPlayer.Transform.position;
+                _tempPosition.y += .2f;
+                GameFullBright.LightGameObject.transform.position = _tempPosition;
+            }
+            else
+            {
+                if (GameFullBright.FullBrightLight != null)
+                    Destroy(GameFullBright.FullBrightLight);
 
-                    GameFullBright.LightCalled = false;
-                }
+                GameFullBright.LightCalled = false;
+            }
         }
 
         private void BulletPenetration()

@@ -30,31 +30,17 @@ namespace SivaEftCheat
         private IEnumerator _coroutineUpdateMain;
         private IEnumerator _coroutineGetLists;
         private IEnumerator _coroutineGetPlayers;
-        private static GameObject HookObject;
 
         private void Start()
         {
             _coroutineUpdateMain = UpdateMain(10f);
             StartCoroutine(_coroutineUpdateMain);
 
-            _coroutineGetLists = GetLists(2f);
+            _coroutineGetLists = GetLists(1f);
             StartCoroutine(_coroutineGetLists);
 
             _coroutineGetPlayers = GetPlayers(1f);
             StartCoroutine(_coroutineGetPlayers);
-
-            HookObject = new GameObject();
-            HookObject.AddComponent<Menu>();
-            HookObject.AddComponent<ExtractEsp>();
-            HookObject.AddComponent<ItemEsp>();
-            HookObject.AddComponent<LootableContainerEsp>();
-            HookObject.AddComponent<PlayerEsp>();
-            HookObject.AddComponent<Misc>();
-            HookObject.AddComponent<CorpseEsp>();
-            HookObject.AddComponent<Aimbot>();
-            HookObject.AddComponent<GrenadeEsp>();
-
-            DontDestroyOnLoad(HookObject);
         }
 
         private IEnumerator GetPlayers(float waitTime)
@@ -69,8 +55,11 @@ namespace SivaEftCheat
                     while (enumerator.MoveNext())
                     {
                         Player player = enumerator.Current;
-                        if (player == null || player.IsYourPlayer())
+                        if (player ==null)
                             continue;
+                        
+                        if (player.IsYourPlayer())
+                            LocalPlayer = player;
 
                         Players.Add(new GamePlayer(player));
                     }
@@ -164,7 +153,6 @@ namespace SivaEftCheat
                     {
                         GameWorld = Singleton<GameWorld>.Instance;
                         Camera = Camera.main;
-                        LocalPlayer = GameWorld.RegisteredPlayers.Find(p => p.IsYourPlayer());
                     }
                 }
                 catch

@@ -76,7 +76,6 @@ namespace SivaEftCheat
                     PlayerOptions.DrawPlayerName = GUILayout.Toggle(PlayerOptions.DrawPlayerName, "Draw Player Name");
                     PlayerOptions.DrawPlayerLevel = GUILayout.Toggle(PlayerOptions.DrawPlayerLevel, "Draw Player Level");
                     PlayerOptions.DrawPlayerWeapon = GUILayout.Toggle(PlayerOptions.DrawPlayerWeapon, "Draw Player Weapon");
-                    PlayerOptions.DrawPlayerSnapLine = GUILayout.Toggle(PlayerOptions.DrawPlayerSnapLine, "Draw Player SnapLine");
                     PlayerOptions.DrawPlayerCornerBox = GUILayout.Toggle(PlayerOptions.DrawPlayerCornerBox, "Draw Player DrawBox");
                     PlayerOptions.DrawPlayerSkeleton = GUILayout.Toggle(PlayerOptions.DrawPlayerSkeleton, "Draw Player Skeleton");
                     PlayerOptions.DrawPlayerAimPos = GUILayout.Toggle(PlayerOptions.DrawPlayerAimPos, "Draw Player Aim Pos");
@@ -92,16 +91,15 @@ namespace SivaEftCheat
                     GUILayout.Space(20);
                     GUILayout.Label("Scavs");
                     PlayerOptions.DrawScavs = GUILayout.Toggle(PlayerOptions.DrawScavs, "Draw Scavs");
-                    PlayerOptions.DrawScavHealthBar = GUILayout.Toggle(PlayerOptions.DrawScavHealthBar, "Draw ScavColor Health Bar");
-                    PlayerOptions.DrawScavHealth = GUILayout.Toggle(PlayerOptions.DrawScavHealth, "Draw ScavColor Health");
-                    PlayerOptions.DrawScavName = GUILayout.Toggle(PlayerOptions.DrawScavName, "Draw ScavColor Name");
-                    PlayerOptions.DrawScavWeapon = GUILayout.Toggle(PlayerOptions.DrawScavWeapon, "Draw ScavColor Weapon");
-                    PlayerOptions.DrawScavSnapLine = GUILayout.Toggle(PlayerOptions.DrawScavSnapLine, "Draw ScavColor SnapLine");
-                    PlayerOptions.DrawScavCornerBox = GUILayout.Toggle(PlayerOptions.DrawScavCornerBox, "Draw ScavColor DrawBox");
-                    PlayerOptions.DrawScavSkeleton = GUILayout.Toggle(PlayerOptions.DrawScavSkeleton, "Draw ScavColor Skeleton");
-                    PlayerOptions.DrawScavAimPos = GUILayout.Toggle(PlayerOptions.DrawScavAimPos, "Draw ScavColor Aim Pos");
-                    PlayerOptions.DrawScavValue = GUILayout.Toggle(PlayerOptions.DrawScavValue, "Draw ScavColor Value");
-                    PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw ScavColor Distance");
+                    PlayerOptions.DrawScavHealthBar = GUILayout.Toggle(PlayerOptions.DrawScavHealthBar, "Draw Scav Health Bar");
+                    PlayerOptions.DrawScavHealth = GUILayout.Toggle(PlayerOptions.DrawScavHealth, "Draw Scav Health");
+                    PlayerOptions.DrawScavName = GUILayout.Toggle(PlayerOptions.DrawScavName, "Draw Scav Name");
+                    PlayerOptions.DrawScavWeapon = GUILayout.Toggle(PlayerOptions.DrawScavWeapon, "Draw Scav Weapon");
+                    PlayerOptions.DrawScavCornerBox = GUILayout.Toggle(PlayerOptions.DrawScavCornerBox, "Draw Scav DrawBox");
+                    PlayerOptions.DrawScavSkeleton = GUILayout.Toggle(PlayerOptions.DrawScavSkeleton, "Draw Scav Skeleton");
+                    PlayerOptions.DrawScavAimPos = GUILayout.Toggle(PlayerOptions.DrawScavAimPos, "Draw Scav Aim Pos");
+                    PlayerOptions.DrawScavValue = GUILayout.Toggle(PlayerOptions.DrawScavValue, "Draw Scav Value");
+                    PlayerOptions.DrawScavDistance = GUILayout.Toggle(PlayerOptions.DrawScavDistance, "Draw Scav Distance");
 
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"ScavColor Distance {(int)PlayerOptions.DrawScavsRange} m");
@@ -144,22 +142,22 @@ namespace SivaEftCheat
                     AimbotOptions.Aimbot = GUILayout.Toggle(AimbotOptions.Aimbot, "Aimbot");
                     AimbotOptions.DrawAimbotFov = GUILayout.Toggle(AimbotOptions.DrawAimbotFov, "Draw Aimbot Fov");
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Aimbot Fov {(int)AimbotOptions.AimbotFov} m");
-                    AimbotOptions.AimbotFov = GUILayout.HorizontalSlider(AimbotOptions.AimbotFov, 0f, 800f);
+                    GUILayout.Label($"Aimbot Fov {(int)AimbotOptions.AimbotFov}");
+                    AimbotOptions.AimbotFov = GUILayout.HorizontalSlider(AimbotOptions.AimbotFov, 0f, 1000f);
                     GUILayout.EndHorizontal();
                     if (GUILayout.Button("Aimbot Key: " + AimbotOptions.AimbotKey))
                         AimbotOptions.AimbotKey = KeyCode.None;
                     AimbotOptions.SilentAim = GUILayout.Toggle(AimbotOptions.SilentAim, "Silent Aim");
                     AimbotOptions.DrawSilentFov = GUILayout.Toggle(AimbotOptions.DrawSilentFov, "Draw Silent Aim Fov");
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Silent Aim Fov {(int)AimbotOptions.SilentAimFov} m");
-                    AimbotOptions.SilentAimFov = GUILayout.HorizontalSlider(AimbotOptions.SilentAimFov, 0f, 800f);
+                    GUILayout.Label($"Silent Aim Fov {(int)AimbotOptions.SilentAimFov}");
+                    AimbotOptions.SilentAimFov = GUILayout.HorizontalSlider(AimbotOptions.SilentAimFov, 0f, 1000f);
                     GUILayout.EndHorizontal();
                     AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");
 
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Distance {(int)AimbotOptions.Distnace} m");
-                    AimbotOptions.AimbotFov = GUILayout.HorizontalSlider(AimbotOptions.Distnace, 0f, 800);
+                    AimbotOptions.Distnace = GUILayout.HorizontalSlider(AimbotOptions.Distnace, 0f, 1000);
                     GUILayout.EndHorizontal();
                     break;
 
