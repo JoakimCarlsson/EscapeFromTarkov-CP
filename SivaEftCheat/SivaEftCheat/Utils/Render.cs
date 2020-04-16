@@ -123,11 +123,11 @@ namespace SivaEftCheat.Utils
             pos.x += 1f;
             pos.y += 1f;
             Color color = Color.green;
-            if (health <= 50f)
+            if (health <= maxHealth / 2)
             {
                 color = Color.yellow;
             }
-            if (health <= 25f)
+            if (health <= maxHealth / 4)
             {
                 color = Color.red;
             }

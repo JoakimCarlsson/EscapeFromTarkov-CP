@@ -86,8 +86,6 @@ namespace SivaEftCheat.Utils
 
         public static void DrawHealth(Vector2 pos, float width, float height, float health, float maxHealth)
         {
-            try
-            {
                 Render.BoxRect(new Rect(pos.x, pos.y, width, height), Color.black);
                 pos.x += 1f;
                 pos.y += 1f;
@@ -101,10 +99,6 @@ namespace SivaEftCheat.Utils
                     color = Color.red;
                 }
                 Render.BoxRect(new Rect(pos.x, pos.y, width * (health / maxHealth * 100f) / 100f - 2f, height - 2f), color);
-            }
-            catch
-            {
-            }
         }
     }
 }
