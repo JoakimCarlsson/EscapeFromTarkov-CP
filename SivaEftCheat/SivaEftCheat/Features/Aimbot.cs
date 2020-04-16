@@ -44,7 +44,7 @@ namespace SivaEftCheat.Features
             foreach (var player in Main.Players)
             {
                 Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
-                if (player.Distance <= AimbotOptions.AimbotDistnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
+                if (player.Distance <= AimbotOptions.Distnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
                 {
                     dictionary.Add(player, (int)player.DistanceFromCenter);
                 }
