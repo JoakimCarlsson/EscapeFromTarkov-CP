@@ -44,10 +44,15 @@ namespace SivaEftCheat.Features
                     BulletPenetration();
                     FullBrightUpdate();
                     FullBrightCreateObject();
-
+                    Test();
                 }
                 catch { }
             }
+        }
+
+        private void Test()
+        {
+
         }
 
         private void FullBrightCreateObject()

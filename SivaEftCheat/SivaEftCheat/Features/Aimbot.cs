@@ -14,8 +14,9 @@ namespace SivaEftCheat.Features
     class Aimbot : MonoBehaviour
     {
         public static bool NotHooked = true;
-        public static TestHook createShotHook;
-        private GamePlayer _target;
+        public static TestHook CreateShotHook;
+        public static GamePlayer Target;
+        private static float NextMouseClick;
 
         private void Update()
         {
@@ -25,13 +26,22 @@ namespace SivaEftCheat.Features
                 {
                     if (AimbotOptions.SilentAim && NotHooked)
                     {
-                        createShotHook = new TestHook();
-                        createShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
-                        createShotHook.Hook();
+                        CreateShotHook = new TestHook();
+                        CreateShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
+                        CreateShotHook.Hook();
                         NotHooked = false;
                     }
 
-                    _target = GetTarget();
+                    Target = GetTarget();
+
+                    if (Target != null && AimbotOptions.AutoShoot)
+                    {
+                        if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
+                        {
+                             MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
+                             NextMouseClick = Time.time + 0.064f;
+                        }
+                    }
                 }
             }
             catch { }
@@ -40,7 +50,6 @@ namespace SivaEftCheat.Features
         private GamePlayer GetTarget()
         {
             Dictionary<GamePlayer, int> dictionary = new Dictionary<GamePlayer, int>();
-            Vector3 zero = Vector3.zero;
             foreach (var player in Main.Players)
             {
                 Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
@@ -78,14 +87,14 @@ namespace SivaEftCheat.Features
             {
                 Vector3 aimPosition = Vector3.zero;
                 {
-                    GamePlayer player = _target;
+                    GamePlayer player = Target;
 
                     Vector3 headPosition = player.Player.PlayerBones.Head.position;
 
                     Weapon weapon = Main.LocalPlayer.Weapon;
                     if (weapon != null)
                     {
-                        float travelTime = _target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
+                        float travelTime = Target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
                         headPosition.x += player.Player.Velocity.x * travelTime;
                         headPosition.y += player.Player.Velocity.y * travelTime;
                         aimPosition = headPosition;
@@ -103,14 +112,14 @@ namespace SivaEftCheat.Features
             if (AimbotOptions.TargetSnapLine && AimbotOptions.Aimbot)
             {
 
-                if (_target == null)
+                if (Target == null)
                     return;
 
                 Weapon weapon = Main.LocalPlayer.Weapon;
 
-                if (_target.HeadScreenPosition.z > 0.01 && weapon != null)
+                if (weapon != null)
                 {
-                    Render.DrawLine(GameUtils.ScreenCenter, _target.HeadScreenPosition, MiscVisualsOptions.CrossHairColor, 0.5f, true);
+                    Render.DrawLine(GameUtils.ScreenCenter, Target.HeadScreenPosition, MiscVisualsOptions.CrossHairColor, 0.5f, true);
                 }
 
             }

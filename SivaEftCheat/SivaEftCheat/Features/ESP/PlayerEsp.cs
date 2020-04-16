@@ -100,9 +100,7 @@ namespace SivaEftCheat.Features.ESP
         private static void DrawHealthBar(GamePlayer player)
         {
             float num2 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y) / 1.8f;
-            Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f,
-                player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current,
-                player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
+            Render.DrawHealth(new Vector2(player.ScreenPosition.x - num2 / 2f, player.ScreenPosition.y), num2, 5f, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current, player.Player.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum);
         }
 
         private static void DrawWeaponText(GamePlayer player, Color playerColor)

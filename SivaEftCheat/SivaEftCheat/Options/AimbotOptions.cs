@@ -18,5 +18,6 @@ namespace SivaEftCheat.Options
         public static bool DrawSilentFov = true;
         public static bool SilentAim = true;
         public static bool TargetSnapLine = true;
+        public static bool AutoShoot = true;
     }
 }

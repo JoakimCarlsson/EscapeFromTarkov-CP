@@ -55,12 +55,14 @@ namespace SivaEftCheat
                     while (enumerator.MoveNext())
                     {
                         Player player = enumerator.Current;
-                        if (player ==null)
+                        if (player == null)
                             continue;
-                        
-                        if (player.IsYourPlayer())
-                            LocalPlayer = player;
 
+                        if (player.IsYourPlayer())
+                        {
+                            LocalPlayer = player;
+                            continue;
+                        }
                         Players.Add(new GamePlayer(player));
                     }
                 }

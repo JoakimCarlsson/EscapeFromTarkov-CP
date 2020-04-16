@@ -153,6 +153,7 @@ namespace SivaEftCheat
                     GUILayout.Label($"Silent Aim Fov {(int)AimbotOptions.SilentAimFov}");
                     AimbotOptions.SilentAimFov = GUILayout.HorizontalSlider(AimbotOptions.SilentAimFov, 0f, 1000f);
                     GUILayout.EndHorizontal();
+                    AimbotOptions.AutoShoot = GUILayout.Toggle(AimbotOptions.AutoShoot, "Auto Shoot");
                     AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");
 
                     GUILayout.BeginHorizontal();
