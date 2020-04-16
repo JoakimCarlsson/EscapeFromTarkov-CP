@@ -34,5 +34,6 @@ namespace SivaEftCheat.Options
         public static float SpeedHackValue = 0f;
         public static bool DrawHud = true;
         public static bool ForceLight = false;
+        public static bool AlwaysSprint = true;
     }
 }

@@ -44,9 +44,25 @@ namespace SivaEftCheat.Features
                     BulletPenetration();
                     FullBrightUpdate();
                     FullBrightCreateObject();
+                    AlwaysRunning();
                     Test();
                 }
                 catch { }
+            }
+        }
+
+        private void AlwaysRunning()
+        {
+            if (MiscOptions.AlwaysSprint)
+            {
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.BarbedWire);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Armor);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.HealthCondition);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Shot);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.SurfaceNormal);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Swamp);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Weight);
+                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Aiming);
             }
         }
 

@@ -175,6 +175,7 @@ namespace SivaEftCheat
                     MiscOptions.NightVison = GUILayout.Toggle(MiscOptions.NightVison, $"Night Vison: {MiscOptions.NightVisonKey}");
                     MiscOptions.NoVisor = GUILayout.Toggle(MiscOptions.NoVisor, "No Visor");
                     MiscOptions.ForceLight = GUILayout.Toggle(MiscOptions.ForceLight, "Force Light");
+                    MiscOptions.AlwaysSprint = GUILayout.Toggle(MiscOptions.AlwaysSprint, "Always Max Speed");
                     MiscOptions.FlyHack = GUILayout.Toggle(MiscOptions.FlyHack, $"Fly Hack: {MiscOptions.FlyHackKey}");
 
                     GUILayout.Space(20);

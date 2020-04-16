@@ -67,7 +67,7 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp && Main.Camera != null)
                 {
                     foreach (GameExtractPoint exfiltrationPoint in exfiltrationPoints)
                     {
