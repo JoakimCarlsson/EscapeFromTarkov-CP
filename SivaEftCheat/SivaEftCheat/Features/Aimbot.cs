@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EFT;
 using EFT.Ballistics;
@@ -33,18 +34,23 @@ namespace SivaEftCheat.Features
                     }
 
                     Target = GetTarget();
-
-                    if (Target != null && AimbotOptions.AutoShoot)
-                    {
-                        if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
-                        {
-                             MouseOperations.MouseEvent(MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
-                             NextMouseClick = Time.time + 0.064f;
-                        }
-                    }
+                    AutoShoot();
                 }
             }
             catch { }
+        }
+
+        private static void AutoShoot()
+        {
+            if (Target != null && AimbotOptions.AutoShoot)
+            {
+                if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
+                {
+                    MouseOperations.MouseEvent(
+                        MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
+                    NextMouseClick = Time.time + 0.064f;
+                }
+            }
         }
 
         private GamePlayer GetTarget()

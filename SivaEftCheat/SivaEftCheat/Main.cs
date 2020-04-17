@@ -22,6 +22,7 @@ namespace SivaEftCheat
         public static Player LocalPlayer { get; set; }
         public static Camera Camera { get; set; }
         public static GameWorld GameWorld { get; set; }
+        public static int ClosePlayers { get; set; }
 
         internal static List<GameLootItem> LootItems = new List<GameLootItem>();
         internal static List<GameLootContainer> LootableContainers = new List<GameLootContainer>();
@@ -51,6 +52,7 @@ namespace SivaEftCheat
                 try
                 {
                     Players.Clear();
+                    ClosePlayers = 0;
                     var enumerator = GameWorld.RegisteredPlayers.GetEnumerator();
                     while (enumerator.MoveNext())
                     {
@@ -63,6 +65,10 @@ namespace SivaEftCheat
                             LocalPlayer = player;
                             continue;
                         }
+
+                        if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
+                            ClosePlayers++;
+
                         Players.Add(new GamePlayer(player));
                     }
                 }

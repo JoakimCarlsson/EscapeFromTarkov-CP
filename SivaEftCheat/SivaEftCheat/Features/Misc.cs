@@ -129,7 +129,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud)
             {
-                string tempHealth = "💖";
+                string tempHealth = string.Empty; 
                 string tempMag = string.Empty;
 
                 var weapon = Main.LocalPlayer.Weapon;
@@ -140,7 +140,6 @@ namespace SivaEftCheat.Features
                 }
 
                 tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
-
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
             }
 
@@ -297,8 +296,9 @@ namespace SivaEftCheat.Features
 
         private void DrawHud()
         {
-            if (MiscOptions.DrawHud)
+            if (MiscOptions.DrawHud && Main.Camera != null)
             {
+                Render.DrawString(new Vector2(512, Screen.height - 78), $"{Main.ClosePlayers} Players closer then 50m", Color.white, false, 20);
                 Render.DrawString(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);
             }
         }
