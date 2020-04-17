@@ -8,7 +8,7 @@ namespace SivaEftCheat.Data
     class GameLootContainer
     {
         public LootableContainer LootableContainer { get; }
-        public Vector3 ScreenPosition => screenPosition;
+        public Vector3 ScreenPosition => _screenPosition;
 
         public bool IsOnScreen { get; private set; }
 
@@ -16,7 +16,7 @@ namespace SivaEftCheat.Data
 
         public string FormattedDistance => $"{Math.Round(Distance)}m";
 
-        private Vector3 screenPosition;
+        private Vector3 _screenPosition;
 
         public GameLootContainer(LootableContainer lootableContainer)
         {
@@ -24,7 +24,7 @@ namespace SivaEftCheat.Data
                 throw new ArgumentNullException(nameof(lootableContainer));
 
             LootableContainer = lootableContainer;
-            screenPosition = default;
+            _screenPosition = default;
             Distance = 0f;
         }
 
@@ -33,8 +33,8 @@ namespace SivaEftCheat.Data
             if (!GameUtils.IsLootableContainerValid(LootableContainer))
                 return;
 
-            screenPosition = GameUtils.WorldPointToScreenPoint(LootableContainer.transform.position);
-            IsOnScreen = GameUtils.IsScreenPointVisible(screenPosition);
+            _screenPosition = GameUtils.WorldPointToScreenPoint(LootableContainer.transform.position);
+            IsOnScreen = GameUtils.IsScreenPointVisible(_screenPosition);
             Distance = Vector3.Distance(Main.Camera.transform.position, LootableContainer.transform.position);
         }
     }

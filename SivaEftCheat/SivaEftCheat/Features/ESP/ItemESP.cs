@@ -25,7 +25,7 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawItems && Main.Camera != null)
                 {
-                    Render.DrawString1(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.white);
+                    Render.DrawString(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.white);
 
                     foreach (var lootItem in Main.LootItems)
                     {
@@ -57,7 +57,7 @@ namespace SivaEftCheat.Features.ESP
 
                         string text = $"{lootItem.LootItem.Item.Name.Localized()} {lootItem.FormattedDistance}";
                         //Render.DrawTextOutline(lootItem.ScreenPosition, text, Color.black, itemColor);
-                        Render.DrawString1(lootItem.ScreenPosition, text, itemColor);
+                        Render.DrawString(lootItem.ScreenPosition, text, itemColor);
                     }
                 }
             }

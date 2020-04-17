@@ -98,7 +98,7 @@ namespace SivaEftCheat.Features
                         headPosition.x += player.Player.Velocity.x * travelTime;
                         headPosition.y += player.Player.Velocity.y * travelTime;
                         aimPosition = headPosition;
-                        //Render.DrawString1(new Vector2(bottomPosition.x, (float)Screen.height - bottomPosition.y + 20f), "This dude is about to die", Color.red, true, 12, FontStyle.Bold, 3);
+                        //Render.DrawString(new Vector2(bottomPosition.x, (float)Screen.height - bottomPosition.y + 20f), "This dude is about to die", Color.red, true, 12, FontStyle.Bold, 3);
                     }
 
                     if (aimPosition != Vector3.zero)

@@ -24,7 +24,7 @@ namespace SivaEftCheat.Features.ESP
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
             {
-                Render.DrawString1(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white, false);
+                Render.DrawString(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white, false);
                 try
                 {
                     foreach (var player in Main.Players)
@@ -57,7 +57,7 @@ namespace SivaEftCheat.Features.ESP
                                     if (PlayerOptions.DrawPlayerLevel && !player.IsAI)
                                         text += $" [{player.Player.Profile.Info.Level} lvl]";
 
-                                    Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, playerColor);
+                                    Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavAimPos) || (!player.IsAI && PlayerOptions.DrawPlayerAimPos))
                                         DrawPlayerAim(player, playerColor);
@@ -79,7 +79,7 @@ namespace SivaEftCheat.Features.ESP
 
                                     if (player.HasSpecialItem)
                                     {
-                                        Render.DrawString1(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
+                                        Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
                                     }
                                 }
                             }
@@ -109,21 +109,21 @@ namespace SivaEftCheat.Features.ESP
             if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
             {
                 string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
-                Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3, playerColor);
+                Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3, playerColor);
             }
         }
 
         private static void DrawValueText(GamePlayer player, Color playerColor)
         {
             string text3 = $"$ {player.FormattedValue}";
-            Render.DrawString1(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 15f), text3, playerColor);
+            Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 15f), text3, playerColor);
         }
 
         private static void DrawBox(GamePlayer player, Color playerColor)
         {
             float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
             Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3,
-                playerColor, true);
+playerColor, true);
         }
 
         public static Color GetPlayerColor(GamePlayer player)

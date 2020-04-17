@@ -100,5 +100,10 @@ namespace SivaEftCheat.Utils
                 }
                 Render.BoxRect(new Rect(pos.x, pos.y, width * (health / maxHealth * 100f) / 100f - 2f, height - 2f), color);
         }
+
+        public static bool IsGrenadeValid(Throwable grenade)
+        {
+            return grenade != null;
+        }
     }
 }

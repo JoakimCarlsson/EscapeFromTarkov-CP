@@ -75,7 +75,7 @@ namespace SivaEftCheat.Features.ESP
                         {
                             string exfiltrationPointText = $"{exfiltrationPoint.Name} [{exfiltrationPoint.FormattedDistance}]";
 
-                            Render.DrawString1(exfiltrationPoint.ScreenPosition, exfiltrationPointText, MiscVisualsOptions.ExtractColor);
+                            Render.DrawString(exfiltrationPoint.ScreenPosition, exfiltrationPointText, MiscVisualsOptions.ExtractColor);
                         }
                     }
                 }

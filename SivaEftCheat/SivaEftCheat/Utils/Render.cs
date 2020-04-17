@@ -36,7 +36,7 @@ namespace SivaEftCheat.Utils
 
 
         //Credits too who ever that made this
-        public static void DrawString1(Vector2 pos, string text, Color color, bool center = true, int size = 12, FontStyle fontStyle = FontStyle.Normal)
+        public static void DrawString(Vector2 pos, string text, Color color, bool center = true, int size = 12, FontStyle fontStyle = FontStyle.Normal)
         {
             style.fontSize = size;
             style.richText = true;

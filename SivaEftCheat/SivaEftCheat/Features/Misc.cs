@@ -68,7 +68,6 @@ namespace SivaEftCheat.Features
 
         private void Test()
         {
-
         }
 
         private void FullBrightCreateObject()
@@ -300,7 +299,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud)
             {
-                Render.DrawString1(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);
+                Render.DrawString(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);
             }
         }
 
