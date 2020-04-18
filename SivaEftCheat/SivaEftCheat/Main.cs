@@ -87,13 +87,13 @@ namespace SivaEftCheat
                 {
                     if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                     {
-                        List<GInterface7>.Enumerator enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer).GetEnumerator();
+                        var enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer).GetEnumerator();
                         LootItems.Clear();
                         LootableContainers.Clear();
 
                         while (enumerator.MoveNext())
                         {
-                            GInterface7 current = enumerator.Current;
+                            var current = enumerator.Current;
                             switch (current)
                             {
                                 case LootItem lootItem:

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SivaEftCheat.Features;
+﻿using SivaEftCheat.Features;
 using SivaEftCheat.Features.ESP;
 using UnityEngine;
 
@@ -28,8 +24,6 @@ namespace SivaEftCheat
 
         public static void Load()
         {
-            //Don't ask me why I did this. I don't know. 
-            
             MainObject = new GameObject();
             MenuObject = new GameObject();
             ExtractObject = new GameObject();

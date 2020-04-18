@@ -217,7 +217,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.MaxSkills)
             {
-                foreach (GClass1060 skill in Main.LocalPlayer.Skills.Skills)
+                foreach (var skill in Main.LocalPlayer.Skills.Skills)
                 {
                     if (!skill.IsEliteLevel)
                         skill.SetLevel(51);

@@ -33,7 +33,7 @@ namespace SivaEftCheat.Features
                         NotHooked = false;
                     }
 
-                    Target = GetTarget();
+                    Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
                     AutoShoot();
                 }
             }
@@ -148,10 +148,6 @@ namespace SivaEftCheat.Features
             if (AimbotOptions.DrawAimbotFov && AimbotOptions.Aimbot)
             {
                 Render.DrawCircle(GameUtils.ScreenCenter, AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40);
-            }
-            if (AimbotOptions.DrawSilentFov && AimbotOptions.SilentAim)
-            {
-                Render.DrawCircle(GameUtils.ScreenCenter, AimbotOptions.SilentAimFov, Color.white, 0.5f, true, 40);
             }
         }
     }
