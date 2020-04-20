@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BSG.CameraEffects;
 using EFT;
+using EFT.Animations;
 using EFT.Ballistics;
 using EFT.Interactive;
 using EFT.InventoryLogic;
@@ -11,6 +12,7 @@ using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 namespace SivaEftCheat.Features
@@ -45,9 +47,10 @@ namespace SivaEftCheat.Features
                     FullBrightUpdate();
                     FullBrightCreateObject();
                     AlwaysRunning();
-                    Test();
                 }
                 catch { }
+                //Test();
+
             }
         }
 
@@ -68,6 +71,28 @@ namespace SivaEftCheat.Features
 
         private void Test()
         {
+            
+            if (MiscOptions.InstantHit)
+            {
+
+                //    if (!gameObject.GetComponent<Camera>())
+                //    {
+                //        gameObject.AddComponent<Camera>();
+                //        var freeCam = gameObject.GetComponent<Camera>();
+                //        freeCam.transform.position = Main.Camera.transform.position;
+                //        freeCam.transform.rotation = Main.Camera.transform.rotation;
+                //    }
+                //    else
+                //    {
+                //        if (FreeCam == null)
+                //        {
+                //            FreeCam = gameObject.GetComponent<Camera>();
+                //        }
+                //        FreeCam.transform.position = Main.Camera.transform.position;
+                //        FreeCam.transform.rotation = Main.Camera.transform.rotation;
+
+                //    }
+            }
         }
 
         private void FullBrightCreateObject()
@@ -108,7 +133,7 @@ namespace SivaEftCheat.Features
 
         private void BulletPenetration()
         {
-            if (MiscOptions.BulletPenetration && NotHooked)
+            if (MiscOptions.BulletPenetration && NotHooked && Main.LocalPlayer.Weapon != null)
             {
                 BulletPenetrationHook = new TestHook();
                 BulletPenetrationHook.Init(typeof(BallisticsCalculator).GetMethod("GetAmmoPenetrationPower"), typeof(HookObject).GetMethod("BulletPenetration"));
@@ -119,7 +144,7 @@ namespace SivaEftCheat.Features
 
         private void DontMoveWeaponCloser()
         {
-            if (MiscOptions.DontMoveWeaponCloser)
+            if (MiscOptions.DontMoveWeaponCloser && Main.LocalPlayer.Weapon != null)
             {
                 Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EFT.Animations.EProceduralAnimationMask.ForceReaction;
             }
@@ -227,41 +252,52 @@ namespace SivaEftCheat.Features
 
         private void NoSway()
         {
-            if (MiscOptions.NoSway)
+            try
             {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Breath.Intensity = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.WalkEffectorEnabled = false;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Walk.Intensity = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Intensity = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.ForceReact.Intensity = 0f;
+                if ( Main.LocalPlayer.Weapon != null)
+                {
+                    if (MiscOptions.NoSway)
+                    {
+                        Main.LocalPlayer.ProceduralWeaponAnimation.Breath.Intensity = 0f;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.WalkEffectorEnabled = false;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.Walk.Intensity = 0f;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Intensity = 0f;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.ForceReact.Intensity = 0f;
+                    }
+                    else
+                    {
+                        Main.LocalPlayer.ProceduralWeaponAnimation.Breath.Intensity = 1f;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.WalkEffectorEnabled = true;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.Walk.Intensity = 1f;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Intensity = 1f;
+                        Main.LocalPlayer.ProceduralWeaponAnimation.ForceReact.Intensity = 1f;
+                    }
+                }
             }
-            else
-            {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Breath.Intensity = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.WalkEffectorEnabled = true;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Walk.Intensity = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Intensity = 1f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.ForceReact.Intensity = 1f;
-            }
+            catch { }
         }
 
         private void NoRecoil()
         {
-            if (MiscOptions.NoRecoil)
+            try
             {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthXy = Vector2.zero;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthZ = Vector2.zero;
-                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.x = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.y = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.z = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.x = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.y = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.z = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.Breath.HipPenalty = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.x = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.y = 0f;
-                Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.z = 0f;
+                if (MiscOptions.NoRecoil && Main.LocalPlayer.Weapon != null)
+                {
+                    Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthXy = Vector2.zero;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthZ = Vector2.zero;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.x = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.y = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.z = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.x = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.y = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.z = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.Breath.HipPenalty = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.x = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.y = 0f;
+                    Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.z = 0f;
+                }
             }
+            catch { }
         }
 
         private void DoNightVison()

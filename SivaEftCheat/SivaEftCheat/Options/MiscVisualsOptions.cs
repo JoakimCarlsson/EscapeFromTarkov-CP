@@ -31,6 +31,7 @@ namespace SivaEftCheat.Options
         public static float DrawLootableContainersRange = 300f;
 
         internal static bool DrawExtractEsp = true;
+        internal static bool DrawExtractEspSwitches = true;
         internal static bool DrawGrenadeEsp = true;
         internal static bool DrawCrossHair = true;
 

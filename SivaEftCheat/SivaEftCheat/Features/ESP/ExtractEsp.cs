@@ -56,6 +56,8 @@ namespace SivaEftCheat.Features.ESP
                                 continue;
 
                             exfiltrationPoints.Add(new GameExtractPoint(exfiltrationPoint));
+
+
                         }
                     }
                 }
@@ -71,12 +73,27 @@ namespace SivaEftCheat.Features.ESP
                 {
                     foreach (GameExtractPoint exfiltrationPoint in exfiltrationPoints)
                     {
-                        if (exfiltrationPoint.IsOnScreen)
+                        if (exfiltrationPoint.ScreenPosition.z > 0.01)
                         {
                             string exfiltrationPointText = $"{exfiltrationPoint.Name} [{exfiltrationPoint.FormattedDistance}]";
 
+                            if (MiscVisualsOptions.DrawExtractEspSwitches)
+                            {
+                                Switch exfiltrationPointSwitch = exfiltrationPoint.ExfiltrationPoint.Switch;
+
+                                while (exfiltrationPointSwitch != null && exfiltrationPointSwitch.PreviousSwitch != null)
+                                {
+                                    exfiltrationPointSwitch = exfiltrationPointSwitch.PreviousSwitch;
+                                    Vector3 switchScreenPosition = GameUtils.WorldPointToScreenPoint(exfiltrationPointSwitch.transform.position);
+                                    Render.DrawString(switchScreenPosition, exfiltrationPointSwitch.name, Color.white);
+                                    Render.DrawLine(GameUtils.WorldPointToScreenPoint(exfiltrationPointSwitch.transform.position), exfiltrationPoint.ScreenPosition, 1f, Color.white);
+                                    Render.DrawCornerBox(switchScreenPosition, 5f, 5f, Color.white, true);
+                                }
+                            }
+
                             Render.DrawString(exfiltrationPoint.ScreenPosition, exfiltrationPointText, MiscVisualsOptions.ExtractColor);
                         }
+
                     }
                 }
             }

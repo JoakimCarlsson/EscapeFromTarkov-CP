@@ -118,7 +118,7 @@ namespace SivaEftCheat.Features
             if (AimbotOptions.TargetSnapLine && AimbotOptions.Aimbot)
             {
 
-                if (Target == null)
+                if (Target == null || !GameUtils.IsPlayerAlive(Target.Player))
                     return;
 
                 Weapon weapon = Main.LocalPlayer.Weapon;

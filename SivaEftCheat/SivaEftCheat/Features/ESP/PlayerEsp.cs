@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using EFT;
 using EFT.InventoryLogic;
 using EFT.UI;
@@ -14,6 +15,7 @@ namespace SivaEftCheat.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {
+        private static Color _playerColor;
         private void Update()
         {
             foreach (GamePlayer gamePlayer in Main.Players)
@@ -37,7 +39,7 @@ namespace SivaEftCheat.Features.ESP
                             {
                                 if (player.IsOnScreen)
                                 {
-                                    Color playerColor = GetPlayerColor(player);
+                                    _playerColor = GetPlayerColor(player);
 
                                     string nameText = string.Empty;
                                     string healthNumberText = string.Empty;
@@ -57,22 +59,22 @@ namespace SivaEftCheat.Features.ESP
                                     if (PlayerOptions.DrawPlayerLevel && !player.IsAI)
                                         text += $" [{player.Player.Profile.Info.Level} lvl]";
 
-                                    Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, playerColor);
+                                    Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, _playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavAimPos) || (!player.IsAI && PlayerOptions.DrawPlayerAimPos))
-                                        DrawPlayerAim(player, playerColor);
+                                        DrawPlayerAim(player, _playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavHealthBar) || (!player.IsAI && PlayerOptions.DrawPlayerHealthBar))
                                         DrawHealthBar(player);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavWeapon) || (!player.IsAI && PlayerOptions.DrawPlayerWeapon))
-                                        DrawWeaponText(player, playerColor);
+                                        DrawWeaponText(player, _playerColor);
 
                                     if (player.Value != 0 && (player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue) )
-                                        DrawValueText(player, playerColor);
+                                        DrawValueText(player, _playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavCornerBox) || (!player.IsAI && PlayerOptions.DrawPlayerCornerBox))
-                                        DrawBox(player, playerColor);
+                                        DrawBox(player, _playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
                                         DrawSkeleton(player.Player);
@@ -241,7 +243,7 @@ playerColor, true);
                 if (bones.ContainsKey(start) && bones.ContainsKey(stop) && GameUtils.IsScreenPointVisible(bones[start]) && GameUtils.IsScreenPointVisible(bones[stop]))
                 {
                     //GameUtils.IsVisible(bones[stop])?  Color.green : Color.red
-                    Render.DrawLine(bones[start], bones[stop], 2.5f, Color.white);
+                    Render.DrawLine(bones[start], bones[stop], 2.5f, _playerColor);
                 }
             }
             catch

@@ -10,7 +10,7 @@ namespace SivaEftCheat
         public static GameObject MenuObject;
         public static GameObject ExtractObject;
         public static GameObject ItemObject;
-        public static GameObject LootObject; 
+        public static GameObject LootObject;
         public static GameObject PlayerObject;
         public static GameObject MiscObject;
         public static GameObject CorpseObject;

@@ -131,8 +131,9 @@ namespace SivaEftCheat
 
                     GUILayout.Space(20);
                     GUILayout.Label("Other Visuals");
-                    MiscOptions.DrawHud = GUILayout.Toggle(MiscOptions.DrawHud, "Draw Hud");
+                    MiscOptions.DrawHud = GUILayout.Toggle(MiscOptions.DrawHud, "Draw Hud");//DrawExtractEspSwitches
                     MiscVisualsOptions.DrawExtractEsp = GUILayout.Toggle(MiscVisualsOptions.DrawExtractEsp, "Draw Extracts");
+                    MiscVisualsOptions.DrawExtractEspSwitches = GUILayout.Toggle(MiscVisualsOptions.DrawExtractEspSwitches, "Draw Extracts Switches");
                     MiscVisualsOptions.DrawGrenadeEsp = GUILayout.Toggle(MiscVisualsOptions.DrawGrenadeEsp, "Draw Grenades");
                     MiscVisualsOptions.DrawCrossHair = GUILayout.Toggle(MiscVisualsOptions.DrawCrossHair, "Draw Crosshair");
 
