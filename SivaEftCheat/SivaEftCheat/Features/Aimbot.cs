@@ -57,9 +57,9 @@ namespace SivaEftCheat.Features
                 {
                     if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
                     {
-                        MouseOperations.MouseEvent(
-                            MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
+                        Main.LocalPlayer.GetComponent<Player.FirearmController>().SetTriggerPressed(true);
                         NextMouseClick = Time.time + 0.064f;
+                        Main.LocalPlayer.GetComponent<Player.FirearmController>().SetTriggerPressed(false);
                     }
                 }
             }

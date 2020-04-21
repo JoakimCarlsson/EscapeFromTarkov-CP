@@ -36,8 +36,7 @@ namespace SivaEftCheat.Data
         private Vector3 _screenPosition;
         private Vector3 _headScreenPosition;
         private static Item _tempItem;
-        private static IEnumerable<Item> _equipItemList;
-        private static IEnumerator<Item> _equipItemList1;
+        private static IEnumerator<Item> _equipItemList;
         public GamePlayer(Player player)
         {
             if (player == null)
@@ -86,10 +85,10 @@ namespace SivaEftCheat.Data
         public int CalculateValue(Player player)
         {
             int value = 0;
-            _equipItemList1 = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
-            while (_equipItemList1.MoveNext())
+            _equipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
+            while (_equipItemList.MoveNext())
             {
-                _tempItem = _equipItemList1.Current;
+                _tempItem = _equipItemList.Current;
                 value += _tempItem.Template.CreditsPrice;
                 //if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
                 //{
@@ -119,10 +118,10 @@ namespace SivaEftCheat.Data
 
         //    //return false;
 
-        //    //_equipItemList1 = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
-        //    //while (_equipItemList1.MoveNext())
+        //    //_equipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
+        //    //while (_equipItemList.MoveNext())
         //    //{
-        //    //    _tempItem = _equipItemList1.Current;
+        //    //    _tempItem = _equipItemList.Current;
         //    //    if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
         //    //    {
         //    //        var x = _tempItem.GetAllItems().GetEnumerator();

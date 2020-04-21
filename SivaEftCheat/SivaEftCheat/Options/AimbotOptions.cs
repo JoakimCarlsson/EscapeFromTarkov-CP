@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SivaEftCheat.Options
 {
@@ -16,6 +11,6 @@ namespace SivaEftCheat.Options
         public static bool DrawAimbotFov = true;
         public static bool SilentAim = true;
         public static bool TargetSnapLine = true;
-        public static bool AutoShoot = true;
+        public static bool AutoShoot = false;
     }
 }

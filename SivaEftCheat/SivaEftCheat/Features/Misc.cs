@@ -146,7 +146,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DontMoveWeaponCloser && Main.LocalPlayer.Weapon != null)
             {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EFT.Animations.EProceduralAnimationMask.ForceReaction;
+                Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EProceduralAnimationMask.ForceReaction;
             }
         }
 
@@ -154,15 +154,21 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud)
             {
-                string tempHealth = string.Empty; 
+                string tempHealth; 
                 string tempMag = string.Empty;
 
-                var weapon = Main.LocalPlayer.Weapon;
-                var mag = weapon?.GetCurrentMagazine();
-                if (mag != null)
+                try
                 {
-                    tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount} [{weapon.SelectedFireMode}]";
+                    var weapon = Main.LocalPlayer.Weapon;
+                    var mag = weapon?.GetCurrentMagazine();
+                    if (mag != null)
+                    {
+                        tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount} [{weapon.SelectedFireMode}]";
+                    }
                 }
+                catch
+                {
+                    tempMag = "Unkown";}
 
                 tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
@@ -211,13 +217,13 @@ namespace SivaEftCheat.Features
             if (MiscOptions.SpeedHack)
             {
                 if (Input.GetKey(KeyCode.W))
-                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * (float)MiscOptions.SpeedHackValue;
+                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * MiscOptions.SpeedHackValue;
                 if (Input.GetKey(KeyCode.S))
-                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * (float)MiscOptions.SpeedHackValue;
+                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * MiscOptions.SpeedHackValue;
                 if (Input.GetKey(KeyCode.A))
-                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * (float)MiscOptions.SpeedHackValue;
+                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
                 if (Input.GetKey(KeyCode.D))
-                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * (float)MiscOptions.SpeedHackValue;
+                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
             }
 
         }
