@@ -15,7 +15,7 @@ namespace SivaEftCheat.Options
         public static Color QuestItemsColor = Color.magenta;
         public static Color LootableContainerColor = Color.white;
         public static Color CrossHairColor = Color.green;
-        public static Color ExtractColor = Color.green;
+        public static Color ExtractColor = new Color(0f, 0.87f, 0f);
 
         public static bool DrawItems = true;
         public static bool DrawCommonItems = false;

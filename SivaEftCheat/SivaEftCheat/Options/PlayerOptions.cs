@@ -4,10 +4,10 @@ namespace SivaEftCheat.Options
 {
     static class PlayerOptions
     {
-        public static Color PlayerColor = Color.red;
-        public static Color ScavColor = Color.yellow;
-        public static Color PlayerScavColor = Color.magenta;
-        public static Color FriendColor = Color.green;
+        public static Color PlayerColor = new Color(0.75f, 0f, 0f);
+        public static Color ScavColor = new Color(1f, 0.81f, 0f);
+        public static Color PlayerScavColor = new Color(0.9f, 0.09f, 0.9f);
+        public static Color FriendColor = new Color(0f, 0.7f, 1f);
         public static Color BossColor = Color.red;
 
 
@@ -19,7 +19,6 @@ namespace SivaEftCheat.Options
         public static bool DrawPlayerName = true;
         public static bool DrawPlayerLevel = true;
         public static bool DrawPlayerWeapon = true;
-        public static bool DrawPlayerSnapLine = true;
         public static bool DrawPlayerCornerBox = true;
         public static bool DrawPlayerSkeleton = false;
         public static bool DrawPlayerDistance = true;
@@ -32,7 +31,6 @@ namespace SivaEftCheat.Options
         public static bool DrawScavHealthBar = true;
         public static bool DrawScavName = true;
         public static bool DrawScavWeapon = true;
-        public static bool DrawScavSnapLine = true;
         public static bool DrawScavCornerBox = true;
         public static bool DrawScavSkeleton = false;
         public static bool DrawScavDistance = true;

@@ -9,7 +9,7 @@ namespace SivaEftCheat.Features.ESP
 {
     class ItemEsp : MonoBehaviour
     {
-        private void FixedUpdate()
+        private void Update()
         {
             try
             {
