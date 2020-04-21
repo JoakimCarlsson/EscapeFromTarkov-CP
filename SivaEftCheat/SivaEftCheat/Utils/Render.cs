@@ -9,10 +9,8 @@ namespace SivaEftCheat.Utils
         private static Texture2D _texture = new Texture2D(1, 1) { filterMode = 0 };
         public static Texture2D CurrentTexture;
         public static Color CurrentTextureColor = Color.black;
-        private static readonly GUIStyle EspLabelStyle = new GUIStyle { fontSize = 11, };
         private static Texture2D texture2D_0 = new Texture2D(1, 1);
         private static Texture2D test = new Texture2D(2, 2, TextureFormat.ARGB32, false);
-        private static Texture2D testCast = new Texture2D(2, 2, TextureFormat.ARGB32, false);
         private static Rect lineRect = new Rect(0f, 0f, 1f, 1f);
 
 
@@ -24,12 +22,12 @@ namespace SivaEftCheat.Utils
             GUI.color = color;
             GUI.DrawTexture(rect, texture2D_0);
         }
-        private static GUIStyle style = new GUIStyle(GUI.skin.label)
+        private static GUIStyle _testStyle = new GUIStyle(GUI.skin.label)
         {
             fontSize = 12
         };
 
-        private static GUIStyle outlineStyle = new GUIStyle(GUI.skin.label)
+        private static GUIStyle _textOutlineStyle = new GUIStyle(GUI.skin.label)
         {
             fontSize = 12
         };
@@ -38,25 +36,26 @@ namespace SivaEftCheat.Utils
         //Credits too who ever that made this
         public static void DrawString(Vector2 pos, string text, Color color, bool center = true, int size = 12, FontStyle fontStyle = FontStyle.Normal)
         {
-            style.fontSize = size;
-            style.richText = true;
-            style.normal.textColor = color;
-            style.fontStyle = fontStyle;
-            outlineStyle.fontSize = size;
-            outlineStyle.richText = true;
-            outlineStyle.normal.textColor = new Color(0f, 0f, 0f, 1f);
-            outlineStyle.fontStyle = fontStyle;
+            _testStyle.fontSize = size;
+            _testStyle.richText = true;
+            _testStyle.normal.textColor = color;
+            _testStyle.fontStyle = fontStyle;
+            _textOutlineStyle.fontSize = size;
+            _textOutlineStyle.richText = true;
+            _textOutlineStyle.normal.textColor = new Color(0f, 0f, 0f, 1f);
+            _textOutlineStyle.fontStyle = fontStyle;
             GUIContent contention = new GUIContent(text);
             GUIContent contention2 = new GUIContent(text);
             if (center)
             {
-                pos.x -= style.CalcSize(contention).x / 2f;
+                pos.x -= _testStyle.CalcSize(contention).x / 2f;
             }
 
-            GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 25f), contention2, outlineStyle);
-            GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, style);
+            GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 25f), contention2, _textOutlineStyle);
+            GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, _testStyle);
 
         }
+
         //public static void DrawTextOutline(Vector2 position, string text, Color outColor, Color inColor)
         //{
         //    GUIStyle espLabelStyle = EspLabelStyle;
@@ -69,6 +68,7 @@ namespace SivaEftCheat.Utils
         //    espLabelStyle.normal.textColor = inColor;
         //    GUI.Label(rect, text, espLabelStyle);
         //}
+
         public static void BoxRect(Rect rect, Color color)
         {
             if (CurrentTexture == null)

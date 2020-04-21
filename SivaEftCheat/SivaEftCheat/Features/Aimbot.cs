@@ -18,6 +18,7 @@ namespace SivaEftCheat.Features
         public static TestHook CreateShotHook;
         public static GamePlayer Target;
         private static float NextMouseClick;
+        private static string _test = string.Empty;
 
         private void Update()
         {
@@ -33,22 +34,33 @@ namespace SivaEftCheat.Features
                         NotHooked = false;
                     }
 
-                    Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
+                    //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
+
+                    //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
+                    //    Target = null;
+
+                    Target = GetTarget();
+
                     AutoShoot();
                 }
             }
             catch { }
         }
 
+
+
         private static void AutoShoot()
         {
             if (Target != null && AimbotOptions.AutoShoot)
             {
-                if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
+                if (!Main.LocalPlayer.IsInventoryOpened)
                 {
-                    MouseOperations.MouseEvent(
-                        MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
-                    NextMouseClick = Time.time + 0.064f;
+                    if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
+                    {
+                        MouseOperations.MouseEvent(
+                            MouseOperations.MouseEventFlags.LeftUp | MouseOperations.MouseEventFlags.LeftDown);
+                        NextMouseClick = Time.time + 0.064f;
+                    }
                 }
             }
         }
@@ -79,6 +91,8 @@ namespace SivaEftCheat.Features
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
+                    Render.DrawString(new Vector2(20, 80), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
+                    Render.DrawString(new Vector2(20, 100), _test, Color.white, false);
                     TargetSnapLine();
                     DoAimbot();
                     DrawFov();
@@ -91,25 +105,24 @@ namespace SivaEftCheat.Features
         {
             if (AimbotOptions.Aimbot && Input.GetKey(AimbotOptions.AimbotKey))
             {
+                if (Target == null)
+                    return;
+                
                 Vector3 aimPosition = Vector3.zero;
+                Vector3 headPosition = Target.Player.PlayerBones.Head.position;
+
+                Weapon weapon = Main.LocalPlayer.Weapon;
+                if (weapon != null)
                 {
-                    GamePlayer player = Target;
-
-                    Vector3 headPosition = player.Player.PlayerBones.Head.position;
-
-                    Weapon weapon = Main.LocalPlayer.Weapon;
-                    if (weapon != null)
-                    {
-                        float travelTime = Target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
-                        headPosition.x += player.Player.Velocity.x * travelTime;
-                        headPosition.y += player.Player.Velocity.y * travelTime;
-                        aimPosition = headPosition;
-                        //Render.DrawString(new Vector2(bottomPosition.x, (float)Screen.height - bottomPosition.y + 20f), "This dude is about to die", Color.red, true, 12, FontStyle.Bold, 3);
-                    }
-
-                    if (aimPosition != Vector3.zero)
-                        AimAtPos(aimPosition);
+                    float travelTime = Target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
+                    headPosition.x += Target.Player.Velocity.x * travelTime;
+                    headPosition.y += Target.Player.Velocity.y * travelTime;
+                    aimPosition = headPosition;
+                    //Render.DrawString(new Vector2(bottomPosition.x, (float)Screen.height - bottomPosition.y + 20f), "This dude is about to die", Color.red, true, 12, FontStyle.Bold, 3);
                 }
+
+                if (aimPosition != Vector3.zero)
+                    AimAtPos(aimPosition);
             }
         }
 

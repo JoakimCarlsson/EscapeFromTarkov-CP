@@ -12,7 +12,7 @@ namespace SivaEftCheat.Options
         public static bool Aimbot = true;
         public static float Distnace = 200f;
         public static KeyCode AimbotKey = KeyCode.LeftControl;
-        public static float AimbotFov = 750f;
+        public static float AimbotFov = 500f;
         public static bool DrawAimbotFov = true;
         public static bool SilentAim = true;
         public static bool TargetSnapLine = true;

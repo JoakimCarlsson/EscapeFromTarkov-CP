@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EFT;
+using EFT.InventoryLogic;
 using SivaEftCheat.Utils;
 using UnityEngine;
 
@@ -34,7 +35,9 @@ namespace SivaEftCheat.Data
 
         private Vector3 _screenPosition;
         private Vector3 _headScreenPosition;
-
+        private static Item _tempItem;
+        private static IEnumerable<Item> _equipItemList;
+        private static IEnumerator<Item> _equipItemList1;
         public GamePlayer(Player player)
         {
             if (player == null)
@@ -72,56 +75,67 @@ namespace SivaEftCheat.Data
             TeamMate = IsInYourGroup(Player);
             Value = CalculateValue(Player);
             DistanceFromCenter = Vector2.Distance(Main.Camera.WorldToScreenPoint(Player.PlayerBones.Head.position), GameUtils.ScreenCenter);
-            //HasSpecialItem = HasSpecialItems(Player);
         }
 
         public bool IsInYourGroup(Player player)
         {
             return Group == player.Profile.Info.GroupId && Group != "0" && Group != "" && Group != null;
         }
-        private static EFT.InventoryLogic.Item _tempItem;
-        public static IEnumerator<EFT.InventoryLogic.Item> EquipItemList;
+
 
         public int CalculateValue(Player player)
         {
             int value = 0;
-            EquipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
-            while (EquipItemList.MoveNext())
+            _equipItemList1 = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
+            while (_equipItemList1.MoveNext())
             {
-                _tempItem = EquipItemList.Current;
+                _tempItem = _equipItemList1.Current;
                 value += _tempItem.Template.CreditsPrice;
-                if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
-                {
+                //if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
+                //{
                     var x = _tempItem.GetAllItems().GetEnumerator();
                     while (x.MoveNext())
                     {
+                        if (GameUtils.IsSpecialLootItem(x.Current.TemplateId))
+                            HasSpecialItem = true;
+
                         value -= x.Current.Template.CreditsPrice;
                     }
-                }
+                //}
             }
             return (value / 1000);
         }
 
         //public bool HasSpecialItems(Player player)
         //{
-        //    EquipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
-        //    while (EquipItemList.MoveNext())
-        //    {
-        //        _tempItem = EquipItemList.Current;
-        //        if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
-        //        {
-        //            var x = _tempItem.GetAllItems().GetEnumerator();
-        //            while (x.MoveNext())
-        //            {
-        //                if (x.Current != null && GameUtils.IsSpecialLootItem(x.Current.TemplateId))
-        //                {
-        //                    return true;
-        //                }
-        //            }
-        //        }
+        //    //_equipItemList = player.Profile.Inventory.Equipment.GetAllItems();
+        //    //foreach (Item item in _equipItemList)
+        //    //{
+        //    //    if (GameUtils.IsSpecialLootItem(item.TemplateId))
+        //    //    {
+        //    //        return true;
+        //    //    }
+        //    //}
 
-        //    }
-        //    return false;
+        //    //return false;
+
+        //    //_equipItemList1 = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
+        //    //while (_equipItemList1.MoveNext())
+        //    //{
+        //    //    _tempItem = _equipItemList1.Current;
+        //    //    if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
+        //    //    {
+        //    //        var x = _tempItem.GetAllItems().GetEnumerator();
+        //    //        while (x.MoveNext())
+        //    //        {
+        //    //            if (x.Current != null && GameUtils.IsSpecialLootItem(x.Current.TemplateId))
+        //    //            {
+        //    //                return true;
+        //    //            }
+        //    //        }
+        //    //    }
+        //    //}
+        //    //return false;
         //}
     }
 }

@@ -80,9 +80,7 @@ namespace SivaEftCheat.Features.ESP
                                         DrawSkeleton(player.Player);
 
                                     if (player.HasSpecialItem)
-                                    {
                                         Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
-                                    }
                                 }
                             }
                         }
@@ -151,7 +149,6 @@ playerColor, true);
             {
                 return PlayerOptions.PlayerScavColor;
             }
-
 
             return PlayerOptions.PlayerColor;
         }

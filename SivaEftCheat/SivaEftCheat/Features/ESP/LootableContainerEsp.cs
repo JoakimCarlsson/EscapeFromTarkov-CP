@@ -26,7 +26,7 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawLootableContainers && Main.Camera != null)
                 {
-                    Render.DrawString(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.white);
+                    Render.DrawString(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.white, false);
 
                     int x = -20;
                     foreach (var lootableContainer in Main.LootableContainers)
