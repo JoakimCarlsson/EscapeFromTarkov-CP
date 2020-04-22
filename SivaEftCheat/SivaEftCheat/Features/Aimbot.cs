@@ -47,13 +47,11 @@ namespace SivaEftCheat.Features
             catch { }
         }
 
-
-
         private static void AutoShoot()
         {
             if (Target != null && AimbotOptions.AutoShoot)
             {
-                if (!Main.LocalPlayer.IsInventoryOpened)
+                if (!Main.LocalPlayer.IsInventoryOpened && Main.LocalPlayer.Weapon != null)
                 {
                     if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
                     {
@@ -63,6 +61,7 @@ namespace SivaEftCheat.Features
                     }
                 }
             }
+
         }
 
         private GamePlayer GetTarget()
@@ -107,7 +106,7 @@ namespace SivaEftCheat.Features
             {
                 if (Target == null)
                     return;
-                
+
                 Vector3 aimPosition = Vector3.zero;
                 Vector3 headPosition = Target.Player.PlayerBones.Head.position;
 

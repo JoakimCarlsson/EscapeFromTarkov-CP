@@ -18,7 +18,7 @@ namespace SivaEftCheat
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "TESTING";
+        private string watermark = "Copy/Paste King";
 
         private void Start()
         {
@@ -189,6 +189,7 @@ namespace SivaEftCheat
             if (AimbotOptions.AimbotKey == KeyCode.None)
             {
                 Event e = Event.current;
+
                 AimbotOptions.AimbotKey = e.keyCode;
             }
         }

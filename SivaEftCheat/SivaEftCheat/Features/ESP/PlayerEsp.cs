@@ -77,7 +77,12 @@ namespace SivaEftCheat.Features.ESP
                                         DrawBox(player, _playerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
-                                        DrawSkeleton(player.Player);
+                                    {
+                                        if (player.Distance <= 50f)
+                                        {
+                                            DrawSkeleton(player.Player);
+                                        }
+                                    }
 
                                     if (player.HasSpecialItem)
                                         Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);

@@ -90,8 +90,8 @@ namespace SivaEftCheat.Data
             {
                 _tempItem = _equipItemList.Current;
                 value += _tempItem.Template.CreditsPrice;
-                //if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
-                //{
+                if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
+                {
                     var x = _tempItem.GetAllItems().GetEnumerator();
                     while (x.MoveNext())
                     {
@@ -100,7 +100,7 @@ namespace SivaEftCheat.Data
 
                         value -= x.Current.Template.CreditsPrice;
                     }
-                //}
+                }
             }
             return (value / 1000);
         }

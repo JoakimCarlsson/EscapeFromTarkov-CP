@@ -121,6 +121,7 @@
     <Compile Include="Data\GamePlayer.cs" />
     <Compile Include="Features\ESP\GrenadeEsp.cs" />
     <Compile Include="Features\Memes.cs" />
+    <Compile Include="Features\Radar.cs" />
     <Compile Include="TestHook.cs" />
     <Compile Include="Enums\HumanBones.cs" />
     <Compile Include="Features\Aimbot.cs" />

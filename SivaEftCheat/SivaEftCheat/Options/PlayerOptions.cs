@@ -13,7 +13,7 @@ namespace SivaEftCheat.Options
 
         public static bool DrawCorpses = true;
         public static float DrawPlayerRange = 300f;
-        public static bool DrawPlayers = false;
+        public static bool DrawPlayers = true;
         public static bool DrawPlayerHealth = true;
         public static bool DrawPlayerHealthBar = true;
         public static bool DrawPlayerName = true;
