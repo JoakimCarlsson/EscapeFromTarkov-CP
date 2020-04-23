@@ -14,55 +14,44 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                int x = -20;
-
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && PlayerOptions.DrawCorpses && Main.Camera != null)
                 {
-                    var enumerator = Main.GameWorld.LootList.FindAll(item => item is Corpse).GetEnumerator();
-                    while (enumerator.MoveNext())
+                    Render.DrawString(new Vector2(20, 80), $"Corpses: {Main.Corpses.Count}", Color.white, false);
+
+                    int x = -20;
+                    foreach (var corpse in Main.Corpses)
                     {
-                        Corpse corpse = enumerator.Current as Corpse;
-                        if (corpse != null && corpse.gameObject != null && corpse.isActiveAndEnabled)
+                        if (!corpse.IsOnScreen || corpse.Distance > MiscVisualsOptions.DrawLootableContainersRange)
+                            continue;
+
+                        var item = corpse.Corpse.ItemOwner.RootItem;
+
+                        if (item.GetAllItems().Count() == 1)
+                            continue;
+
+                        foreach (var allItem in item.GetAllItems())
                         {
-                            float num = (int)Vector3.Distance(Main.LocalPlayer.Transform.position, corpse.transform.position);
-                            if (num <= PlayerOptions.DrawPlayerRange)
+                            string itemName;
+                            if (item.GetAllItems().First() == allItem)
                             {
-                                Vector3 screenPosition = GameUtils.WorldPointToScreenPoint(corpse.transform.position);
-                                if (GameUtils.IsScreenPointVisible(screenPosition))
-                                {
-                                    Item item = corpse.ItemOwner.RootItem;
-
-                                    if (item.GetAllItems().Count() == 1)
-                                        continue;
-
-                                    string lootItemName = item.Name.Localized();
-
-                                    foreach (var allItem in item.GetAllItems())
-                                    {
-
-                                        if (item.GetAllItems().First() == allItem)
-                                        {
-                                            lootItemName = $"* Dead *  [{num}]";
-                                            MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
-                                        }
-                                        else
-                                        {
-                                            if (!GameUtils.IsSpecialLootItem(allItem.TemplateId))
-                                                continue;
-
-                                            lootItemName = allItem.Name.Localized();
-                                            MiscVisualsOptions.LootableContainerColor = Color.white;
-                                        }
-                                        Render.DrawString(new Vector2(screenPosition.x, screenPosition.y - x), lootItemName, MiscVisualsOptions.LootableContainerColor);
-                                        x -= 20;
-                                    }
-                                }
-
+                                itemName = $"Dead [{corpse.FormattedDistance}]";
+                                MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
                             }
+                            else
+                            {
+                                if (!GameUtils.IsSpecialLootItem(allItem.TemplateId))
+                                    continue;
+
+                                itemName = allItem.Name.Localized();
+                                MiscVisualsOptions.LootableContainerColor = Color.white;
+                            }
+
+                            Render.DrawString(new Vector2(corpse.ScreenPosition.x, corpse.ScreenPosition.y - x), itemName, MiscVisualsOptions.LootableContainerColor);
+                            x -= 20;
                         }
                     }
-
                 }
+
 
             }
             catch

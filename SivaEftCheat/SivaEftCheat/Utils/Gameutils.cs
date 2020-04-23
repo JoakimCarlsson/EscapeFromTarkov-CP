@@ -29,6 +29,11 @@ namespace SivaEftCheat.Utils
         {
             return lootableContainer != null && lootableContainer.Template != null;
         }
+
+        public static bool IsCorpseValid(Corpse corpse)
+        {
+            return corpse != null ;
+        }
         public static bool IsMedItem(string templateId)
         {
             return MiscVisualsOptions.MedsItems.Contains(templateId);

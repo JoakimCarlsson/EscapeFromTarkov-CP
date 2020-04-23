@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="Data\GameCorpse.cs" />
     <Compile Include="Data\GameExtractPoint.cs" />
     <Compile Include="Data\GameFullBright.cs" />
     <Compile Include="Data\GameThrowable.cs" />

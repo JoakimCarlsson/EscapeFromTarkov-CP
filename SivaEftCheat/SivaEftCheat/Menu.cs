@@ -206,6 +206,24 @@ namespace SivaEftCheat
             {
                 Event e = Event.current;
 
+                if (Input.GetMouseButtonDown(0))
+                {
+                    AimbotOptions.AimbotKey = KeyCode.Mouse0;
+                    return;
+                }
+
+                if (Input.GetMouseButtonDown(1))
+                {
+                    AimbotOptions.AimbotKey = KeyCode.Mouse1;
+                    return;
+                }
+
+                if (Input.GetMouseButtonDown(2))
+                {
+                    AimbotOptions.AimbotKey = KeyCode.Mouse2;
+                    return;
+                }
+
                 AimbotOptions.AimbotKey = e.keyCode;
             }
         }

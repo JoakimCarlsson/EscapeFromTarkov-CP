@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using EFT.UI;
-using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -29,14 +27,12 @@ namespace SivaEftCheat.Features.ESP
                         if (item.GetAllItems().Count() == 1)
                             continue;
 
-
-                        string lootItemName = item.Name.Localized();
-
                         foreach (var allItem in item.GetAllItems())
                         {
+                            string lootItemName;
                             if (item.GetAllItems().First() == allItem)
                             {
-                                lootItemName = $"{allItem.Name.Localized()} {lootableContainer.FormattedDistance}";
+                                lootItemName = $"{allItem.Name.Localized()} [{lootableContainer.FormattedDistance}]";
                                 MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
                             }
                             else

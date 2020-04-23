@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Comfort.Common;
 using EFT;
@@ -22,6 +24,7 @@ namespace SivaEftCheat
 
         internal static List<GameLootItem> LootItems = new List<GameLootItem>();
         internal static List<GameLootContainer> LootableContainers = new List<GameLootContainer>();
+        internal static List<GameCorpse> Corpses = new List<GameCorpse>();
         internal static List<GamePlayer> Players = new List<GamePlayer>();
 
         private IEnumerator _coroutineUpdateMain;
@@ -53,7 +56,7 @@ namespace SivaEftCheat
                 _nextPlayerCacheTime = (Time.time + _cachePlayersInterval);
             }
 
-            foreach (GamePlayer gamePlayer in Main.Players)
+            foreach (GamePlayer gamePlayer in Players)
                 gamePlayer.RecalculateDynamics();
 
             foreach (GameLootItem gameLootItem in Main.LootItems)
@@ -61,103 +64,110 @@ namespace SivaEftCheat
 
             foreach (GameLootContainer gameLootContainer in Main.LootableContainers)
                 gameLootContainer.RecalculateDynamics();
+
+            foreach (GameCorpse gameCorpse in Corpses)
+                gameCorpse.RecalculateDynamics();
+
         }
 
         private void GetPlayers()
         {
-                try
+            try
+            {
+                Players.Clear();
+                ClosePlayers = 0;
+                var enumerator = GameWorld.RegisteredPlayers.GetEnumerator();
+                while (enumerator.MoveNext())
                 {
-                    Players.Clear();
-                    ClosePlayers = 0;
-                    var enumerator = GameWorld.RegisteredPlayers.GetEnumerator();
-                    while (enumerator.MoveNext())
+                    Player player = enumerator.Current;
+                    if (player == null)
+                        continue;
+
+                    if (player.IsYourPlayer())
                     {
-                        Player player = enumerator.Current;
-                        if (player == null)
-                            continue;
-
-                        if (player.IsYourPlayer())
-                        {
-                            LocalPlayer = player;
-                            continue;
-                        }
-
-                        if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
-                            ClosePlayers++;
-
-                        Players.Add(new GamePlayer(player));
+                        LocalPlayer = player;
+                        continue;
                     }
+
+                    if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
+                        ClosePlayers++;
+
+                    Players.Add(new GamePlayer(player));
                 }
-                catch
-                {
-                }
+            }
+            catch
+            {
+            }
         }
 
         private void GetLists()
         {
-                try
+            try
+            {
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Camera != null)
                 {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                    var enumerator = GameWorld.LootList.FindAll(item => item is Corpse || item is LootableContainer || item is LootItem).GetEnumerator();
+                    LootItems.Clear();
+                    LootableContainers.Clear();
+                    Corpses.Clear();
+
+                    while (enumerator.MoveNext())
                     {
-                        var enumerator = GameWorld.LootList.FindAll(item => item is LootItem || item is LootableContainer).GetEnumerator();
-                        LootItems.Clear();
-                        LootableContainers.Clear();
-
-                        while (enumerator.MoveNext())
+                        var current = enumerator.Current;
+                        if (current is LootItem lootItem)
                         {
-                            var current = enumerator.Current;
-                            switch (current)
+                            if (lootItem.gameObject != null && MiscVisualsOptions.DrawItems)
                             {
-                                case LootItem lootItem:
-                                    {
-                                        if (lootItem.gameObject != null && MiscVisualsOptions.DrawItems)
-                                        {
-                                            if (MiscVisualsOptions.DrawQuestItems)
-                                                if (lootItem.Item.QuestItem)
-                                                    LootItems.Add(new GameLootItem(lootItem));
+                                if (MiscVisualsOptions.DrawQuestItems)
+                                    if (lootItem.Item.QuestItem)
+                                        LootItems.Add(new GameLootItem(lootItem));
 
-                                            if (MiscVisualsOptions.DrawMedtems)
-                                                if (GameUtils.IsMedItem(lootItem.TemplateId))
-                                                    LootItems.Add(new GameLootItem(lootItem));
+                                if (MiscVisualsOptions.DrawMedtems)
+                                    if (GameUtils.IsMedItem(lootItem.TemplateId))
+                                        LootItems.Add(new GameLootItem(lootItem));
 
-                                            if (MiscVisualsOptions.DrawSpecialItems)
-                                                if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
-                                                    LootItems.Add(new GameLootItem(lootItem));
+                                if (MiscVisualsOptions.DrawSpecialItems)
+                                    if (GameUtils.IsSpecialLootItem(lootItem.TemplateId))
+                                        LootItems.Add(new GameLootItem(lootItem));
 
-                                            if (MiscVisualsOptions.DrawCommonItems)
-                                                if (lootItem.Item.Template.Rarity == ELootRarity.Common)
-                                                    LootItems.Add(new GameLootItem(lootItem));
+                                if (MiscVisualsOptions.DrawCommonItems)
+                                    if (lootItem.Item.Template.Rarity == ELootRarity.Common)
+                                        LootItems.Add(new GameLootItem(lootItem));
 
-                                            if (MiscVisualsOptions.DrawRareItems)
-                                                if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
-                                                    LootItems.Add(new GameLootItem(lootItem));
+                                if (MiscVisualsOptions.DrawRareItems)
+                                    if (lootItem.Item.Template.Rarity == ELootRarity.Rare)
+                                        LootItems.Add(new GameLootItem(lootItem));
 
-                                            if (MiscVisualsOptions.DrawSuperRareItems)
-                                                if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
-                                                    LootItems.Add(new GameLootItem(lootItem));
-                                        }
-
-                                        break;
-                                    }
-                                case LootableContainer lootableContainer:
-                                    {
-                                        if (lootableContainer.gameObject != null)
-                                        {
-                                            if (lootableContainer.ItemOwner.RootItem.GetAllItems().Any(item => GameUtils.IsSpecialLootItem(item.TemplateId)))
-                                            {
-                                                LootableContainers.Add(new GameLootContainer(lootableContainer));
-                                            }
-                                        }
-
-                                        break;
-                                    }
-
+                                if (MiscVisualsOptions.DrawSuperRareItems)
+                                    if (lootItem.Item.Template.Rarity == ELootRarity.Superrare)
+                                        LootItems.Add(new GameLootItem(lootItem));
                             }
                         }
-
+                        if (current is LootableContainer lootableContainer)
+                        {
+                            if (lootableContainer.gameObject != null)
+                            {
+                                if (lootableContainer.ItemOwner.RootItem.GetAllItems().Any(item => GameUtils.IsSpecialLootItem(item.TemplateId)))
+                                {
+                                    LootableContainers.Add(new GameLootContainer(lootableContainer));
+                                }
+                            }
+                        }
+                        if (current is Corpse corpse)
+                        {
+                            if (PlayerOptions.DrawCorpses)
+                            {
+                                if (corpse.gameObject != null)
+                                {
+                                    Corpses.Add(new GameCorpse(corpse));
+                                }
+                            }
+                        }
                     }
+
                 }
-                catch { }
+            }
+            catch { }
         }
 
         private IEnumerator UpdateMain(float waitTime)
@@ -179,5 +189,6 @@ namespace SivaEftCheat
                 }
             }
         }
+
     }
 }

@@ -91,7 +91,7 @@ namespace SivaEftCheat.Features
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
-                    Render.DrawString(new Vector2(20, 80), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
+                    Render.DrawString(new Vector2(20, 100), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
                     TargetSnapLine();
                     DrawFov();
                 }

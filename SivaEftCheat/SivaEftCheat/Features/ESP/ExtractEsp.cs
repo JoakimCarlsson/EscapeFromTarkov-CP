@@ -19,8 +19,6 @@ namespace SivaEftCheat.Features.ESP
         private float _nextListCacheTime;
         private static readonly float _cacheListInterval = 5f;
 
-
-
         private void FixedUpdate()
         {
             if (Time.time >= _nextListCacheTime)
