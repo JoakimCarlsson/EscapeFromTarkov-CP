@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Comfort.Common;
 using EFT;
 using EFT.Interactive;
-using EFT.InventoryLogic;
 using EFT.UI;
 using JsonType;
 using SivaEftCheat.Data;
-using SivaEftCheat.Features;
-using SivaEftCheat.Features.ESP;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -29,26 +25,46 @@ namespace SivaEftCheat
         internal static List<GamePlayer> Players = new List<GamePlayer>();
 
         private IEnumerator _coroutineUpdateMain;
-        private IEnumerator _coroutineGetLists;
-        private IEnumerator _coroutineGetPlayers;
+        private float _nextPlayerCacheTime;
+        private static readonly float _cachePlayersInterval = 1f;
+
+        private float _nextListCacheTime;
+        private static readonly float _cacheListInterval = 1f;
 
         private void Start()
         {
+            AllocConsoleHandler.Open();
+
             _coroutineUpdateMain = UpdateMain(10f);
             StartCoroutine(_coroutineUpdateMain);
-
-            _coroutineGetLists = GetLists(1f);
-            StartCoroutine(_coroutineGetLists);
-
-            _coroutineGetPlayers = GetPlayers(1f);
-            StartCoroutine(_coroutineGetPlayers);
         }
 
-        private IEnumerator GetPlayers(float waitTime)
+        private void FixedUpdate()
         {
-            while (true)
+            if (Time.time >= _nextListCacheTime)
             {
-                yield return new WaitForSeconds(waitTime);
+                GetLists();
+                _nextListCacheTime = (Time.time + _cacheListInterval);
+            }
+
+            if (Time.time >= _nextPlayerCacheTime)
+            {
+                GetPlayers();
+                _nextPlayerCacheTime = (Time.time + _cachePlayersInterval);
+            }
+
+            foreach (GamePlayer gamePlayer in Main.Players)
+                gamePlayer.RecalculateDynamics();
+
+            foreach (GameLootItem gameLootItem in Main.LootItems)
+                gameLootItem.RecalculateDynamics();
+
+            foreach (GameLootContainer gameLootContainer in Main.LootableContainers)
+                gameLootContainer.RecalculateDynamics();
+        }
+
+        private void GetPlayers()
+        {
                 try
                 {
                     Players.Clear();
@@ -75,14 +91,10 @@ namespace SivaEftCheat
                 catch
                 {
                 }
-            }
         }
 
-        private IEnumerator GetLists(float waitTime)
+        private void GetLists()
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(waitTime);
                 try
                 {
                     if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
@@ -146,7 +158,6 @@ namespace SivaEftCheat
                     }
                 }
                 catch { }
-            }
         }
 
         private IEnumerator UpdateMain(float waitTime)

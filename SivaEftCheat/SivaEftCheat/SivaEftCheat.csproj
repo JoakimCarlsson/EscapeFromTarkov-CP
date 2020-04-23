@@ -120,7 +120,6 @@
     <Compile Include="Data\GameLootItem.cs" />
     <Compile Include="Data\GamePlayer.cs" />
     <Compile Include="Features\ESP\GrenadeEsp.cs" />
-    <Compile Include="Features\Memes.cs" />
     <Compile Include="Features\Radar.cs" />
     <Compile Include="TestHook.cs" />
     <Compile Include="Enums\HumanBones.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Options\MiscOptions.cs" />
     <Compile Include="Options\PlayerOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\AllocConsoleHandler.cs" />
     <Compile Include="Utils\GameUtils.cs" />
     <Compile Include="Utils\RayCast.cs" />
     <Compile Include="Utils\Render.cs" />

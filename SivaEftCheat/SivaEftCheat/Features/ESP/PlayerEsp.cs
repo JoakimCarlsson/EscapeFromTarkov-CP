@@ -15,19 +15,14 @@ namespace SivaEftCheat.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {
-        private void Update()
-        {
-            foreach (GamePlayer gamePlayer in Main.Players)
-                gamePlayer.RecalculateDynamics();
-        }
 
         private void OnGUI()
         {
-            if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
+            try
             {
-                Render.DrawString(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white, false);
-                try
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.GameWorld != null)
                 {
+                    Render.DrawString(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white, false);
                     foreach (var player in Main.Players)
                     {
                         if ((!player.IsAI || PlayerOptions.DrawScavs) && (player.IsAI || PlayerOptions.DrawPlayers))
@@ -74,12 +69,8 @@ namespace SivaEftCheat.Features.ESP
                                         DrawBox(player, player.PlayerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
-                                    {
                                         if (player.Distance <= 50f)
-                                        {
                                             DrawSkeleton(player.Player);
-                                        }
-                                    }
 
                                     if (player.HasSpecialItem)
                                         Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
@@ -88,7 +79,9 @@ namespace SivaEftCheat.Features.ESP
                         }
                     }
                 }
-                catch { }
+            }
+            catch
+            {
             }
         }
 

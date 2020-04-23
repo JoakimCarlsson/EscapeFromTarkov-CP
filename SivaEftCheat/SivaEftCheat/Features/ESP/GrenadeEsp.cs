@@ -12,47 +12,40 @@ namespace SivaEftCheat.Features.ESP
     class GrenadeEsp : MonoBehaviour
     {
         private List<GameThrowable> _grenades = new List<GameThrowable>();
+        private float _nextThorwableCacheTime;
+        private static readonly float _cacheThrowableInterval = 1f;
 
-        private IEnumerator _coroutineGetGrenades;
-
-        public void Start()
+        private void FixedUpdate()
         {
-            _coroutineGetGrenades = GetGrenades(1f);
-            StartCoroutine(_coroutineGetGrenades);
-        }
-
-        private IEnumerator GetGrenades(float waitTime)
-        {
-            while (true)
+            if (Time.time >= _nextThorwableCacheTime)
             {
-                yield return new WaitForSeconds(waitTime);
-                try
-                {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawGrenadeEsp)
-                    {
-                        _grenades.Clear();
-                        var e = Main.GameWorld.Grenades.GetValuesEnumerator().GetEnumerator();
-                        while (e.MoveNext())
-                        {
-                            var grenade = e.Current;
-
-                            if (grenade == null)
-                                continue;
-
-                            _grenades.Add(new GameThrowable(grenade));
-                        }
-                    }
-                }
-                catch { }
+                GetGrenades();
+                _nextThorwableCacheTime = (Time.time + _cacheThrowableInterval);
             }
+
+            foreach (var grenade in _grenades)
+                grenade.RecalculateDynamics();
         }
 
-        private void Update()
+        private void GetGrenades()
         {
+
             try
             {
-                foreach (var grenade in _grenades)
-                    grenade.RecalculateDynamics();
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawGrenadeEsp)
+                {
+                    _grenades.Clear();
+                    var e = Main.GameWorld.Grenades.GetValuesEnumerator().GetEnumerator();
+                    while (e.MoveNext())
+                    {
+                        var grenade = e.Current;
+
+                        if (grenade == null)
+                            continue;
+
+                        _grenades.Add(new GameThrowable(grenade));
+                    }
+                }
             }
             catch { }
         }
@@ -61,11 +54,13 @@ namespace SivaEftCheat.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive &&
-                    MiscVisualsOptions.DrawGrenadeEsp)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawGrenadeEsp)
                 {
                     foreach (GameThrowable grenade in _grenades)
                     {
+                        if (!grenade.IsOnScreen)
+                            return;
+
                         string name = ThrowableName(grenade.Grenade.name.Localized());
                         Render.DrawCircle(grenade.ScreenPosition, 20f, Color.red, 0.5f, true, 40);
                         Render.DrawString(grenade.ScreenPosition, name, Color.red);

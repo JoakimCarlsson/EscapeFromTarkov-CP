@@ -41,6 +41,7 @@ namespace SivaEftCheat.Features
 
                     Target = GetTarget();
 
+                    DoAimbot();
                     AutoShoot();
                 }
             }
@@ -92,7 +93,6 @@ namespace SivaEftCheat.Features
                 {
                     Render.DrawString(new Vector2(20, 80), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
                     TargetSnapLine();
-                    DoAimbot();
                     DrawFov();
                 }
             }
@@ -116,7 +116,6 @@ namespace SivaEftCheat.Features
                     headPosition.x += Target.Player.Velocity.x * travelTime;
                     headPosition.y += Target.Player.Velocity.y * travelTime;
                     aimPosition = headPosition;
-                    //Render.DrawString(new Vector2(bottomPosition.x, (float)Screen.height - bottomPosition.y + 20f), "This dude is about to die", Color.red, true, 12, FontStyle.Bold, 3);
                 }
 
                 if (aimPosition != Vector3.zero)

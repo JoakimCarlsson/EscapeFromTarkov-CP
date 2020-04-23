@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using BSG.CameraEffects;
 using EFT;
 using EFT.Animations;
@@ -26,10 +27,11 @@ namespace SivaEftCheat.Features
 
         private void FixedUpdate()
         {
-            if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
+            try
             {
-                try
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
                 {
+
                     DoThermalVision();
                     DoNightVison();
                     NoRecoil();
@@ -48,10 +50,9 @@ namespace SivaEftCheat.Features
                     FullBrightCreateObject();
                     AlwaysRunning();
                 }
-                catch { }
-                //Test();
-
             }
+            catch { }
+            //Test();
         }
 
         private void AlwaysRunning()
@@ -71,10 +72,10 @@ namespace SivaEftCheat.Features
 
         private void Test()
         {
-            
+
             if (MiscOptions.InstantHit)
             {
-
+                Main.LocalPlayer.ArmsAnimatorCommon.speed = 0f;
                 //    if (!gameObject.GetComponent<Camera>())
                 //    {
                 //        gameObject.AddComponent<Camera>();
@@ -154,7 +155,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud)
             {
-                string tempHealth; 
+                string tempHealth;
                 string tempMag = string.Empty;
 
                 try
@@ -168,7 +169,8 @@ namespace SivaEftCheat.Features
                 }
                 catch
                 {
-                    tempMag = "Unkown";}
+                    tempMag = "Unkown";
+                }
 
                 tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
@@ -260,7 +262,7 @@ namespace SivaEftCheat.Features
         {
             try
             {
-                if ( Main.LocalPlayer.Weapon != null)
+                if (Main.LocalPlayer.Weapon != null)
                 {
                     if (MiscOptions.NoSway)
                     {
@@ -324,16 +326,17 @@ namespace SivaEftCheat.Features
 
         private void OnGUI()
         {
-            if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+            try
             {
-                try
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
                     DrawHud();
                     DrawCrossHair();
                 }
-                catch { }
 
             }
+            catch { }
+
         }
 
         private void DrawHud()

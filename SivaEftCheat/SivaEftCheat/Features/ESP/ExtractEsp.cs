@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using EFT;
 using EFT.Interactive;
 using EFT.UI;
@@ -13,54 +14,54 @@ namespace SivaEftCheat.Features.ESP
 {
     class ExtractEsp : MonoBehaviour
     {
-        private IEnumerator _coroutineUpdate;
         private readonly List<GameExtractPoint> exfiltrationPoints = new List<GameExtractPoint>();
-        private void Start()
-        {
-            _coroutineUpdate = Updates(2.5f);
-            StartCoroutine(_coroutineUpdate);
-        }
+
+        private float _nextListCacheTime;
+        private static readonly float _cacheListInterval = 5f;
+
+
 
         private void FixedUpdate()
         {
+            if (Time.time >= _nextListCacheTime)
+            {
+                Updates();
+                _nextListCacheTime = (Time.time + _cacheListInterval);
+            }
+
             foreach (var exfiltrationPoint in exfiltrationPoints)
                 exfiltrationPoint.RecalculateDynamics();
         }
 
-        private IEnumerator Updates(float waitTime)
+        private void Updates()
         {
-            while (true)
+            try
             {
-                yield return new WaitForSeconds(waitTime);
-
-                try
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp && Main.Camera != null)
                 {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp && Main.Camera != null)
+                    int scavMask = 0;
+                    if (Main.LocalPlayer is ClientPlayer player)
+                        scavMask = player.ScavExfilMask;
+
+                    ExfiltrationPoint[] points;
+
+                    if (Main.LocalPlayer.Profile.Info.Side == EPlayerSide.Savage)
+                        points = Main.GameWorld.ExfiltrationController.ScavExfiltrationClaim(scavMask,
+                            Main.LocalPlayer.Profile.Id);
+                    else
+                        points = Main.GameWorld.ExfiltrationController.EligiblePoints(Main.LocalPlayer.Profile);
+
+                    exfiltrationPoints.Clear();
+                    foreach (ExfiltrationPoint exfiltrationPoint in points)
                     {
-                        int scavMask = 0;
-                        if (Main.LocalPlayer is ClientPlayer player)
-                            scavMask = player.ScavExfilMask;
+                        if (exfiltrationPoint == null)
+                            continue;
 
-                        ExfiltrationPoint[] points;
-
-                        if (Main.LocalPlayer.Profile.Info.Side == EPlayerSide.Savage)
-                            points = Main.GameWorld.ExfiltrationController.ScavExfiltrationClaim(scavMask,
-                                Main.LocalPlayer.Profile.Id);
-                        else
-                            points = Main.GameWorld.ExfiltrationController.EligiblePoints(Main.LocalPlayer.Profile);
-
-                        exfiltrationPoints.Clear();
-                        foreach (ExfiltrationPoint exfiltrationPoint in points)
-                        {
-                            if (exfiltrationPoint == null)
-                                continue;
-
-                            exfiltrationPoints.Add(new GameExtractPoint(exfiltrationPoint));
-                        }
+                        exfiltrationPoints.Add(new GameExtractPoint(exfiltrationPoint));
                     }
                 }
-                catch { }
             }
+            catch { }
         }
 
         private void OnGUI()
@@ -76,14 +77,6 @@ namespace SivaEftCheat.Features.ESP
                         {
                             string exfiltrationPointText1 = $"{exfiltrationPoint.Name} [{exfiltrationPoint.FormattedDistance}]";
                             string exfiltrationPointText2 = $"{TypeOfExfiltration(exfiltrationPoint.ExfiltrationPoint.Status)}";
-                            //foreach (var exfiltrationRequirement in exfiltrationPoint.ExfiltrationPoint.Requirements)
-                            //{
-
-                            //    Render.DrawString(exfiltrationPoint.ScreenPosition + new Vector3(0, 20, 0), exfiltrationRequirement.GetTip(Main.LocalPlayer.ProfileId), MiscVisualsOptions.ExtractColor);
-                            //    Render.DrawString(exfiltrationPoint.ScreenPosition + new Vector3(0, 30, 0), exfiltrationRequirement.RequirementTip, MiscVisualsOptions.ExtractColor);
-                            //    Render.DrawString(exfiltrationPoint.ScreenPosition + new Vector3(0, 40, 0), exfiltrationPoint.ExfiltrationPoint.TransferItemRequirement.RequirementTip, MiscVisualsOptions.ExtractColor);
-                            //    y += 10;
-                            //}
 
                             if (MiscVisualsOptions.DrawExtractEspSwitches)
                             {
@@ -99,7 +92,7 @@ namespace SivaEftCheat.Features.ESP
                             }
 
                             Render.DrawString(exfiltrationPoint.ScreenPosition, exfiltrationPointText1, MiscVisualsOptions.ExtractColor);
-                            Render.DrawString(exfiltrationPoint.ScreenPosition + new Vector3(0, 10,0), exfiltrationPointText2, MiscVisualsOptions.ExtractColor);
+                            Render.DrawString(exfiltrationPoint.ScreenPosition + new Vector3(0, 10, 0), exfiltrationPointText2, MiscVisualsOptions.ExtractColor);
                         }
 
                     }

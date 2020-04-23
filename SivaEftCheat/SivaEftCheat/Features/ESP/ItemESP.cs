@@ -9,16 +9,6 @@ namespace SivaEftCheat.Features.ESP
 {
     class ItemEsp : MonoBehaviour
     {
-        private void Update()
-        {
-            try
-            {
-                foreach (GameLootItem gameLootItem in Main.LootItems)
-                    gameLootItem.RecalculateDynamics();
-            }
-            catch { }
-        }
-
         private void OnGUI()
         {
             try

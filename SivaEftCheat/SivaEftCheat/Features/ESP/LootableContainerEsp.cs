@@ -10,16 +10,6 @@ namespace SivaEftCheat.Features.ESP
 {
     class LootableContainerEsp : MonoBehaviour
     {
-        private void FixedUpdate()
-        {
-            try
-            {
-                foreach (GameLootContainer gameLootContainer in Main.LootableContainers)
-                    gameLootContainer.RecalculateDynamics();
-            }
-            catch { }
-        }
-
         private void OnGUI()
         {
             try
