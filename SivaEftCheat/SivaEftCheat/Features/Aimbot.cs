@@ -24,7 +24,7 @@ namespace SivaEftCheat.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
                 {
                     if (AimbotOptions.SilentAim && NotHooked)
                     {
@@ -91,7 +91,6 @@ namespace SivaEftCheat.Features
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
                     Render.DrawString(new Vector2(20, 80), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
-                    Render.DrawString(new Vector2(20, 100), _test, Color.white, false);
                     TargetSnapLine();
                     DoAimbot();
                     DrawFov();

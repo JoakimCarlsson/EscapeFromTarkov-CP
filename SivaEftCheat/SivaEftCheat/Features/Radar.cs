@@ -40,7 +40,7 @@ namespace SivaEftCheat.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawRadar && Main.Camera != null)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawRadar)
                 {
                     Render.BoxRect(new Rect(MiscVisualsOptions.RadarX + MiscVisualsOptions.RadarSize / 2f - 3f, MiscVisualsOptions.RadarY + MiscVisualsOptions.RadarSize / 2f - 3f, 6f, 6f), Color.white);
 
@@ -72,6 +72,7 @@ namespace SivaEftCheat.Features
                     }
 
                     //To Render Our background
+                    Render.DrawCornerBox(new Vector2(MiscVisualsOptions.RadarX + (MiscVisualsOptions.RadarSize / 2), MiscVisualsOptions.RadarY), MiscVisualsOptions.RadarSize, MiscVisualsOptions.RadarSize, Color.white, true);
                     Render.DrawRadarBackground(new Rect(MiscVisualsOptions.RadarX, MiscVisualsOptions.RadarY, MiscVisualsOptions.RadarSize, MiscVisualsOptions.RadarSize));
                 }
 

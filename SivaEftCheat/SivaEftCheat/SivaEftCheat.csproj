@@ -144,6 +144,5 @@
     <Compile Include="Utils\RayCast.cs" />
     <Compile Include="Utils\Render.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

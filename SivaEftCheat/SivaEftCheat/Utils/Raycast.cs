@@ -11,15 +11,15 @@ namespace SivaEftCheat.Utils
         public static bool IsVisible(Player player)
         {
             return Physics.Linecast(
-                Camera.main.transform.position,
+                Main.Camera.transform.position,
                 player.PlayerBones.Head.position,
                 out _raycastHit,
                 LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
         }
-        public static bool IsBodyPartVisible(Player player, int bodypart)
+        public static bool IsBodyPartVisible(Player player, int bodyPart)
         {
-            Vector3 BodyPartToAim = GameUtils.FinalVector(player.PlayerBody.SkeletonRootJoint, bodypart);
-            return Physics.Linecast(Main.Camera.transform.position, BodyPartToAim,
+            Vector3 bodyPartToAim = GameUtils.FinalVector(player.PlayerBody.SkeletonRootJoint, bodyPart);
+            return Physics.Linecast(Main.Camera.transform.position, bodyPartToAim,
                 out _raycastHit, LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
         }
         public static Vector3 BarrelRayCast(Player player)
@@ -41,6 +41,12 @@ namespace SivaEftCheat.Utils
             {
                 return Vector3.zero;
             }
+        }
+
+        public static string BarrelRayCastTest(Player player)
+        {
+                Physics.Linecast(player.Fireport.position, player.Fireport.position - player.Fireport.up * 1000f, out _raycastHit, LayerMask);
+                return _raycastHit.collider.name;
         }
     }
 }
