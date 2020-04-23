@@ -16,12 +16,13 @@ namespace SivaEftCheat.Utils
 
         public static void DrawRadarBackground(Rect rect)
         {
-            Color color = new Color(1f, 1f, 0f, 0.5f);
+            Color color = new Color(0f, 0f, 0f, 0.5f);
             texture2D_0.SetPixel(0, 0, color);
             texture2D_0.Apply();
             GUI.color = color;
             GUI.DrawTexture(rect, texture2D_0);
         }
+
         private static GUIStyle _testStyle = new GUIStyle(GUI.skin.label)
         {
             fontSize = 12

@@ -42,6 +42,7 @@ namespace SivaEftCheat
             LootObject.AddComponent<LootableContainerEsp>();
             PlayerObject.AddComponent<PlayerEsp>();
             MiscObject.AddComponent<Misc>();
+            MiscObject.AddComponent<Radar>();
             CorpseObject.AddComponent<CorpseEsp>();
             AimbotObject.AddComponent<Aimbot>();
             GrenadeObject.AddComponent<GrenadeEsp>();

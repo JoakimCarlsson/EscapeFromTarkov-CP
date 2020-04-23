@@ -328,8 +328,8 @@ namespace SivaEftCheat.Features
             {
                 try
                 {
-                    DrawCrossHair();
                     DrawHud();
+                    DrawCrossHair();
                 }
                 catch { }
 

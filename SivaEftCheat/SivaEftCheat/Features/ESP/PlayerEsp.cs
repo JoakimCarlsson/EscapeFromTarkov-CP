@@ -15,7 +15,6 @@ namespace SivaEftCheat.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {
-        private static Color _playerColor;
         private void Update()
         {
             foreach (GamePlayer gamePlayer in Main.Players)
@@ -39,8 +38,6 @@ namespace SivaEftCheat.Features.ESP
                             {
                                 if (player.IsOnScreen)
                                 {
-                                    _playerColor = GetPlayerColor(player);
-
                                     string nameText = string.Empty;
                                     string healthNumberText = string.Empty;
                                     string distanceText = string.Empty;
@@ -59,22 +56,22 @@ namespace SivaEftCheat.Features.ESP
                                     if (PlayerOptions.DrawPlayerLevel && !player.IsAI)
                                         text += $" [{player.Player.Profile.Info.Level} lvl]";
 
-                                    Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, _playerColor);
+                                    Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 20f), text, player.PlayerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavAimPos) || (!player.IsAI && PlayerOptions.DrawPlayerAimPos))
-                                        DrawPlayerAim(player, _playerColor);
+                                        DrawPlayerAim(player, player.PlayerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavHealthBar) || (!player.IsAI && PlayerOptions.DrawPlayerHealthBar))
                                         DrawHealthBar(player);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavWeapon) || (!player.IsAI && PlayerOptions.DrawPlayerWeapon))
-                                        DrawWeaponText(player, _playerColor);
+                                        DrawWeaponText(player, player.PlayerColor);
 
                                     if (player.Value != 0 && (player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue) )
-                                        DrawValueText(player, _playerColor);
+                                        DrawValueText(player, player.PlayerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavCornerBox) || (!player.IsAI && PlayerOptions.DrawPlayerCornerBox))
-                                        DrawBox(player, _playerColor);
+                                        DrawBox(player, player.PlayerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
                                     {
@@ -127,36 +124,9 @@ namespace SivaEftCheat.Features.ESP
         private static void DrawBox(GamePlayer player, Color playerColor)
         {
             float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
-            Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3,
-playerColor, true);
+            Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
         }
 
-        public static Color GetPlayerColor(GamePlayer player)
-        {
-            if (player.IsVisible)
-            {
-                return Color.green;
-            }
-            if (GameUtils.IsFriend(player.Player))
-            {
-                return PlayerOptions.FriendColor;
-            }
-            if (player.Player.Profile.Info.Settings.IsBoss())
-            {
-                return PlayerOptions.BossColor;
-            }
-            if (player.IsAI)
-            {
-                return PlayerOptions.ScavColor;
-            }
-
-            if (player.Player.Profile.Info.Side == EPlayerSide.Savage)
-            {
-                return PlayerOptions.PlayerScavColor;
-            }
-
-            return PlayerOptions.PlayerColor;
-        }
 
         public static Dictionary<HumanBones, Vector3> GetBones(Player player)
         {
@@ -245,7 +215,7 @@ playerColor, true);
                 if (bones.ContainsKey(start) && bones.ContainsKey(stop) && GameUtils.IsScreenPointVisible(bones[start]) && GameUtils.IsScreenPointVisible(bones[stop]))
                 {
                     //GameUtils.IsVisible(bones[stop])?  Color.green : Color.red
-                    Render.DrawLine(bones[start], bones[stop], 2.5f, _playerColor);
+                    Render.DrawLine(bones[start], bones[stop], 2.5f, Color.white);
                 }
             }
             catch

@@ -11,7 +11,7 @@ namespace SivaEftCheat
         private Rect _itemVisuals;
         private Rect _aimbotVisualWindow;
         private Rect _miscFeatureslVisualWindow;
-        private bool _visible = true;
+        public static bool Visible = true;
 
         private bool _playerEspVisualVisible;
         private bool _miscVisualVisible;
@@ -32,12 +32,12 @@ namespace SivaEftCheat
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Insert))
-                _visible = !_visible;
+                Visible = !Visible;
         }
 
         private void OnGUI()
         {
-            if (!_visible)
+            if (!Visible)
                 return;
 
             _mainWindow = GUILayout.Window(0, _mainWindow, RenderUi, watermark);
@@ -137,6 +137,22 @@ namespace SivaEftCheat
                     MiscVisualsOptions.DrawGrenadeEsp = GUILayout.Toggle(MiscVisualsOptions.DrawGrenadeEsp, "Draw Grenades");
                     MiscVisualsOptions.DrawCrossHair = GUILayout.Toggle(MiscVisualsOptions.DrawCrossHair, "Draw Crosshair");
 
+                    GUILayout.Space(20);
+                    GUILayout.Label("Radar");
+                    MiscVisualsOptions.DrawRadar = GUILayout.Toggle(MiscVisualsOptions.DrawRadar, "Draw Radar");
+                    MiscVisualsOptions.DrawPlayers = GUILayout.Toggle(MiscVisualsOptions.DrawPlayers, "Draw Players");
+                    MiscVisualsOptions.DrawScavs = GUILayout.Toggle(MiscVisualsOptions.DrawScavs, "Draw Scavs");
+                    MiscVisualsOptions.DrawWealth = GUILayout.Toggle(MiscVisualsOptions.DrawWealth, "Draw Wealth");
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Radar Size {(int)MiscVisualsOptions.RadarSize}");
+                    MiscVisualsOptions.RadarSize = GUILayout.HorizontalSlider(MiscVisualsOptions.RadarSize, 0f, 1000f);
+                    GUILayout.EndHorizontal();
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"Radar Range {(int)MiscVisualsOptions.RadarRange} m");
+                    MiscVisualsOptions.RadarRange = GUILayout.HorizontalSlider(MiscVisualsOptions.RadarRange, 0f, 1000f);
+                    GUILayout.EndHorizontal();
                     break;
 
                 case 3:

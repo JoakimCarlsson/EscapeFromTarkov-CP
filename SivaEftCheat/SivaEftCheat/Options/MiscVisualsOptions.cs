@@ -35,6 +35,16 @@ namespace SivaEftCheat.Options
         internal static bool DrawGrenadeEsp = true;
         internal static bool DrawCrossHair = true;
 
+        //Radar
+        internal static bool DrawRadar = true;
+        internal static bool DrawPlayers = true;
+        internal static bool DrawScavs = true;
+        internal static bool DrawWealth = true;
+        internal static float RadarRange = 300f;
+        internal static float RadarX = 1616f;
+        internal static float RadarY = 46f;
+        internal static float RadarSize = 250f;
+
         internal static readonly List<string> RareItems = new List<string>(new[]
         {
             "5448ba0b4bdc2d02308b456c",

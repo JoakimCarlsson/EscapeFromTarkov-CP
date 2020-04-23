@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EFT;
 using EFT.InventoryLogic;
+using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
 
@@ -21,11 +19,11 @@ namespace SivaEftCheat.Data
         public bool IsOnScreen { get; private set; }
         public float Distance { get; private set; }
         public float DistanceFromCenter { get; set; }
-        public bool IsVisible { get; set; }
+        public static bool IsVisible { get; set; }
         public bool IsAI { get; private set; }
         public int Value { get; set; }
         public bool TeamMate { get; set; }
-
+        public Color PlayerColor => _playerColor;
         public bool  HasSpecialItem { get; set; }
 
         private static string Group = string.Empty;
@@ -33,6 +31,7 @@ namespace SivaEftCheat.Data
         public string FormattedDistance => $"{(int)Math.Round(Distance)}m";
         public string FormattedValue => $"{Value}K";
 
+        private Color _playerColor;
         private Vector3 _screenPosition;
         private Vector3 _headScreenPosition;
         private static Item _tempItem;
@@ -53,6 +52,7 @@ namespace SivaEftCheat.Data
             TeamMate = false;
             DistanceFromCenter = 0f;
             HasSpecialItem = false;
+            _playerColor = Color.white;
         }
 
         public void RecalculateDynamics()
@@ -74,6 +74,34 @@ namespace SivaEftCheat.Data
             TeamMate = IsInYourGroup(Player);
             Value = CalculateValue(Player);
             DistanceFromCenter = Vector2.Distance(Main.Camera.WorldToScreenPoint(Player.PlayerBones.Head.position), GameUtils.ScreenCenter);
+            _playerColor = GetPlayerColor(Player);
+        }
+
+        public static Color GetPlayerColor(Player player)
+        {
+            if (IsVisible)
+            {
+                return Color.green;
+            }
+            if (GameUtils.IsFriend(player))
+            {
+                return PlayerOptions.FriendColor;
+            }
+            if (player.Profile.Info.Settings.IsBoss())
+            {
+                return PlayerOptions.BossColor;
+            }
+            if (player.IsAI)
+            {
+                return PlayerOptions.ScavColor;
+            }
+
+            if (player.Profile.Info.Side == EPlayerSide.Savage)
+            {
+                return PlayerOptions.PlayerScavColor;
+            }
+
+            return PlayerOptions.PlayerColor;
         }
 
         public bool IsInYourGroup(Player player)
