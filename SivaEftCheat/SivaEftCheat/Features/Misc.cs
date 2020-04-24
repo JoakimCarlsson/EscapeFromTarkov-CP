@@ -31,7 +31,6 @@ namespace SivaEftCheat.Features
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
                 {
-
                     DoThermalVision();
                     DoNightVison();
                     NoRecoil();
@@ -75,24 +74,7 @@ namespace SivaEftCheat.Features
 
             if (MiscOptions.InstantHit)
             {
-                Main.LocalPlayer.ArmsAnimatorCommon.speed = 0f;
-                //    if (!gameObject.GetComponent<Camera>())
-                //    {
-                //        gameObject.AddComponent<Camera>();
-                //        var freeCam = gameObject.GetComponent<Camera>();
-                //        freeCam.transform.position = Main.Camera.transform.position;
-                //        freeCam.transform.rotation = Main.Camera.transform.rotation;
-                //    }
-                //    else
-                //    {
-                //        if (FreeCam == null)
-                //        {
-                //            FreeCam = gameObject.GetComponent<Camera>();
-                //        }
-                //        FreeCam.transform.position = Main.Camera.transform.position;
-                //        FreeCam.transform.rotation = Main.Camera.transform.rotation;
 
-                //    }
             }
         }
 
@@ -155,7 +137,6 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud)
             {
-                string tempHealth;
                 string tempMag = string.Empty;
 
                 try
@@ -172,7 +153,7 @@ namespace SivaEftCheat.Features
                     tempMag = "Unkown";
                 }
 
-                tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
+                string tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
             }
 

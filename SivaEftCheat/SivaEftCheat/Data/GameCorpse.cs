@@ -24,10 +24,7 @@ namespace SivaEftCheat.Data
 
         public GameCorpse(Corpse corpse)
         {
-            if (corpse == null)
-                throw new ArgumentNullException(nameof(corpse));
-
-            Corpse = corpse;
+            Corpse = corpse ?? throw new ArgumentNullException(nameof(corpse));
             _screenPosition = default;
             Distance = 0f;
         }

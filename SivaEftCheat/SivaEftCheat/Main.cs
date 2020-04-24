@@ -36,7 +36,7 @@ namespace SivaEftCheat
 
         private void Start()
         {
-            AllocConsoleHandler.Open();
+            //AllocConsoleHandler.Open();
 
             _coroutineUpdateMain = UpdateMain(10f);
             StartCoroutine(_coroutineUpdateMain);
@@ -47,13 +47,13 @@ namespace SivaEftCheat
             if (Time.time >= _nextListCacheTime)
             {
                 GetLists();
-                _nextListCacheTime = (Time.time + _cacheListInterval);
+                _nextListCacheTime = Time.time + _cacheListInterval;
             }
 
             if (Time.time >= _nextPlayerCacheTime)
             {
                 GetPlayers();
-                _nextPlayerCacheTime = (Time.time + _cachePlayersInterval);
+                _nextPlayerCacheTime = Time.time + _cachePlayersInterval;
             }
 
             foreach (GamePlayer gamePlayer in Players)

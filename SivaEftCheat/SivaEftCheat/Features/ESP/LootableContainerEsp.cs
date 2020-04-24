@@ -19,7 +19,7 @@ namespace SivaEftCheat.Features.ESP
                     int x = -20;
                     foreach (var lootableContainer in Main.LootableContainers)
                     {
-                        if (!GameUtils.IsLootableContainerValid(lootableContainer.LootableContainer) || !lootableContainer.IsOnScreen || lootableContainer.Distance > MiscVisualsOptions.DrawLootableContainersRange)
+                        if (!lootableContainer.IsOnScreen || lootableContainer.Distance > MiscVisualsOptions.DrawLootableContainersRange)
                             continue;
 
                         var item = lootableContainer.LootableContainer.ItemOwner.RootItem;

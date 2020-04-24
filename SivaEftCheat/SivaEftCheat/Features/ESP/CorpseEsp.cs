@@ -31,7 +31,9 @@ namespace SivaEftCheat.Features.ESP
 
                         foreach (var allItem in item.GetAllItems())
                         {
-                            string itemName;
+                            string itemName = string.Empty;
+
+
                             if (item.GetAllItems().First() == allItem)
                             {
                                 itemName = $"Dead [{corpse.FormattedDistance}]";
@@ -44,6 +46,7 @@ namespace SivaEftCheat.Features.ESP
 
                                 itemName = allItem.Name.Localized();
                                 MiscVisualsOptions.LootableContainerColor = Color.white;
+
                             }
 
                             Render.DrawString(new Vector2(corpse.ScreenPosition.x, corpse.ScreenPosition.y - x), itemName, MiscVisualsOptions.LootableContainerColor);

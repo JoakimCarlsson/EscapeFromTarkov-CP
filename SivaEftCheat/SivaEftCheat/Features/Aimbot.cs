@@ -70,6 +70,9 @@ namespace SivaEftCheat.Features
             Dictionary<GamePlayer, int> dictionary = new Dictionary<GamePlayer, int>();
             foreach (var player in Main.Players)
             {
+                if (GameUtils.IsFriend(player.Player))
+                    continue;
+                
                 Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
                 if (player.Distance <= AimbotOptions.Distnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
                 {

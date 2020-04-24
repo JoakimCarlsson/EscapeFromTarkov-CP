@@ -79,13 +79,13 @@ namespace SivaEftCheat.Data
 
         public static Color GetPlayerColor(Player player)
         {
-            if (IsVisible)
-            {
-                return Color.green;
-            }
             if (GameUtils.IsFriend(player))
             {
                 return PlayerOptions.FriendColor;
+            }
+            if (IsVisible)
+            {
+                return Color.green;
             }
             if (player.Profile.Info.Settings.IsBoss())
             {
@@ -106,7 +106,7 @@ namespace SivaEftCheat.Data
 
         public bool IsInYourGroup(Player player)
         {
-            return Group == player.Profile.Info.GroupId && Group != "0" && Group != "" && Group != null;
+            return Main.LocalPlayer.Profile.Info.GroupId == player.Profile.Info.GroupId && player.Profile.Info.GroupId != "0" && player.Profile.Info.GroupId != "" && player.Profile.Info.GroupId != null;
         }
 
 

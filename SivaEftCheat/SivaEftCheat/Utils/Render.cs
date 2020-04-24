@@ -13,7 +13,6 @@ namespace SivaEftCheat.Utils
         private static Texture2D test = new Texture2D(2, 2, TextureFormat.ARGB32, false);
         private static Rect lineRect = new Rect(0f, 0f, 1f, 1f);
 
-
         public static void DrawRadarBackground(Rect rect)
         {
             Color color = new Color(0f, 0f, 0f, 0.5f);
