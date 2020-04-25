@@ -13,18 +13,27 @@ namespace SivaEftCheat.Features.ESP
     {
         private List<GameThrowable> _grenades = new List<GameThrowable>();
         private float _nextThorwableCacheTime;
-        private static readonly float _cacheThrowableInterval = 1f;
+        private static readonly float _cacheThrowableInterval = 0.5f;
 
         private void FixedUpdate()
         {
-            if (Time.time >= _nextThorwableCacheTime)
+            try
             {
-                GetGrenades();
-                _nextThorwableCacheTime = (Time.time + _cacheThrowableInterval);
-            }
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive &&
+                    MiscVisualsOptions.DrawGrenadeEsp)
+                {
+                    if (Time.time >= _nextThorwableCacheTime)
+                    {
+                        GetGrenades();
+                        _nextThorwableCacheTime = (Time.time + _cacheThrowableInterval);
+                    }
 
-            foreach (var grenade in _grenades)
-                grenade.RecalculateDynamics();
+                    foreach (var grenade in _grenades)
+                        grenade.RecalculateDynamics();
+                }
+            }
+            catch { }
+
         }
 
         private void GetGrenades()

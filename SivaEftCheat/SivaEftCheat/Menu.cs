@@ -12,21 +12,20 @@ namespace SivaEftCheat
         private Rect _aimbotVisualWindow;
         private Rect _miscFeatureslVisualWindow;
         public static bool Visible = true;
-
         private bool _playerEspVisualVisible;
         private bool _miscVisualVisible;
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "Copy/Paste King";
+        private string watermark = "Citadel";
 
         private void Start()
         {
-            _mainWindow = new Rect(20f, 60f, 250f, 150f);
+            _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
-            _itemVisuals = new Rect(530f, 60f, 350f, 150f);
-            _aimbotVisualWindow = new Rect(785f, 60f, 350f, 150f);
-            _miscFeatureslVisualWindow = new Rect(1040f, 60f, 350f, 150f);
+            _itemVisuals = new Rect(630f, 60f, 350f, 150f);
+            _aimbotVisualWindow = new Rect(985f, 60f, 350f, 150f);
+            _miscFeatureslVisualWindow = new Rect(1340f, 60f, 350f, 150f);
         }
 
         private void Update()

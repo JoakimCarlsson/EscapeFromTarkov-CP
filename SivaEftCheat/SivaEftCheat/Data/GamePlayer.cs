@@ -96,7 +96,7 @@ namespace SivaEftCheat.Data
                 return PlayerOptions.ScavColor;
             }
 
-            if (player.Profile.Info.Side == EPlayerSide.Savage)
+            if (player.Profile.Info.Side == EPlayerSide.Savage && !player.IsAI)
             {
                 return PlayerOptions.PlayerScavColor;
             }

@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.Remoting;
 using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
+using SivaEftCheat.Data;
 using SivaEftCheat.Options;
 using SivaEftCheat.Utils;
 using UnityEngine;
@@ -10,6 +14,27 @@ namespace SivaEftCheat.Features.ESP
 {
     class CorpseEsp : MonoBehaviour
     {
+        //public void FixedUpdate()
+        //{
+        //    try
+        //    {
+        //        if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && PlayerOptions.DrawCorpses && Main.Camera != null)
+        //        {
+        //            foreach (GameCorpse corpse in Main.Corpses)
+        //            {
+        //                var items = corpse.Corpse.ItemOwner.RootItem;
+
+        //                foreach (var item in items.GetAllItems())
+        //                {
+        //                    item.Template.ExamineTime = 0f;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch { }
+
+        //}
+
         public void OnGUI()
         {
             try

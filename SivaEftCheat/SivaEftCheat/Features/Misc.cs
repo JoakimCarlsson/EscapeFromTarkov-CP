@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using BSG.CameraEffects;
 using EFT;
 using EFT.Animations;
@@ -71,10 +70,8 @@ namespace SivaEftCheat.Features
 
         private void Test()
         {
-
             if (MiscOptions.InstantHit)
             {
-
             }
         }
 

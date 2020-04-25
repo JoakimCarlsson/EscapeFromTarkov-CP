@@ -44,29 +44,33 @@ namespace SivaEftCheat
 
         private void FixedUpdate()
         {
-            if (Time.time >= _nextListCacheTime)
+            try
             {
-                GetLists();
-                _nextListCacheTime = Time.time + _cacheListInterval;
+                if (Time.time >= _nextListCacheTime)
+                {
+                    GetLists();
+                    _nextListCacheTime = Time.time + _cacheListInterval;
+                }
+
+                if (Time.time >= _nextPlayerCacheTime)
+                {
+                    GetPlayers();
+                    _nextPlayerCacheTime = Time.time + _cachePlayersInterval;
+                }
+
+                foreach (GamePlayer gamePlayer in Players)
+                    gamePlayer.RecalculateDynamics();
+
+                foreach (GameLootItem gameLootItem in LootItems)
+                    gameLootItem.RecalculateDynamics();
+
+                foreach (GameLootContainer gameLootContainer in LootableContainers)
+                    gameLootContainer.RecalculateDynamics();
+
+                foreach (GameCorpse gameCorpse in Corpses)
+                    gameCorpse.RecalculateDynamics();
             }
-
-            if (Time.time >= _nextPlayerCacheTime)
-            {
-                GetPlayers();
-                _nextPlayerCacheTime = Time.time + _cachePlayersInterval;
-            }
-
-            foreach (GamePlayer gamePlayer in Players)
-                gamePlayer.RecalculateDynamics();
-
-            foreach (GameLootItem gameLootItem in Main.LootItems)
-                gameLootItem.RecalculateDynamics();
-
-            foreach (GameLootContainer gameLootContainer in Main.LootableContainers)
-                gameLootContainer.RecalculateDynamics();
-
-            foreach (GameCorpse gameCorpse in Corpses)
-                gameCorpse.RecalculateDynamics();
+            catch { }
 
         }
 
@@ -74,25 +78,28 @@ namespace SivaEftCheat
         {
             try
             {
-                Players.Clear();
-                ClosePlayers = 0;
-                var enumerator = GameWorld.RegisteredPlayers.GetEnumerator();
-                while (enumerator.MoveNext())
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Camera != null)
                 {
-                    Player player = enumerator.Current;
-                    if (player == null)
-                        continue;
-
-                    if (player.IsYourPlayer())
+                    Players.Clear();
+                    ClosePlayers = 0;
+                    var enumerator = GameWorld.RegisteredPlayers.GetEnumerator();
+                    while (enumerator.MoveNext())
                     {
-                        LocalPlayer = player;
-                        continue;
+                        Player player = enumerator.Current;
+                        if (player == null)
+                            continue;
+
+                        if (player.IsYourPlayer())
+                        {
+                            LocalPlayer = player;
+                            continue;
+                        }
+
+                        if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
+                            ClosePlayers++;
+
+                        Players.Add(new GamePlayer(player));
                     }
-
-                    if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
-                        ClosePlayers++;
-
-                    Players.Add(new GamePlayer(player));
                 }
             }
             catch
