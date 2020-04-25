@@ -49,7 +49,7 @@ namespace SivaEftCheat.Features
                     AlwaysRunning();
                 }
             }
-            catch { }
+            catch { }   
             //Test();
         }
 

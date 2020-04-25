@@ -26,23 +26,29 @@ namespace SivaEftCheat.Features
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.Weapon != null)
                 {
-                    if (AimbotOptions.SilentAim && NotHooked)
+                    // should not be needed
+                    Player.AbstractHandsController handsController = Main.LocalPlayer.HandsController;
+                    if ((handsController != null ? handsController.Item : null) is Weapon)
                     {
-                        CreateShotHook = new TestHook();
-                        CreateShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
-                        CreateShotHook.Hook();
-                        NotHooked = false;
+                        if (AimbotOptions.SilentAim && NotHooked)
+                        {
+                            CreateShotHook = new TestHook();
+                            CreateShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
+                            CreateShotHook.Hook();
+                            NotHooked = false;
+                        }
+
+                        //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
+
+                        //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
+                        //    Target = null;
+
+                        Target = GetTarget();
+
+                        DoAimbot();
+                        AutoShoot();
                     }
 
-                    //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
-
-                    //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
-                    //    Target = null;
-
-                    Target = GetTarget();
-
-                    DoAimbot();
-                    AutoShoot();
                 }
             }
             catch { }
@@ -70,9 +76,9 @@ namespace SivaEftCheat.Features
             Dictionary<GamePlayer, int> dictionary = new Dictionary<GamePlayer, int>();
             foreach (var player in Main.Players)
             {
-                if (GameUtils.IsFriend(player.Player))
+                if (GameUtils.IsFriend(player.Player) || !GameUtils.IsPlayerAlive(player.Player))
                     continue;
-                
+
                 Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
                 if (player.Distance <= AimbotOptions.Distnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
                 {
