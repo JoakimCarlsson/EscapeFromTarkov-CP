@@ -255,5 +255,14 @@ namespace SivaEftCheat.Options
             "5d02778e86f774203e7dedbe",
             "5755383e24597772cb798966"
         });
+
+        internal static readonly List<string> ContainerIds = new List<string>(new[]
+        {
+            "secure container kappa",
+            "secure container gamma",
+            "secure container epsilon",
+            "secure container beta",
+            "secure container alpha"
+        });
     }
 }

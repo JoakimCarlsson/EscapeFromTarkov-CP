@@ -14,27 +14,6 @@ namespace SivaEftCheat.Features.ESP
 {
     class CorpseEsp : MonoBehaviour
     {
-        //public void FixedUpdate()
-        //{
-        //    try
-        //    {
-        //        if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && PlayerOptions.DrawCorpses && Main.Camera != null)
-        //        {
-        //            foreach (GameCorpse corpse in Main.Corpses)
-        //            {
-        //                var items = corpse.Corpse.ItemOwner.RootItem;
-
-        //                foreach (var item in items.GetAllItems())
-        //                {
-        //                    item.Template.ExamineTime = 0f;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch { }
-
-        //}
-
         public void OnGUI()
         {
             try
@@ -49,29 +28,29 @@ namespace SivaEftCheat.Features.ESP
                         if (!corpse.IsOnScreen || corpse.Distance > MiscVisualsOptions.DrawLootableContainersRange)
                             continue;
 
-                        var item = corpse.Corpse.ItemOwner.RootItem;
+                        var items = corpse.Corpse.ItemOwner.RootItem;
 
-                        if (item.GetAllItems().Count() == 1)
+                        if (items.GetAllItems().Count() == 1)
                             continue;
 
-                        foreach (var allItem in item.GetAllItems())
+                        string itemName;
+                        foreach (var item in corpse.Corpse.ItemOwner.RootItem.GetAllItems())
                         {
-                            string itemName = string.Empty;
-
-
-                            if (item.GetAllItems().First() == allItem)
+                            if (items.GetAllItems().First() == item)
                             {
                                 itemName = $"Dead [{corpse.FormattedDistance}]";
                                 MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
                             }
                             else
                             {
-                                if (!GameUtils.IsSpecialLootItem(allItem.TemplateId))
+                                if (MiscVisualsOptions.ContainerIds.Contains(item.Name.Localized().ToLower()))
+                                    break;
+
+                                if (!GameUtils.IsSpecialLootItem(item.TemplateId))
                                     continue;
 
-                                itemName = allItem.Name.Localized();
+                                itemName = item.Name.Localized();
                                 MiscVisualsOptions.LootableContainerColor = Color.white;
-
                             }
 
                             Render.DrawString(new Vector2(corpse.ScreenPosition.x, corpse.ScreenPosition.y - x), itemName, MiscVisualsOptions.LootableContainerColor);

@@ -24,7 +24,7 @@ namespace SivaEftCheat.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.Weapon != null)
                 {
                     if (AimbotOptions.SilentAim && NotHooked)
                     {
