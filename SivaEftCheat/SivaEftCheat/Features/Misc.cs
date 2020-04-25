@@ -321,7 +321,7 @@ namespace SivaEftCheat.Features
         {
             if (MiscOptions.DrawHud && Main.Camera != null)
             {
-                Render.DrawString(new Vector2(512, Screen.height - 78), $"{Main.ClosePlayers} Players closer then 50m", Color.white, false, 20);
+                Render.DrawString(new Vector2(512, Screen.height - 78), $"{Main.ClosePlayers} Players closer than 50m", Color.white, false, 20);
                 Render.DrawString(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);
             }
         }

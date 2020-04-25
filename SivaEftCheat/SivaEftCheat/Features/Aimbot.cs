@@ -26,7 +26,6 @@ namespace SivaEftCheat.Features
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.Weapon != null)
                 {
-                    // should not be needed
                     Player.AbstractHandsController handsController = Main.LocalPlayer.HandsController;
                     if ((handsController != null ? handsController.Item : null) is Weapon)
                     {
@@ -38,13 +37,17 @@ namespace SivaEftCheat.Features
                             NotHooked = false;
                         }
 
-                        //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
 
+                        //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
                         //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
                         //    Target = null;
 
                         Target = GetTarget();
 
+                        //This is not really needed. 
+                        if (!GameUtils.IsPlayerAlive(Target.Player))
+                            Target = null;
+                        
                         DoAimbot();
                         AutoShoot();
                     }
@@ -58,7 +61,7 @@ namespace SivaEftCheat.Features
         {
             if (Target != null && AimbotOptions.AutoShoot)
             {
-                if (!Main.LocalPlayer.IsInventoryOpened && Main.LocalPlayer.Weapon != null)
+                if (!Main.LocalPlayer.IsInventoryOpened || Main.LocalPlayer.Weapon != null)
                 {
                     if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
                     {
@@ -76,7 +79,7 @@ namespace SivaEftCheat.Features
             Dictionary<GamePlayer, int> dictionary = new Dictionary<GamePlayer, int>();
             foreach (var player in Main.Players)
             {
-                if (GameUtils.IsFriend(player.Player) || !GameUtils.IsPlayerAlive(player.Player))
+                if (GameUtils.IsFriend(player.Player))
                     continue;
 
                 Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
