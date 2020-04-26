@@ -14,25 +14,23 @@ namespace SivaEftCheat.Features
     {
         public object SilentAimHook(object ammo, Vector3 origin, Vector3 direction, int fireIndex, Player player, Item weapon, float speedFactor = 1f, int fragmentIndex = 0)
         {
-            try
+            if (AimbotOptions.SilentAim)
             {
-                if (AimbotOptions.SilentAim)
+                GamePlayer target = Aimbot.Target;
+                if (target != null)
                 {
-                    GamePlayer target = Aimbot.Target;
-                    if (target != null)
+                    Vector3 headPosition = target.Player.PlayerBones.Head.position + new Vector3(0f, 0.07246377f, 0f);
+                    if (Main.LocalPlayer.Weapon != null)
                     {
-                        Vector3 headPosition = target.Player.PlayerBones.Head.position + new Vector3(0f, 0.07246377f, 0f);
-                        if (Main.LocalPlayer.Weapon != null)
-                        {
-                            direction = (headPosition - origin).normalized;
-                            speedFactor = 100f;
-                        }
+                        direction = (headPosition - origin).normalized;
+                        speedFactor = 100f;
                     }
                 }
+            }
 
-                Aimbot.CreateShotHook.Unhook();
-                object[] parameters =
-                {
+            Aimbot.CreateShotHook.Unhook();
+            object[] parameters =
+            {
                     ammo,
                     origin,
                     direction,
@@ -42,14 +40,10 @@ namespace SivaEftCheat.Features
                     speedFactor,
                     fragmentIndex
                 };
-                object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
-                Aimbot.CreateShotHook.Hook();
-                return result;
-            }
-            catch
-            {
-                return null;
-            }
+            object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
+            Aimbot.CreateShotHook.Hook();
+            return result;
+
 
         }
 

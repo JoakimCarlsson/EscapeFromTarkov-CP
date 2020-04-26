@@ -49,7 +49,11 @@ namespace SivaEftCheat.Features.ESP
                                 if (!GameUtils.IsSpecialLootItem(item.TemplateId))
                                     continue;
 
-                                itemName = item.Name.Localized();
+
+                                if (MiscVisualsOptions.DrawItemsPrice)
+                                    itemName = $"{item.Name.Localized()} $ {item.Template.CreditsPrice / 1000} K";
+                                else
+                                    itemName = item.Name.Localized();
                                 MiscVisualsOptions.LootableContainerColor = Color.white;
                             }
 

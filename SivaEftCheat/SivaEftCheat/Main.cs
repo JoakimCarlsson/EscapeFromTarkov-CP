@@ -27,23 +27,28 @@ namespace SivaEftCheat
         internal static List<GameCorpse> Corpses = new List<GameCorpse>();
         internal static List<GamePlayer> Players = new List<GamePlayer>();
 
-        private IEnumerator _coroutineUpdateMain;
         private float _nextPlayerCacheTime;
         private static readonly float _cachePlayersInterval = 1f;
 
         private float _nextListCacheTime;
         private static readonly float _cacheListInterval = 1f;
 
-        private void Start()
-        {
-            //AllocConsoleHandler.Open();
-
-            _coroutineUpdateMain = UpdateMain(10f);
-            StartCoroutine(_coroutineUpdateMain);
-        }
+        private float _nextMainCacheTime;
+        private static readonly float _cacheMainInterval = 5f;
 
         private void FixedUpdate()
         {
+
+            try
+            {
+                if (Time.time >= _nextMainCacheTime)
+                {
+                    UpdateMain();
+                    _nextMainCacheTime = Time.time + _cacheMainInterval;
+                }
+            }
+            catch { }
+
             try
             {
                 if (Time.time >= _nextListCacheTime)
@@ -51,13 +56,23 @@ namespace SivaEftCheat
                     GetLists();
                     _nextListCacheTime = Time.time + _cacheListInterval;
                 }
+            }
+            catch { }
 
+
+            try
+            {
                 if (Time.time >= _nextPlayerCacheTime)
                 {
                     GetPlayers();
                     _nextPlayerCacheTime = Time.time + _cachePlayersInterval;
                 }
+            }
+            catch { }
 
+
+            try
+            {
                 foreach (GamePlayer gamePlayer in Players)
                     gamePlayer.RecalculateDynamics();
 
@@ -177,23 +192,19 @@ namespace SivaEftCheat
             catch { }
         }
 
-        private IEnumerator UpdateMain(float waitTime)
+        private void UpdateMain()
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(waitTime);
 
-                try
+            try
+            {
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
-                    if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
-                    {
-                        GameWorld = Singleton<GameWorld>.Instance;
-                        Camera = Camera.main;
-                    }
+                    GameWorld = Singleton<GameWorld>.Instance;
+                    Camera = Camera.main;
                 }
-                catch
-                {
-                }
+            }
+            catch
+            {
             }
         }
 

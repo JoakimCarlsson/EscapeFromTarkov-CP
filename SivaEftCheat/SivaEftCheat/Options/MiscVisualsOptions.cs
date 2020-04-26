@@ -18,6 +18,7 @@ namespace SivaEftCheat.Options
         public static Color ExtractColor = new Color(0f, 0.87f, 0f);
 
         public static bool DrawItems = true;
+        public static bool DrawItemsPrice = true;
         public static bool DrawCommonItems = false;
         public static bool DrawRareItems = false;
         public static bool DrawSuperRareItems = false;

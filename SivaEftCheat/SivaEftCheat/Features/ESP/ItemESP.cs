@@ -45,7 +45,13 @@ namespace SivaEftCheat.Features.ESP
                         if (GameUtils.IsMedItem(lootItem.LootItem.TemplateId))
                             itemColor = MiscVisualsOptions.MedColor;
 
-                        string text = $"{lootItem.LootItem.Item.Name.Localized()} {lootItem.FormattedDistance}";
+                        string text = string.Empty;
+
+                        if (MiscVisualsOptions.DrawItemsPrice)
+                            text = $"{lootItem.LootItem.Item.Name.Localized()} {lootItem.FormattedDistance} \n $ {lootItem.LootItem.Item.Template.CreditsPrice / 1000} k";
+                        else
+                            text = $"{lootItem.LootItem.Item.Name.Localized()} {lootItem.FormattedDistance}";
+
                         Render.DrawString(lootItem.ScreenPosition, text, itemColor);
                     }
                 }

@@ -13,8 +13,7 @@ namespace SivaEftCheat.Utils
             return Physics.Linecast(
                 Main.Camera.transform.position,
                 player.PlayerBones.Head.position,
-                out _raycastHit,
-                LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
+                out _raycastHit, LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
         }
         public static bool IsBodyPartVisible(Player player, int bodyPart)
         {

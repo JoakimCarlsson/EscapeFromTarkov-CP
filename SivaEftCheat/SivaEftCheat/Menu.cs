@@ -108,6 +108,7 @@ namespace SivaEftCheat
 
                 case 2:
                     MiscVisualsOptions.DrawItems = GUILayout.Toggle(MiscVisualsOptions.DrawItems, "Draw Items");
+                    MiscVisualsOptions.DrawItemsPrice = GUILayout.Toggle(MiscVisualsOptions.DrawItemsPrice, "Draw Items Price");
                     MiscVisualsOptions.DrawCommonItems = GUILayout.Toggle(MiscVisualsOptions.DrawCommonItems, "Draw Common Items");
                     MiscVisualsOptions.DrawRareItems = GUILayout.Toggle(MiscVisualsOptions.DrawRareItems, "Draw Rare Items");
                     MiscVisualsOptions.DrawSuperRareItems = GUILayout.Toggle(MiscVisualsOptions.DrawSuperRareItems, "Draw Super Rare Items");

@@ -51,8 +51,8 @@ namespace SivaEftCheat.Utils
                 pos.x -= _testStyle.CalcSize(contention).x / 2f;
             }
 
-            GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 25f), contention2, _textOutlineStyle);
-            GUI.Label(new Rect(pos.x, pos.y, 300f, 25f), contention, _testStyle);
+            GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 35f), contention2, _textOutlineStyle);
+            GUI.Label(new Rect(pos.x, pos.y, 300f, 35), contention, _testStyle);
 
         }
 

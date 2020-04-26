@@ -118,14 +118,15 @@ namespace SivaEftCheat.Data
             {
                 _tempItem = _equipItemList.Current;
                 value += _tempItem.Template.CreditsPrice;
+
+                if (GameUtils.IsSpecialLootItem(_tempItem.TemplateId))
+                    HasSpecialItem = true;
+
                 if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
                 {
                     var x = _tempItem.GetAllItems().GetEnumerator();
                     while (x.MoveNext())
                     {
-                        if (GameUtils.IsSpecialLootItem(x.Current.TemplateId))
-                            HasSpecialItem = true;
-
                         value -= x.Current.Template.CreditsPrice;
                     }
                 }

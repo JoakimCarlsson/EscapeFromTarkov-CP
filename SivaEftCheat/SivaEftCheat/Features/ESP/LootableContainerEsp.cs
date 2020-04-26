@@ -22,29 +22,33 @@ namespace SivaEftCheat.Features.ESP
                         if (!lootableContainer.IsOnScreen || lootableContainer.Distance > MiscVisualsOptions.DrawLootableContainersRange)
                             continue;
 
-                        var item = lootableContainer.LootableContainer.ItemOwner.RootItem;
+                        var rootItem = lootableContainer.LootableContainer.ItemOwner.RootItem;
 
-                        if (item.GetAllItems().Count() == 1)
+                        if (rootItem.GetAllItems().Count() == 1)
                             continue;
 
-                        foreach (var allItem in item.GetAllItems())
+                        foreach (var item in rootItem.GetAllItems())
                         {
-                            string lootItemName;
-                            if (item.GetAllItems().First() == allItem)
+                            string itemText;
+                            if (rootItem.GetAllItems().First() == item)
                             {
-                                lootItemName = $"{allItem.Name.Localized()} [{lootableContainer.FormattedDistance}]";
+                                itemText = $"{item.Name.Localized()} [{lootableContainer.FormattedDistance}]";
                                 MiscVisualsOptions.LootableContainerColor = new Color(1f, 0.2f, 0.09f);
                             }
                             else
                             {
-                                if (!GameUtils.IsSpecialLootItem(allItem.TemplateId))
+                                if (!GameUtils.IsSpecialLootItem(item.TemplateId))
                                     continue;
 
-                                lootItemName = allItem.Name.Localized();
+                                if (MiscVisualsOptions.DrawItemsPrice)
+                                    itemText = $"{item.Name.Localized()} $ {item.Template.CreditsPrice / 1000} K";
+                                else
+                                    itemText = item.Name.Localized();
+
                                 MiscVisualsOptions.LootableContainerColor = Color.white;
                             }
 
-                            Render.DrawString(new Vector2(lootableContainer.ScreenPosition.x, lootableContainer.ScreenPosition.y - x), lootItemName, MiscVisualsOptions.LootableContainerColor);
+                            Render.DrawString(new Vector2(lootableContainer.ScreenPosition.x, lootableContainer.ScreenPosition.y - x), itemText, MiscVisualsOptions.LootableContainerColor);
                             x -= 20;
                         }
                     }
