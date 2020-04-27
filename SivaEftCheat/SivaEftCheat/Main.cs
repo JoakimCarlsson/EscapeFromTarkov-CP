@@ -38,41 +38,28 @@ namespace SivaEftCheat
 
         private void FixedUpdate()
         {
-
             try
             {
+
                 if (Time.time >= _nextMainCacheTime)
                 {
                     UpdateMain();
                     _nextMainCacheTime = Time.time + _cacheMainInterval;
                 }
-            }
-            catch { }
 
-            try
-            {
                 if (Time.time >= _nextListCacheTime)
                 {
                     GetLists();
                     _nextListCacheTime = Time.time + _cacheListInterval;
                 }
-            }
-            catch { }
 
 
-            try
-            {
                 if (Time.time >= _nextPlayerCacheTime)
                 {
                     GetPlayers();
                     _nextPlayerCacheTime = Time.time + _cachePlayersInterval;
                 }
-            }
-            catch { }
 
-
-            try
-            {
                 foreach (GamePlayer gamePlayer in Players)
                     gamePlayer.RecalculateDynamics();
 

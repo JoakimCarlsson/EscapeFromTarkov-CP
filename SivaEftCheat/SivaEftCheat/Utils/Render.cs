@@ -52,7 +52,7 @@ namespace SivaEftCheat.Utils
             }
 
             GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 35f), contention2, _textOutlineStyle);
-            GUI.Label(new Rect(pos.x, pos.y, 300f, 35), contention, _testStyle);
+            GUI.Label(new Rect(pos.x, pos.y, 300f, 35f), contention, _testStyle);
 
         }
 

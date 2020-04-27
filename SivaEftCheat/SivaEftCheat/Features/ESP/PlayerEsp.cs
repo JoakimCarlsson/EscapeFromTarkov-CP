@@ -100,12 +100,23 @@ namespace SivaEftCheat.Features.ESP
 
         private static void DrawWeaponText(GamePlayer player, Color playerColor)
         {
-            Player.AbstractHandsController handsController = player.Player.HandsController;
-            if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
+            string text;
+
+            try
             {
-                string text3 = $"{player.Player.Weapon.ShortName.Localized()}";
-                Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text3, playerColor);
+                Player.AbstractHandsController handsController = player.Player.HandsController;
+                if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
+                {
+                    text = $"{player.Player.Weapon.ShortName.Localized()}";
+                    Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text, playerColor);
+                }
             }
+            catch
+            {
+                text = "Unkown";
+                Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text, playerColor);
+            }
+
         }
 
         private static void DrawValueText(GamePlayer player, Color playerColor)

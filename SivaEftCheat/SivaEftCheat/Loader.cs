@@ -1,6 +1,8 @@
 ﻿using SivaEftCheat.Features;
 using SivaEftCheat.Features.ESP;
 using UnityEngine;
+using SivaEftCheat.Bypass;
+using SivaEftCheat.Utils;
 
 namespace SivaEftCheat
 {
@@ -16,11 +18,6 @@ namespace SivaEftCheat
         public static GameObject CorpseObject;
         public static GameObject AimbotObject;
         public static GameObject GrenadeObject;
-
-        public void Start()
-        {
-
-        }
 
         public static void Load()
         {

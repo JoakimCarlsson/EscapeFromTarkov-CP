@@ -90,7 +90,7 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Stuff\de4dot\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Games\EMUTarkov\client\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Comfort">
       <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkovLive\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
@@ -101,6 +101,7 @@
     <Reference Include="PlayerEnums">
       <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkovLive\EscapeFromTarkov_Data\Managed\PlayerEnums.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkovLive\EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
@@ -120,8 +121,6 @@
       <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkovLive\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Bypass\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

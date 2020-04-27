@@ -142,7 +142,7 @@ namespace SivaEftCheat.Features
                     var mag = weapon?.GetCurrentMagazine();
                     if (mag != null)
                     {
-                        tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount} [{weapon.SelectedFireMode}]";
+                        tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
                     }
                 }
                 catch

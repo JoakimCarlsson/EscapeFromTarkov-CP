@@ -17,7 +17,7 @@ namespace SivaEftCheat
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "Citadel";
+        private string watermark = "WHY ARE YOU HERE?";
 
         private void Start()
         {
