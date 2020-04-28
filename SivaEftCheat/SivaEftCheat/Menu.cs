@@ -19,6 +19,7 @@ namespace SivaEftCheat
         private bool _miscFeatureslVisible;
 
         private string watermark = "WHY ARE YOU HERE?";
+        private string AimButton = "Bone: Head";
 
         private void Start()
         {
@@ -166,6 +167,27 @@ namespace SivaEftCheat
                     GUILayout.EndHorizontal();
                     if (GUILayout.Button("Aimbot Key: " + AimbotOptions.AimbotKey))
                         AimbotOptions.AimbotKey = KeyCode.None;
+
+                    if (GUILayout.Button(AimButton))
+                    {
+                        if (AimButton.Contains("Head"))
+                        {
+                            AimButton = "Bone: Neck";
+                            AimbotOptions.AimbotBone = 132;
+                        }
+                        else if (AimButton.Contains("Neck"))
+                        {
+                            AimButton = "Bone: Body";
+                            AimbotOptions.AimbotBone = 37;
+
+                        }
+                        else if (AimButton.Contains("Body"))
+                        {
+                            AimButton = "Bone: Head";
+                            AimbotOptions.AimbotBone = 133;
+                        }
+                    }
+
                     AimbotOptions.SilentAim = GUILayout.Toggle(AimbotOptions.SilentAim, "Silent Aim");
                     AimbotOptions.AutoShoot = GUILayout.Toggle(AimbotOptions.AutoShoot, "Auto Shoot");
                     AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");

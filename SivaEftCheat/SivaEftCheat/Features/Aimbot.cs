@@ -122,7 +122,7 @@ namespace SivaEftCheat.Features
                     return;
 
                 Vector3 aimPosition = Vector3.zero;
-                Vector3 headPosition = Target.Player.PlayerBones.Head.position;
+                Vector3 headPosition = GameUtils.FinalVector(Target.Player.PlayerBody.SkeletonRootJoint, AimbotOptions.AimbotBone);
 
                 Weapon weapon = Main.LocalPlayer.Weapon;
                 if (weapon != null)
@@ -147,7 +147,6 @@ namespace SivaEftCheat.Features
                     return;
 
                 Weapon weapon = Main.LocalPlayer.Weapon;
-
                 if (weapon != null)
                 {
                     Render.DrawLine(GameUtils.ScreenCenter, Target.HeadScreenPosition, MiscVisualsOptions.CrossHairColor, 0.5f, true);

@@ -62,7 +62,7 @@ namespace SivaEftCheat.Features.ESP
                                     if ((player.IsAI && PlayerOptions.DrawScavWeapon) || (!player.IsAI && PlayerOptions.DrawPlayerWeapon))
                                         DrawWeaponText(player, player.PlayerColor);
 
-                                    if (player.Value != 0 && (player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue) )
+                                    if (player.Value != 0 && (player.IsAI && PlayerOptions.DrawScavValue) || (!player.IsAI && PlayerOptions.DrawPlayerValue))
                                         DrawValueText(player, player.PlayerColor);
 
                                     if ((player.IsAI && PlayerOptions.DrawScavCornerBox) || (!player.IsAI && PlayerOptions.DrawPlayerCornerBox))
@@ -71,6 +71,9 @@ namespace SivaEftCheat.Features.ESP
                                     if ((player.IsAI && PlayerOptions.DrawScavSkeleton) || (!player.IsAI && PlayerOptions.DrawPlayerSkeleton))
                                         if (player.Distance <= 50f)
                                             DrawSkeleton(player.Player);
+
+                                    //if ((player.IsAI && PlayerOptions.ScavChams) || (!player.IsAI && PlayerOptions.PlayerChams))
+                                    //    Chams(player);
 
                                     if (player.HasSpecialItem)
                                         Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
@@ -84,6 +87,28 @@ namespace SivaEftCheat.Features.ESP
             {
             }
         }
+
+        private void Chams(GamePlayer player)
+        {
+            var rend = player.Player.GetComponentsInChildren<Renderer>();
+            var rend2 = player.Player.GetComponentsInChildren<Renderer>();
+            
+            foreach (Renderer renderer in rend2)
+            {
+                //DefaultShader = renderer.material.shader;
+                var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                test.SetPixel(1,1, Color.white);
+                test.Apply();
+                renderer.material.mainTexture = test;
+            }
+
+            //foreach (Renderer renderer in rend)
+            //{
+            //    renderer.material.shader = DefaultShader;
+            //}
+        }
+
+        public Shader DefaultShader;
 
         private static void DrawPlayerAim(GamePlayer player, Color playerColor)
         {
@@ -130,7 +155,6 @@ namespace SivaEftCheat.Features.ESP
             float num3 = Mathf.Abs(player.ScreenPosition.y - player.HeadScreenPosition.y);
             Render.DrawCornerBox(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y), num3 / 1.8f, num3, playerColor, true);
         }
-
 
         public static Dictionary<HumanBones, Vector3> GetBones(Player player)
         {

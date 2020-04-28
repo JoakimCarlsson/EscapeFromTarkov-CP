@@ -12,5 +12,10 @@ namespace SivaEftCheat.Options
         public static bool SilentAim = true;
         public static bool TargetSnapLine = true;
         public static bool AutoShoot = false;
+        public static int AimbotBone = 132;
+
+        //133 Head.
+        //132 Neck.
+        //120 Body
     }
 }
