@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using EFT;
 using EFT.InventoryLogic;
 using EFT.UI;
@@ -15,7 +13,6 @@ namespace SivaEftCheat.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {
-
         private void OnGUI()
         {
             try
@@ -90,14 +87,13 @@ namespace SivaEftCheat.Features.ESP
 
         private void Chams(GamePlayer player)
         {
-            var rend = player.Player.GetComponentsInChildren<Renderer>();
             var rend2 = player.Player.GetComponentsInChildren<Renderer>();
             
             foreach (Renderer renderer in rend2)
             {
                 //DefaultShader = renderer.material.shader;
                 var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-                test.SetPixel(1,1, Color.white);
+                test.SetPixel(1,1, player.PlayerColor);
                 test.Apply();
                 renderer.material.mainTexture = test;
             }
@@ -107,8 +103,6 @@ namespace SivaEftCheat.Features.ESP
             //    renderer.material.shader = DefaultShader;
             //}
         }
-
-        public Shader DefaultShader;
 
         private static void DrawPlayerAim(GamePlayer player, Color playerColor)
         {

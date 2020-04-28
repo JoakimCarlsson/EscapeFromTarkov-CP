@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using EFT;
 using EFT.Ballistics;
@@ -18,7 +17,6 @@ namespace SivaEftCheat.Features
         public static TestHook CreateShotHook;
         public static GamePlayer Target;
         private static float _nextShot;
-        private static string _test = string.Empty;
 
         private void FixedUpdate()
         {
@@ -122,14 +120,18 @@ namespace SivaEftCheat.Features
                     return;
 
                 Vector3 aimPosition = Vector3.zero;
-                Vector3 headPosition = GameUtils.FinalVector(Target.Player.PlayerBody.SkeletonRootJoint, AimbotOptions.AimbotBone);
+                Vector3 headPosition = GameUtils.FinalVector(Target.Player, AimbotOptions.AimbotBone);
 
                 Weapon weapon = Main.LocalPlayer.Weapon;
                 if (weapon != null)
                 {
-                    float travelTime = Target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
-                    headPosition.x += Target.Player.Velocity.x * travelTime;
-                    headPosition.y += Target.Player.Velocity.y * travelTime;
+                    if (Main.LocalPlayer.Weapon.CurrentAmmoTemplate != null)
+                    {
+                        float travelTime = Target.Distance / Main.LocalPlayer.Weapon.CurrentAmmoTemplate.InitialSpeed;
+                        headPosition.x += Target.Player.Velocity.x * travelTime;
+                        headPosition.y += Target.Player.Velocity.y * travelTime;
+                    }
+
                     aimPosition = headPosition;
                 }
 
@@ -142,7 +144,6 @@ namespace SivaEftCheat.Features
         {
             if (AimbotOptions.TargetSnapLine && AimbotOptions.Aimbot)
             {
-
                 if (Target == null || !GameUtils.IsPlayerAlive(Target.Player))
                     return;
 

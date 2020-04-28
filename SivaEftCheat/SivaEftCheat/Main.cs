@@ -36,11 +36,10 @@ namespace SivaEftCheat
         private float _nextMainCacheTime;
         private static readonly float _cacheMainInterval = 5f;
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             try
             {
-
                 if (Time.time >= _nextMainCacheTime)
                 {
                     UpdateMain();

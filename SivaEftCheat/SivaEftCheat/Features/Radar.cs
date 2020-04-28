@@ -15,8 +15,6 @@ namespace SivaEftCheat.Features
 
     class Radar : MonoBehaviour
     {
-
-
         private void Update()
         {
             try

@@ -9,11 +9,11 @@ namespace SivaEftCheat.Utils
     class GameUtils
     {
         public static Vector2 ScreenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        public static Vector3 FinalVector(Diz.Skinning.Skeleton skeletor, int bone)
+        public static Vector3 FinalVector(Player player, int bone)
         {
             try
             {
-                return skeletor.Bones.ElementAt(bone).Value.position;
+                return player.PlayerBody.SkeletonRootJoint.Bones.ElementAt(bone).Value.position;
             }
             catch { return Vector3.zero; }
         }

@@ -23,7 +23,6 @@ namespace SivaEftCheat
 
         private void Start()
         {
-            AllocConsoleHandler.Open();
             _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
             _itemVisuals = new Rect(630f, 60f, 350f, 150f);
@@ -177,11 +176,16 @@ namespace SivaEftCheat
                         }
                         else if (AimButton.Contains("Neck"))
                         {
-                            AimButton = "Bone: Body";
+                            AimButton = "Bone: Body 1";
                             AimbotOptions.AimbotBone = 37;
 
                         }
-                        else if (AimButton.Contains("Body"))
+                        else if (AimButton.Contains("Body 1"))
+                        {
+                            AimButton = "Bone: Body 2";
+                            AimbotOptions.AimbotBone = 36;
+                        }
+                        else if (AimButton.Contains("Body 2"))
                         {
                             AimButton = "Bone: Head";
                             AimbotOptions.AimbotBone = 133;

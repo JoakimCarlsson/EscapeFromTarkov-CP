@@ -19,7 +19,7 @@ namespace SivaEftCheat.Features
                 GamePlayer target = Aimbot.Target;
                 if (target != null)
                 {
-                    Vector3 headPosition = GameUtils.FinalVector(target.Player.PlayerBody.SkeletonRootJoint, AimbotOptions.AimbotBone);
+                    Vector3 headPosition = GameUtils.FinalVector(target.Player, AimbotOptions.AimbotBone);
                     if (Main.LocalPlayer.Weapon != null)
                     {
                         direction = (headPosition - origin).normalized;
