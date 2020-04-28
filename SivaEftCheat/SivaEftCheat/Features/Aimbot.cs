@@ -17,15 +17,17 @@ namespace SivaEftCheat.Features
         public static bool NotHooked = true;
         public static TestHook CreateShotHook;
         public static GamePlayer Target;
-        private static float NextMouseClick;
+        private static float _nextShot;
         private static string _test = string.Empty;
 
-        private void Update()
+        private void FixedUpdate()
         {
             try
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.Weapon != null)
                 {
+                    //_test = RayCast.BarrelRayCastTest(Main.LocalPlayer);
+
                     Player.AbstractHandsController handsController = Main.LocalPlayer.HandsController;
                     if ((handsController != null ? handsController.Item : null) is Weapon)
                     {
@@ -36,7 +38,6 @@ namespace SivaEftCheat.Features
                             CreateShotHook.Hook();
                             NotHooked = false;
                         }
-
 
                         //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
                         //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
@@ -50,6 +51,7 @@ namespace SivaEftCheat.Features
                         
                         DoAimbot();
                         AutoShoot();
+
                     }
 
                 }
@@ -63,10 +65,10 @@ namespace SivaEftCheat.Features
             {
                 if (!Main.LocalPlayer.IsInventoryOpened || Main.LocalPlayer.Weapon != null)
                 {
-                    if (NextMouseClick < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
+                    if (_nextShot < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
                     {
                         Main.LocalPlayer.GetComponent<Player.FirearmController>().SetTriggerPressed(true);
-                        NextMouseClick = Time.time + 0.064f;
+                        _nextShot = Time.time + 0.064f;
                         Main.LocalPlayer.GetComponent<Player.FirearmController>().SetTriggerPressed(false);
                     }
                 }
@@ -104,7 +106,7 @@ namespace SivaEftCheat.Features
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
                     Render.DrawString(new Vector2(20, 100), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
-                    //Render.DrawString(new Vector2(20, 160), RayCast.BarrelRayCastTest(Main.LocalPlayer), Color.white, false);
+                    //Render.DrawString(new Vector2(20, 120), $"Aiming at Object: {_test}", Color.white, false);
                     TargetSnapLine();
                     DrawFov();
                 }

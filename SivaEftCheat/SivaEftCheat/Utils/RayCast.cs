@@ -50,7 +50,7 @@ namespace SivaEftCheat.Utils
             try
             {
                 Physics.Linecast(player.Fireport.position, player.Fireport.position - player.Fireport.up * 1000f, out _raycastHit);
-                return _raycastHit.transform.gameObject.layer.ToString();
+                return _raycastHit.transform.name;
             }
             catch
             {

@@ -56,19 +56,6 @@ namespace SivaEftCheat.Utils
 
         }
 
-        //public static void DrawTextOutline(Vector2 position, string text, Color outColor, Color inColor)
-        //{
-        //    GUIStyle espLabelStyle = EspLabelStyle;
-        //    Vector2 vector = espLabelStyle.CalcSize(new GUIContent(text));
-        //    var rect = new Rect(position.x + 1f, position.y + 1f, vector.x + 12f, vector.y + 12f);
-        //    espLabelStyle.normal.textColor = outColor;
-        //    GUI.Label(rect, text, espLabelStyle);
-        //    rect.x -= 1f;
-        //    rect.y -= 1f;
-        //    espLabelStyle.normal.textColor = inColor;
-        //    GUI.Label(rect, text, espLabelStyle);
-        //}
-
         public static void BoxRect(Rect rect, Color color)
         {
             if (CurrentTexture == null)
@@ -90,6 +77,7 @@ namespace SivaEftCheat.Utils
         public static void DrawLine(Vector2 pointA, Vector2 pointB, float width, Color color)
         {
             DrawLineStretched(pointA, pointB, (int)width, color);
+            //RectFilled(pointA.x, pointB.y, 1f, 1f, color);
         }
 
         public static void DrawLineStretched(Vector2 lineStart, Vector2 lineEnd, int thickness, Color color)
