@@ -1,5 +1,6 @@
 ﻿using System;
 using SivaEftCheat.Options;
+using SivaEftCheat.Utils;
 using UnityEngine;
 
 namespace SivaEftCheat
@@ -21,6 +22,7 @@ namespace SivaEftCheat
 
         private void Start()
         {
+            AllocConsoleHandler.Open();
             _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
             _itemVisuals = new Rect(630f, 60f, 350f, 150f);

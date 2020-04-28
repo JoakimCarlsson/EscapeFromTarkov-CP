@@ -6,20 +6,20 @@ namespace SivaEftCheat.Utils
     {
         private static Color _texturesColor;
 
-        private static Texture2D _texture = new Texture2D(1, 1) { filterMode = 0 };
-        public static Texture2D CurrentTexture;
-        public static Color CurrentTextureColor = Color.black;
-        private static Texture2D texture2D_0 = new Texture2D(1, 1);
-        private static Texture2D test = new Texture2D(2, 2, TextureFormat.ARGB32, false);
-        private static Rect lineRect = new Rect(0f, 0f, 1f, 1f);
+        private static readonly Texture2D _texture = new Texture2D(1, 1, TextureFormat.ARGB32, false) { filterMode = 0 };
+        private static Texture2D _currentTexture;
+        private static Color _currentTextureColor = Color.black;
+        private static readonly Texture2D Texture2D = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+        private static readonly Texture2D Test = new Texture2D(2, 2, TextureFormat.ARGB32, false);
+        private static readonly Rect LineRect = new Rect(0f, 0f, 1f, 1f);
 
         public static void DrawRadarBackground(Rect rect)
         {
             Color color = new Color(0f, 0f, 0f, 0.5f);
-            texture2D_0.SetPixel(0, 0, color);
-            texture2D_0.Apply();
+            Texture2D.SetPixel(0, 0, color);
+            Texture2D.Apply();
             GUI.color = color;
-            GUI.DrawTexture(rect, texture2D_0);
+            GUI.DrawTexture(rect, Texture2D);
         }
 
         private static GUIStyle _testStyle = new GUIStyle(GUI.skin.label)
@@ -58,20 +58,20 @@ namespace SivaEftCheat.Utils
 
         public static void BoxRect(Rect rect, Color color)
         {
-            if (CurrentTexture == null)
+            if (_currentTexture == null)
             {
-                CurrentTexture = new Texture2D(1, 1);
-                CurrentTexture.SetPixel(0, 0, color);
-                CurrentTexture.Apply();
-                CurrentTextureColor = color;
+                _currentTexture = new Texture2D(1, 1);
+                _currentTexture.SetPixel(0, 0, color);
+                _currentTexture.Apply();
+                _currentTextureColor = color;
             }
-            else if (color != CurrentTextureColor)
+            else if (color != _currentTextureColor)
             {
-                CurrentTexture.SetPixel(0, 0, color);
-                CurrentTexture.Apply();
-                CurrentTextureColor = color;
+                _currentTexture.SetPixel(0, 0, color);
+                _currentTexture.Apply();
+                _currentTextureColor = color;
             }
-            GUI.DrawTexture(rect, CurrentTexture);
+            GUI.DrawTexture(rect, _currentTexture);
         }
 
         public static void DrawLine(Vector2 pointA, Vector2 pointB, float width, Color color)
@@ -208,11 +208,11 @@ namespace SivaEftCheat.Utils
                 if (antiAlias)
                 {
                     width *= 3f;
-                    texture2D = test;
+                    texture2D = Test;
                 }
                 else
                 {
-                    texture2D = test;
+                    texture2D = Test;
                 }
                 float num4 = width * num2 / num3;
                 float num5 = width * num / num3;
@@ -226,7 +226,7 @@ namespace SivaEftCheat.Utils
                 GL.PushMatrix();
                 GL.MultMatrix(identity);
                 GUI.color = color;
-                GUI.DrawTexture(lineRect, texture2D);
+                GUI.DrawTexture(LineRect, texture2D);
                 GL.PopMatrix();
             }
         }

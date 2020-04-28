@@ -218,7 +218,6 @@ namespace SivaEftCheat.Features.ESP
             {
                 if (bones.ContainsKey(start) && bones.ContainsKey(stop) && GameUtils.IsScreenPointVisible(bones[start]) && GameUtils.IsScreenPointVisible(bones[stop]))
                 {
-                    //GameUtils.IsVisible(bones[stop])?  Color.green : Color.red
                     Render.DrawLine(bones[start], bones[stop], 2.5f, Color.white);
                 }
             }

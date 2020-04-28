@@ -23,6 +23,7 @@ namespace SivaEftCheat.Features
         public static bool NotHooked = true;
         public static TestHook BulletPenetrationHook;
         private static Vector3 _tempPosition = Vector3.zero;
+        private Color _ambientColor;
 
         private void FixedUpdate()
         {
@@ -49,8 +50,10 @@ namespace SivaEftCheat.Features
                     AlwaysRunning();
                 }
             }
-            catch { }   
-            //Test();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         private void AlwaysRunning()
@@ -88,27 +91,21 @@ namespace SivaEftCheat.Features
             }
         }
 
-
+        public static bool amlight = false;
         private void FullBrightUpdate()
-        {
+        {   
+
             if (MiscOptions.ForceLight)
-            {
-                GameFullBright.Enabled = true;
+                {
+                    RenderSettings.fog = false;
+                    RenderSettings.ambientLight = Color.white;
+                }
+                else
+                {
+                    RenderSettings.fog = true;
+                    RenderSettings.ambientLight = _ambientColor;
+                }
 
-                if (GameFullBright.FullBrightLight == null)
-                    return;
-
-                _tempPosition = Main.LocalPlayer.Transform.position;
-                _tempPosition.y += .2f;
-                GameFullBright.LightGameObject.transform.position = _tempPosition;
-            }
-            else
-            {
-                if (GameFullBright.FullBrightLight != null)
-                    Destroy(GameFullBright.FullBrightLight);
-
-                GameFullBright.LightCalled = false;
-            }
         }
 
         private void BulletPenetration()
