@@ -45,10 +45,7 @@ namespace Citadel.Features
                     AlwaysRunning();
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            catch { }
         }
 
         private void AlwaysRunning()
@@ -124,7 +121,7 @@ namespace Citadel.Features
 
         private void BulletPenetration()
         {
-            if (MiscOptions.BulletPenetration && NotHooked && Main.LocalPlayer.Weapon != null)
+            if (MiscOptions.BulletPenetration && NotHooked && Main.LocalPlayer.HandsController.Item is Weapon)
             {
                 BulletPenetrationHook = new TestHook();
                 BulletPenetrationHook.Init(typeof(BallisticsCalculator).GetMethod("GetAmmoPenetrationPower"), typeof(HookObject).GetMethod("BulletPenetration"));
@@ -135,9 +132,12 @@ namespace Citadel.Features
 
         private void DontMoveWeaponCloser()
         {
-            if (MiscOptions.DontMoveWeaponCloser && Main.LocalPlayer.Weapon != null)
+            if (MiscOptions.DontMoveWeaponCloser)
             {
-                Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EProceduralAnimationMask.ForceReaction;
+                if (Main.LocalPlayer.HandsController.Item is Weapon)
+                {
+                    Main.LocalPlayer.ProceduralWeaponAnimation.Mask = EProceduralAnimationMask.ForceReaction;
+                }
             }
         }
 
@@ -145,21 +145,21 @@ namespace Citadel.Features
         {
             if (MiscOptions.DrawHud)
             {
-                string tempMag = string.Empty;
+                    string tempMag = string.Empty;
 
-                try
-                {
-                    var weapon = Main.LocalPlayer.Weapon;
-                    var mag = weapon?.GetCurrentMagazine();
-                    if (mag != null)
+                    if (Main.LocalPlayer.HandsController.Item is Weapon)
                     {
-                        tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
+                        var weapon = Main.LocalPlayer.Weapon;
+                        var mag = weapon.GetCurrentMagazine();
+                        if (mag != null)
+                        {
+                            tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
+                        }
                     }
-                }
-                catch
-                {
-                    tempMag = "Unkown";
-                }
+                    else
+                    {
+                        tempMag = "unkown";
+                    }
 
                 string tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";
@@ -278,7 +278,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (MiscOptions.NoRecoil && Main.LocalPlayer.Weapon != null)
+                if (MiscOptions.NoRecoil)
                 {
                     Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthXy = Vector2.zero;
                     Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthZ = Vector2.zero;

@@ -19,7 +19,7 @@ namespace Citadel
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "Citadel";
+        private string watermark = "WHY IS THIS NOT WORKING";
         private string AimButton = "Bone: Head";
 
         private void Start()

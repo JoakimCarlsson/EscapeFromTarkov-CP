@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Citadel.Options;
 using EFT;
 using EFT.Interactive;
@@ -8,6 +9,28 @@ namespace Citadel.Utils
 {
     class GameUtils
     {
+        private static List<string> meleeWeaponList = new List<string>
+        {
+            "6h5 Bayonet",
+            "Antique axe",
+            "Bars A-2607- 95x18",
+            "Bars A-2607- Damascus",
+            "Camper axe",
+            "Crash Axe",
+            "ER Fulcrum Bayonet",
+            "Freeman crowbar",
+            "Kiba Arms Tactical Tomahawk",
+            "M-2 Tactical Sword",
+            "MPL-50 entrenching tool",
+            "Red Rebel Ice pick",
+            "SP-8 Survival Machete"
+        };
+
+        public static bool IsMeleeWeapon(string itemName)
+        {
+            return meleeWeaponList.Contains(itemName);
+        }
+
         public static Vector2 ScreenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
         public static Vector3 FinalVector(Player player, int bone)
         {
