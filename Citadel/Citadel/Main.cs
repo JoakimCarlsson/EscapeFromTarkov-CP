@@ -92,6 +92,21 @@ namespace Citadel
                             continue;
                         }
 
+                        if (PlayerOptions.CustomTexture)
+                        {
+                                Renderer[] rend2 = player.GetComponentsInChildren<Renderer>();
+
+                                foreach (Renderer renderer in rend2)
+                                {
+                                    //DefaultShader = renderer.material.shader;
+                                    var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                                    test.SetPixel(1, 1,Color.white);
+                                    test.Apply();
+                                    renderer.material.mainTexture = test;
+                                }
+                        }
+
+
                         if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
                             ClosePlayers++;
 

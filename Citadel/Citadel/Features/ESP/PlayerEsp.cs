@@ -71,7 +71,7 @@ namespace Citadel.Features.ESP
                                             DrawSkeleton(player.Player);
 
                                     //if ((player.IsAI && PlayerOptions.ScavChams) || (!player.IsAI && PlayerOptions.PlayerChams))
-                                    //    Chams(player);
+                                    //CustomTexture(player);
 
                                     if (player.HasSpecialItem)
                                         Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
@@ -86,24 +86,7 @@ namespace Citadel.Features.ESP
             }
         }
 
-        private void Chams(GamePlayer player)
-        {
-            var rend2 = player.Player.GetComponentsInChildren<Renderer>();
 
-            foreach (Renderer renderer in rend2)
-            {
-                //DefaultShader = renderer.material.shader;
-                var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-                test.SetPixel(1, 1, player.PlayerColor);
-                test.Apply();
-                renderer.material.mainTexture = test;
-            }
-
-            //foreach (Renderer renderer in rend)
-            //{
-            //    renderer.material.shader = DefaultShader;
-            //}
-        }
 
         private static void DrawPlayerAim(GamePlayer player, Color playerColor)
         {

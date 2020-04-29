@@ -24,7 +24,7 @@ namespace Citadel
 
         private void Start()
         {
-            AllocConsoleHandler.Open();
+            //AllocConsoleHandler.Open();
             ////Test test = new Test();
             ////test.Main();
 
@@ -87,6 +87,7 @@ namespace Citadel
                     PlayerOptions.DrawPlayerDistance = GUILayout.Toggle(PlayerOptions.DrawPlayerDistance, "Draw Player Distance");
                     PlayerOptions.DrawPlayerValue = GUILayout.Toggle(PlayerOptions.DrawPlayerValue, "Draw Player Value");
                     PlayerOptions.DrawCorpses = GUILayout.Toggle(PlayerOptions.DrawCorpses, "Draw Player Corpses");
+                    PlayerOptions.CustomTexture = GUILayout.Toggle(PlayerOptions.CustomTexture, "Custom Textures");
 
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Player Distance {(int)PlayerOptions.DrawPlayerRange} m");

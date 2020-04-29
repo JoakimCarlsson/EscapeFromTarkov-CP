@@ -37,6 +37,6 @@ namespace Citadel.Options
         public static bool DrawScavDistance = true;
         public static bool DrawScavAimPos = false;
         public static bool DrawScavValue = true;
-        public static bool ScavChams = true;
+        public static bool CustomTexture = true;
     }
 }
