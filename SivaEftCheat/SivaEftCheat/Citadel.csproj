@@ -7,8 +7,8 @@
     <ProjectGuid>{45137EA6-75F2-48A3-B9AF-EA1E7DE904E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SivaEftCheat</RootNamespace>
-    <AssemblyName>SivaEftCheat</AssemblyName>
+    <RootNamespace>Citadel</RootNamespace>
+    <AssemblyName>Citadel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="Bypass\Test.cs" />
     <Compile Include="Data\GameCorpse.cs" />
     <Compile Include="Data\GameExtractPoint.cs" />
     <Compile Include="Data\GameFullBright.cs" />
@@ -90,7 +91,7 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Stuff\de4dot\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Games\EMUTarkov\client\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Comfort, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -104,6 +105,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Games\Real EFT\EscapeFromTarkov_Data\Managed\PlayerEnums.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Games\Real EFT\EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
@@ -129,5 +131,6 @@
       <HintPath>..\..\..\..\..\..\..\Games\Real EFT\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

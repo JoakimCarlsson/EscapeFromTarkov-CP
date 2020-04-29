@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT;
 using EFT.InventoryLogic;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Data
+namespace Citadel.Data
 {
     public class GamePlayer
     {

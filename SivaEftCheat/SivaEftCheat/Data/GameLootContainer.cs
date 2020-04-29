@@ -1,9 +1,9 @@
 ﻿using System;
+using Citadel.Utils;
 using EFT.Interactive;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Data
+namespace Citadel.Data
 {
     class GameLootContainer
     {

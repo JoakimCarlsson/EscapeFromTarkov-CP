@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SivaEftCheat.Utils
+namespace Citadel.Utils
 {
     class Render
     {

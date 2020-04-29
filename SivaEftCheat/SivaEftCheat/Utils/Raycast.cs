@@ -1,8 +1,7 @@
-﻿using System;
-using EFT;
+﻿using EFT;
 using UnityEngine;
 
-namespace SivaEftCheat.Utils
+namespace Citadel.Utils
 {
     class RayCast
     {
@@ -21,7 +20,7 @@ namespace SivaEftCheat.Utils
         }
         public static bool IsBodyPartVisible(Player player, int bodyPart)
         {
-            Vector3 bodyPartToAim = GameUtils.FinalVector(player.PlayerBody.SkeletonRootJoint, bodyPart);
+            Vector3 bodyPartToAim = GameUtils.FinalVector(player, bodyPart);
             return Physics.Linecast(Main.Camera.transform.position, bodyPartToAim,
                 out _raycastHit, LayerMask) && _raycastHit.collider && _raycastHit.collider.gameObject.transform.root.gameObject == player.gameObject.transform.root.gameObject;
         }

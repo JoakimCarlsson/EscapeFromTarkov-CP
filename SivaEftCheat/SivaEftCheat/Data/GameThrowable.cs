@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SivaEftCheat.Features;
-using SivaEftCheat.Utils;
+using Citadel.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Data
+namespace Citadel.Data
 {
     class GameThrowable
     {

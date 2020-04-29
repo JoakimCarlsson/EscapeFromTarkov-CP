@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Citadel.Data;
+using Citadel.Enums;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT;
 using EFT.InventoryLogic;
 using EFT.UI;
-using SivaEftCheat.Data;
-using SivaEftCheat.Enums;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features.ESP
+namespace Citadel.Features.ESP
 {
     class PlayerEsp : MonoBehaviour
     {

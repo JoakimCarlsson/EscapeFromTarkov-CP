@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
+using Citadel.Data;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT;
 using EFT.Interactive;
 using EFT.UI;
-using SivaEftCheat.Data;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features.ESP
+namespace Citadel.Features.ESP
 {
     class ExtractEsp : MonoBehaviour
     {

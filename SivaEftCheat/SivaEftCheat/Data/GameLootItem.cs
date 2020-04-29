@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Citadel.Utils;
 using EFT.Interactive;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Data
+namespace Citadel.Data
 {
     public class GameLootItem
     {

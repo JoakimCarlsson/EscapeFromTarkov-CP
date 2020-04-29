@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BehaviourMachine;
+﻿using Citadel.Options;
+using Citadel.Utils;
 using EFT.UI;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features
+namespace Citadel.Features
 {
 
 

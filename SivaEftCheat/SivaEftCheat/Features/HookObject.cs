@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Citadel.Data;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT;
 using EFT.InventoryLogic;
-using SivaEftCheat.Data;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features
+namespace Citadel.Features
 {
     public class HookObject
     {
@@ -43,8 +40,6 @@ namespace SivaEftCheat.Features
             object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
             Aimbot.CreateShotHook.Hook();
             return result;
-
-
         }
 
         public static float BulletPenetration(object ammo, int randomInt, object randoms)

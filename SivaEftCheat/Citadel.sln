@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SivaEftCheat", "SivaEftCheat\SivaEftCheat.csproj", "{45137EA6-75F2-48A3-B9AF-EA1E7DE904E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Citadel", "SivaEftCheat\Citadel.csproj", "{45137EA6-75F2-48A3-B9AF-EA1E7DE904E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

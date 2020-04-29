@@ -1,9 +1,8 @@
-﻿using SivaEftCheat.Features;
-using SivaEftCheat.Features.ESP;
+﻿using Citadel.Features;
+using Citadel.Features.ESP;
 using UnityEngine;
-using SivaEftCheat.Utils;
 
-namespace SivaEftCheat
+namespace Citadel
 {
     public class Loader
     {

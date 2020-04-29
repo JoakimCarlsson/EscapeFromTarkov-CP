@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using BSG.CameraEffects;
+using Citadel.Data;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT;
 using EFT.Animations;
 using EFT.Ballistics;
 using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
-using SivaEftCheat.Data;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
-using UnityEngine.UI;
-using Random = System.Random;
 
-namespace SivaEftCheat.Features
+namespace Citadel.Features
 {
     class Misc : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT.UI;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features.ESP
+namespace Citadel.Features.ESP
 {
     class LootableContainerEsp : MonoBehaviour
     {

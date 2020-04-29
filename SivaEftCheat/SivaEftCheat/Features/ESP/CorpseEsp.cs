@@ -1,16 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Remoting;
-using EFT.Interactive;
-using EFT.InventoryLogic;
+﻿using System.Linq;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT.UI;
-using SivaEftCheat.Data;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features.ESP
+namespace Citadel.Features.ESP
 {
     class CorpseEsp : MonoBehaviour
     {

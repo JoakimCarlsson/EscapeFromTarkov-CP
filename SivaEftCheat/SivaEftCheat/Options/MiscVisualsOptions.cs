@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SivaEftCheat.Options
+namespace Citadel.Options
 {
     class MiscVisualsOptions
     {

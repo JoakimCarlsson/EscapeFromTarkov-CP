@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Citadel.Data;
+using Citadel.Options;
+using Citadel.Utils;
 using Comfort.Common;
 using EFT;
 using EFT.Interactive;
 using EFT.UI;
 using JsonType;
-using SivaEftCheat.Data;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat
+namespace Citadel
 {
     class Main : MonoBehaviour
     {
@@ -74,7 +71,6 @@ namespace SivaEftCheat
             catch { }
 
         }
-
         private void GetPlayers()
         {
             try
@@ -107,7 +103,6 @@ namespace SivaEftCheat
             {
             }
         }
-
         private void GetLists()
         {
             try
@@ -177,7 +172,6 @@ namespace SivaEftCheat
             }
             catch { }
         }
-
         private void UpdateMain()
         {
 

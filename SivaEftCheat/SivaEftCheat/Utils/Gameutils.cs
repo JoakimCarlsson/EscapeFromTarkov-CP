@@ -1,10 +1,10 @@
 ﻿using System.Linq;
+using Citadel.Options;
 using EFT;
 using EFT.Interactive;
-using SivaEftCheat.Options;
 using UnityEngine;
 
-namespace SivaEftCheat.Utils
+namespace Citadel.Utils
 {
     class GameUtils
     {

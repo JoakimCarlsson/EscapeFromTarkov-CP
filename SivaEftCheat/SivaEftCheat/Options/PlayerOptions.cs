@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SivaEftCheat.Options
+namespace Citadel.Options
 {
     static class PlayerOptions
     {

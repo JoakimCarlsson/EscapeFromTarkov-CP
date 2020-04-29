@@ -1,9 +1,10 @@
 ﻿using System;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
+using Citadel.Bypass;
+using Citadel.Options;
+using Citadel.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat
+namespace Citadel
 {
     public class Menu : MonoBehaviour
     {
@@ -18,11 +19,15 @@ namespace SivaEftCheat
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "WHY ARE YOU HERE?";
+        private string watermark = "Citadel";
         private string AimButton = "Bone: Head";
 
         private void Start()
         {
+            AllocConsoleHandler.Open();
+            Test test = new Test();
+            test.Main();
+
             _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
             _itemVisuals = new Rect(630f, 60f, 350f, 150f);

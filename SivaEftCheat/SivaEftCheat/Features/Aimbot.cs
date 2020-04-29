@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Citadel.Data;
+using Citadel.Options;
+using Citadel.Utils;
 using EFT;
 using EFT.Ballistics;
 using EFT.InventoryLogic;
 using EFT.UI;
-using SivaEftCheat.Data;
-using SivaEftCheat.Options;
-using SivaEftCheat.Utils;
 using UnityEngine;
 
-namespace SivaEftCheat.Features
+namespace Citadel.Features
 {
     class Aimbot : MonoBehaviour
     {
