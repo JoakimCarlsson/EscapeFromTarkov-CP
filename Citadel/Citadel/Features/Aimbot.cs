@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Citadel.Data;
 using Citadel.Options;
@@ -22,13 +23,9 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.Weapon != null)
+                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.HandsController.Item is Weapon)
                 {
-                    //_test = RayCast.BarrelRayCastTest(Main.LocalPlayer);
 
-                    Player.AbstractHandsController handsController = Main.LocalPlayer.HandsController;
-                    if ((handsController != null ? handsController.Item : null) is Weapon)
-                    {
                         if (AimbotOptions.SilentAim && NotHooked)
                         {
                             CreateShotHook = new TestHook();
@@ -42,19 +39,15 @@ namespace Citadel.Features
                         //    Target = null;
 
                         Target = GetTarget();
-
-                        //This is not really needed. 
-                        if (!GameUtils.IsPlayerAlive(Target.Player))
-                            Target = null;
                         
                         DoAimbot();
                         AutoShoot();
 
-                    }
-
                 }
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         private static void AutoShoot()

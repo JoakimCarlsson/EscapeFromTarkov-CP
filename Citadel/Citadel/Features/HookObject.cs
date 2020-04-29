@@ -11,23 +11,27 @@ namespace Citadel.Features
     {
         public object SilentAimHook(object ammo, Vector3 origin, Vector3 direction, int fireIndex, Player player, Item weapon, float speedFactor = 1f, int fragmentIndex = 0)
         {
-            if (AimbotOptions.SilentAim)
+            if (Main.LocalPlayer.HandsController.Item is Weapon)
             {
-                GamePlayer target = Aimbot.Target;
-                if (target != null)
+
+                if (AimbotOptions.SilentAim)
                 {
-                    Vector3 headPosition = GameUtils.FinalVector(target.Player, AimbotOptions.AimbotBone);
-                    if (Main.LocalPlayer.Weapon != null)
+                    GamePlayer target = Aimbot.Target;
+                    if (target != null)
                     {
-                        direction = (headPosition - origin).normalized;
-                        speedFactor = 100f;
+                        Vector3 headPosition = GameUtils.FinalVector(target.Player, AimbotOptions.AimbotBone);
+                        if (Main.LocalPlayer.Weapon != null)
+                        {
+                            direction = (headPosition - origin).normalized;
+                            speedFactor = 100f;
+                        }
                     }
                 }
             }
 
-            Aimbot.CreateShotHook.Unhook();
-            object[] parameters =
-            {
+                Aimbot.CreateShotHook.Unhook();
+                object[] parameters =
+                {
                     ammo,
                     origin,
                     direction,
@@ -37,9 +41,9 @@ namespace Citadel.Features
                     speedFactor,
                     fragmentIndex
                 };
-            object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
-            Aimbot.CreateShotHook.Hook();
-            return result;
+                object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
+                Aimbot.CreateShotHook.Hook();
+                return result;
         }
 
         public static float BulletPenetration(object ammo, int randomInt, object randoms)

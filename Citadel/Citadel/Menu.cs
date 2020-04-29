@@ -19,14 +19,14 @@ namespace Citadel
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "WHY IS THIS NOT WORKING";
+        private string watermark = "Citadel";
         private string AimButton = "Bone: Head";
 
         private void Start()
         {
             AllocConsoleHandler.Open();
-            Test test = new Test();
-            test.Main();
+            ////Test test = new Test();
+            ////test.Main();
 
             _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
