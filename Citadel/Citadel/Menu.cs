@@ -60,7 +60,6 @@ namespace Citadel
 
         private void RenderUi(int id)
         {
-
             switch (id)
             {
                 case 0:
@@ -135,7 +134,6 @@ namespace Citadel
                     GUILayout.Label($"Container Distance {(int)MiscVisualsOptions.DrawLootableContainersRange} m");
                     MiscVisualsOptions.DrawLootableContainersRange = GUILayout.HorizontalSlider(MiscVisualsOptions.DrawLootableContainersRange, 0f, 1000f);
                     GUILayout.EndHorizontal();
-
                     GUILayout.Space(20);
                     GUILayout.Label("Other Visuals");
                     MiscOptions.DrawHud = GUILayout.Toggle(MiscOptions.DrawHud, "Draw Hud");//DrawExtractEspSwitches
@@ -196,8 +194,10 @@ namespace Citadel
                             AimbotOptions.AimbotBone = 133;
                         }
                     }
-
+                    GUI.color = Color.red;
                     AimbotOptions.SilentAim = GUILayout.Toggle(AimbotOptions.SilentAim, "Silent Aim");
+                    GUI.color = Color.white;
+
                     AimbotOptions.AutoShoot = GUILayout.Toggle(AimbotOptions.AutoShoot, "Auto Shoot");
                     AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");
 
@@ -208,20 +208,34 @@ namespace Citadel
                     break;
 
                 case 4:
+                    GUI.color = Color.red;
                     MiscOptions.MaxSkills = GUILayout.Toggle(MiscOptions.MaxSkills, "Max Skills");
+                    GUI.color = Color.white;
+
                     MiscOptions.InfiniteStamina = GUILayout.Toggle(MiscOptions.InfiniteStamina, "Infinite Stamina");
+
+                    GUI.color = Color.red;
                     MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "SpeedHack");
+                    GUI.color = Color.white;
+
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Speed Hack: {(float)Math.Round(MiscOptions.SpeedHackValue, 1, MidpointRounding.ToEven)}");
                     MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
                     GUILayout.EndHorizontal();
+
+                    GUI.color = Color.red;
                     MiscOptions.DoorUnlocker = GUILayout.Toggle(MiscOptions.DoorUnlocker, $"DoorUnlocker: {MiscOptions.DoorUnlockerKey}");
+                    GUI.color = Color.white;
+
                     MiscOptions.ThermalVison = GUILayout.Toggle(MiscOptions.ThermalVison, $"Thermal Vison: {MiscOptions.ThermalVisonKey}");
                     MiscOptions.NightVison = GUILayout.Toggle(MiscOptions.NightVison, $"Night Vison: {MiscOptions.NightVisonKey}");
                     MiscOptions.NoVisor = GUILayout.Toggle(MiscOptions.NoVisor, "No Visor");
                     MiscOptions.ForceLight = GUILayout.Toggle(MiscOptions.ForceLight, "Force Light");
                     MiscOptions.AlwaysSprint = GUILayout.Toggle(MiscOptions.AlwaysSprint, "Always Max Speed");
+
+                    GUI.color = Color.red;
                     MiscOptions.FlyHack = GUILayout.Toggle(MiscOptions.FlyHack, $"Fly Hack: {MiscOptions.FlyHackKey}");
+                    GUI.color = Color.white;
 
                     GUILayout.Space(20);
                     GUILayout.Label("Weapon Options");
