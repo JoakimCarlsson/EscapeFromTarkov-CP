@@ -65,17 +65,16 @@ namespace Citadel.Features.ESP
                 {
                     foreach (GameThrowable grenade in _grenades)
                     {
-                        if (!grenade.IsOnScreen)
+                        if (!grenade.IsOnScreen || grenade.Distance > 50f)
                             return;
 
-                        string name = ThrowableName(grenade.Grenade.name.Localized());
+                        string name = $"{ThrowableName(grenade.Grenade.name.Localized())} {grenade.FormattedDistance}";
                         Render.DrawCircle(grenade.ScreenPosition, 20f, Color.red, 0.5f, true, 40);
                         Render.DrawString(grenade.ScreenPosition, name, Color.red);
 
                         if (grenade.Distance < 10f)
                         {
                             Render.DrawString(new Vector2(1024, Screen.height - 56), $"{name} close: {grenade.FormattedDistance}", Color.white, false, 20);
-
                         }
                     }
                 }

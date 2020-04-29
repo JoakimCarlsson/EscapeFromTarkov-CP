@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Citadel.Data;
 using Citadel.Enums;
@@ -88,12 +89,12 @@ namespace Citadel.Features.ESP
         private void Chams(GamePlayer player)
         {
             var rend2 = player.Player.GetComponentsInChildren<Renderer>();
-            
+
             foreach (Renderer renderer in rend2)
             {
                 //DefaultShader = renderer.material.shader;
                 var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-                test.SetPixel(1,1, player.PlayerColor);
+                test.SetPixel(1, 1, player.PlayerColor);
                 test.Apply();
                 renderer.material.mainTexture = test;
             }
@@ -119,29 +120,14 @@ namespace Citadel.Features.ESP
 
         private static void DrawWeaponText(GamePlayer player, Color playerColor)
         {
-            string text;
-
-            try
-            {
-                Player.AbstractHandsController handsController = player.Player.HandsController;
-                if (((handsController != null) ? handsController.Item : null) is Weapon && player.Player.Weapon.ShortName != null)
-                {
-                    text = $"{player.Player.Weapon.ShortName.Localized()}";
-                    Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text, playerColor);
-                }
-            }
-            catch
-            {
-                text = "Unkown";
-                Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text, playerColor);
-            }
-
+            string text = player.Player.HandsController.Item is Weapon ? $"{player.Player.Weapon.ShortName.Localized()}" : "Unkown";
+            Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 5f), text, playerColor);
         }
 
         private static void DrawValueText(GamePlayer player, Color playerColor)
         {
-            string text3 = $"$ {player.FormattedValue}";
-            Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 15f), text3, playerColor);
+            string text = $"$ {player.FormattedValue}";
+            Render.DrawString(new Vector2(player.ScreenPosition.x, player.ScreenPosition.y + 15f), text, playerColor);
         }
 
         private static void DrawBox(GamePlayer player, Color playerColor)
@@ -152,8 +138,6 @@ namespace Citadel.Features.ESP
 
         public static Dictionary<HumanBones, Vector3> GetBones(Player player)
         {
-            try
-            {
                 Dictionary<HumanBones, Vector3> dictionary = new Dictionary<HumanBones, Vector3>();
                 if (player.PlayerBody == null || player.PlayerBody.SkeletonRootJoint == null)
                 {
@@ -178,17 +162,11 @@ namespace Citadel.Features.ESP
                     }
                 }
                 return dictionary;
-            }
-            catch
-            {
-            }
-            return null;
         }
 
         public static void DrawSkeleton(Player player)
         {
-            try
-            {
+
                 Dictionary<HumanBones, Vector3> bones = GetBones(player);
                 if (bones.Count != 0)
                 {
@@ -224,24 +202,16 @@ namespace Citadel.Features.ESP
                     ConnectBones(bones, HumanBones.HumanRDigit11, HumanBones.HumanRDigit12);
                     ConnectBones(bones, HumanBones.HumanRDigit12, HumanBones.HumanRDigit13);
                 }
-            }
-            catch
-            {
-            }
         }
 
         public static void ConnectBones(Dictionary<HumanBones, Vector3> bones, HumanBones start, HumanBones stop)
         {
-            try
-            {
+
                 if (bones.ContainsKey(start) && bones.ContainsKey(stop) && GameUtils.IsScreenPointVisible(bones[start]) && GameUtils.IsScreenPointVisible(bones[stop]))
                 {
                     Render.DrawLine(bones[start], bones[stop], 2.5f, Color.white);
                 }
-            }
-            catch
-            {
-            }
+
         }
 
         public static readonly List<HumanBones> NeededBones = new List<HumanBones>
