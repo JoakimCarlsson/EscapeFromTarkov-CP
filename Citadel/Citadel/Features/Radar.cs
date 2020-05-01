@@ -65,7 +65,7 @@ namespace Citadel.Features
 
                     //To Render Our background
                     Render.DrawCornerBox(new Vector2(MiscVisualsOptions.RadarX + (MiscVisualsOptions.RadarSize / 2), MiscVisualsOptions.RadarY), MiscVisualsOptions.RadarSize, MiscVisualsOptions.RadarSize, Color.white, true);
-                    Render.DrawBackground(new Rect(MiscVisualsOptions.RadarX, MiscVisualsOptions.RadarY, MiscVisualsOptions.RadarSize, MiscVisualsOptions.RadarSize));
+                    Render.DrawRadarBackground(new Rect(MiscVisualsOptions.RadarX, MiscVisualsOptions.RadarY, MiscVisualsOptions.RadarSize, MiscVisualsOptions.RadarSize));
                 }
 
             }

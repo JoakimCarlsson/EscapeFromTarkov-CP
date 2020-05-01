@@ -13,7 +13,7 @@ namespace Citadel.Utils
         private static readonly Texture2D Test = new Texture2D(2, 2, TextureFormat.ARGB32, false);
         private static readonly Rect LineRect = new Rect(0f, 0f, 1f, 1f);
 
-        public static void DrawBackground(Rect rect)
+        public static void DrawRadarBackground(Rect rect)
         {
             Color color = new Color(0f, 0f, 0f, 0.5f);
             Texture2D.SetPixel(0, 0, color);
@@ -53,6 +53,7 @@ namespace Citadel.Utils
 
             GUI.Label(new Rect(pos.x + 1f, pos.y + 1f, 300f, 35f), contention2, _textOutlineStyle);
             GUI.Label(new Rect(pos.x, pos.y, 300f, 35f), contention, _testStyle);
+
         }
 
         public static void BoxRect(Rect rect, Color color)

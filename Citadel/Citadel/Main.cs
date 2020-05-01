@@ -92,18 +92,18 @@ namespace Citadel
                             continue;
                         }
 
-                        //Not the best place too put it, but atleast we don't have too loop over our playerlist again
                         if (PlayerOptions.CustomTexture)
                         {
-                            Renderer[] renders = player.GetComponentsInChildren<Renderer>();
-                            foreach (Renderer renderer in renders)
-                            {
-                                //DefaultShader = renderer.material.shader;
-                                var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-                                test.SetPixel(1, 1, Color.white);
-                                test.Apply();
-                                renderer.material.mainTexture = test;
-                            }
+                                Renderer[] rend2 = player.GetComponentsInChildren<Renderer>();
+
+                                foreach (Renderer renderer in rend2)
+                                {
+                                    //DefaultShader = renderer.material.shader;
+                                    var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                                    test.SetPixel(1, 1,Color.white);
+                                    test.Apply();
+                                    renderer.material.mainTexture = test;
+                                }
                         }
 
 

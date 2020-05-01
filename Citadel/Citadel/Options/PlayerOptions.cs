@@ -24,6 +24,7 @@ namespace Citadel.Options
         public static bool DrawPlayerDistance = true;
         public static bool DrawPlayerAimPos = false;
         public static bool DrawPlayerValue = true;
+        public static bool PlayerChams = false;
 
         public static float DrawScavsRange = 300f;
         public static bool DrawScavs = true;
