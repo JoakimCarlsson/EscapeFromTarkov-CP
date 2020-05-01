@@ -1,5 +1,6 @@
 ﻿using System;
 using BSG.CameraEffects;
+using Citadel.Bypass;
 using Citadel.Data;
 using Citadel.Options;
 using Citadel.Utils;
@@ -10,6 +11,8 @@ using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 namespace Citadel.Features
 {
@@ -43,9 +46,33 @@ namespace Citadel.Features
                     FullBrightUpdate();
                     FullBrightCreateObject();
                     AlwaysRunning();
+                    //Testing();
                 }
             }
             catch { }
+        }
+
+        private void Testing()
+        {
+            try
+            {
+                NavMeshAgent agent = Main.LocalPlayer.GetComponent<NavMeshAgent>();
+                
+                agent.enabled = true;
+                agent.speed = 10f;
+
+
+                if (Aimbot.Target != null)
+                {
+                    
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         private void AlwaysRunning()
@@ -62,21 +89,13 @@ namespace Citadel.Features
                 Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Aiming);
             }
         }
-
-        private void Test()
-        {
-            if (MiscOptions.InstantHit)
-            {
-            }
-        }
-
         private void FullBrightCreateObject()
         {
             if (!GameFullBright.LightCalled && GameFullBright.Enabled)
             {
                 GameFullBright.LightGameObject = new GameObject("Fullbright");
                 GameFullBright.FullBrightLight = GameFullBright.LightGameObject.AddComponent<Light>();
-                GameFullBright.FullBrightLight.color = new Color(1f, 0.839f, 0.66f, 1f);
+                GameFullBright.FullBrightLight.color = new Color(0.94f, 1f, 1f);
                 GameFullBright.FullBrightLight.range = 2000f;
                 GameFullBright.FullBrightLight.intensity = 0.6f;
                 GameFullBright.LightCalled = true;
@@ -145,21 +164,21 @@ namespace Citadel.Features
         {
             if (MiscOptions.DrawHud)
             {
-                    string tempMag = string.Empty;
+                string tempMag = string.Empty;
 
-                    if (Main.LocalPlayer.HandsController.Item is Weapon)
+                if (Main.LocalPlayer.HandsController.Item is Weapon)
+                {
+                    var weapon = Main.LocalPlayer.Weapon;
+                    var mag = weapon.GetCurrentMagazine();
+                    if (mag != null)
                     {
-                        var weapon = Main.LocalPlayer.Weapon;
-                        var mag = weapon.GetCurrentMagazine();
-                        if (mag != null)
-                        {
-                            tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
-                        }
+                        tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
                     }
-                    else
-                    {
-                        tempMag = "unkown";
-                    }
+                }
+                else
+                {
+                    tempMag = "unkown";
+                }
 
                 string tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";

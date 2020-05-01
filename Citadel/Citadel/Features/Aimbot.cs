@@ -26,22 +26,22 @@ namespace Citadel.Features
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.HandsController.Item is Weapon)
                 {
 
-                        if (AimbotOptions.SilentAim && NotHooked)
-                        {
-                            CreateShotHook = new TestHook();
-                            CreateShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
-                            CreateShotHook.Hook();
-                            NotHooked = false;
-                        }
+                    if (AimbotOptions.SilentAim && NotHooked)
+                    {
+                        CreateShotHook = new TestHook();
+                        CreateShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
+                        CreateShotHook.Hook();
+                        NotHooked = false;
+                    }
 
-                        //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
-                        //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
-                        //    Target = null;
+                    //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
+                    //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
+                    //    Target = null;
 
-                        Target = GetTarget();
-                        
-                        DoAimbot();
-                        AutoShoot();
+                    Target = GetTarget();
+
+                    DoAimbot();
+                    AutoShoot();
 
                 }
             }
@@ -75,11 +75,8 @@ namespace Citadel.Features
                 if (GameUtils.IsFriend(player.Player))
                     continue;
 
-                Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
-                if (player.Distance <= AimbotOptions.Distnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
-                {
+                if (player.Distance <= AimbotOptions.Distnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && player.IsOnScreen)
                     dictionary.Add(player, (int)player.DistanceFromCenter);
-                }
             }
 
             if (dictionary.Count > 0.01)
@@ -97,7 +94,6 @@ namespace Citadel.Features
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
                 {
                     Render.DrawString(new Vector2(20, 100), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
-                    //Render.DrawString(new Vector2(20, 120), $"Aiming at Object: {_test}", Color.white, false);
                     TargetSnapLine();
                     DrawFov();
                 }

@@ -29,9 +29,9 @@ namespace Citadel.Features
                 }
             }
 
-                Aimbot.CreateShotHook.Unhook();
-                object[] parameters =
-                {
+            Aimbot.CreateShotHook.Unhook();
+            object[] parameters =
+            {
                     ammo,
                     origin,
                     direction,
@@ -41,9 +41,9 @@ namespace Citadel.Features
                     speedFactor,
                     fragmentIndex
                 };
-                object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
-                Aimbot.CreateShotHook.Hook();
-                return result;
+            object result = Aimbot.CreateShotHook.OriginalMethod.Invoke(this, parameters);
+            Aimbot.CreateShotHook.Hook();
+            return result;
         }
 
         public static float BulletPenetration(object ammo, int randomInt, object randoms)
