@@ -4,7 +4,7 @@ namespace Citadel.Options
 {
     static class PlayerOptions
     {
-        public static Color PlayerColor = new Color(0f, 0.3f, 0.06f);
+        public static Color PlayerColor = new Color(0.75f, 0f, 0f);
         public static Color ScavColor = new Color(1f, 0.81f, 0f);
         public static Color PlayerScavColor = new Color(0.9f, 0.09f, 0.9f);
         public static Color FriendColor = new Color(0f, 0.7f, 1f);
