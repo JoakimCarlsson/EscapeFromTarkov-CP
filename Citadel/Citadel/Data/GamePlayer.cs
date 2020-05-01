@@ -116,14 +116,14 @@ namespace Citadel.Data
             _equipItemList = player.Profile.Inventory.Equipment.GetAllItems().GetEnumerator();
             while (_equipItemList.MoveNext())
             {
-                _tempItem = _equipItemList.Current;
-                value += _tempItem.Template.CreditsPrice;
-
                 if (GameUtils.IsMeleeWeapon(_tempItem.Name.Localized()))
                     continue;
 
                 if (GameUtils.IsSpecialLootItem(_tempItem.TemplateId))
                     HasSpecialItem = true;
+
+                _tempItem = _equipItemList.Current;
+                value += _tempItem.Template.CreditsPrice;
 
                 if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
                 {
