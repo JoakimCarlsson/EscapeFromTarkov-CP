@@ -9,8 +9,7 @@ namespace Citadel.Options
         public static Color CommonColor = Color.white;
         public static Color RareColor = Color.blue;
         public static Color SuperRareColor = Color.cyan;
-        public static Color SpecialColor = Color.red;
-        public static Color DeadColor = Color.red;
+        public static Color SpecialColor = new Color(0.66f, 0f, 1f);
         public static Color MedColor = Color.green;
         public static Color QuestItemsColor = Color.magenta;
         public static Color LootableContainerColor = Color.white;
