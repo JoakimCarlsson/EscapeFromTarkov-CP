@@ -54,25 +54,25 @@ namespace Citadel.Features
 
         private void Testing()
         {
-            //try
-            //{
-            //    NavMeshAgent agent = Main.LocalPlayer.GetComponent<NavMeshAgent>();
+            try
+            {
+                NavMeshAgent agent = Main.LocalPlayer.GetComponent<NavMeshAgent>();
                 
-            //    agent.enabled = true;
-            //    agent.speed = 10f;
+                agent.enabled = true;
+                agent.speed = 10f;
 
 
-            //    if (Aimbot.Target != null)
-            //    {
+                if (Aimbot.Target != null)
+                {
                     
-            //    }
+                }
 
 
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e);
-            //}
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         private void AlwaysRunning()

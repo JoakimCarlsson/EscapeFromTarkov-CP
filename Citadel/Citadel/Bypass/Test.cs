@@ -7,23 +7,25 @@ namespace Citadel.Bypass
     {
         public void Main()
         {
-            //Process[] processes = Process.GetProcesses();
-            //IntPtr assemblyAddress = new IntPtr();
+            Process[] processes = Process.GetProcesses();
+            IntPtr assemblyAddress = new IntPtr();
 
-            //foreach (var process in processes)
-            //{
-            //    if (process.ProcessName == "EscapeFromTarkov")
-            //    {
-            //        foreach (ProcessModule module in process.Modules)
-            //        {
-            //            if (module.ModuleName == "Assembly-CSharp")
-            //            {
-            //                assemblyAddress = module.BaseAddress;
-            //            }
-            //        }
-            //        break;
-            //    }
-            //}
+            foreach (var process in processes)
+            {
+                if (process.ProcessName == "EscapeFromTarkov")
+                {
+                    foreach (ProcessModule module in process.Modules)
+                    {
+                        if (module.ModuleName == "Assembly-CSharp")
+                        {
+                            assemblyAddress = module.BaseAddress;
+                        }
+                    }
+                    break;
+                }
+            }
+
+
         }
     }
 }

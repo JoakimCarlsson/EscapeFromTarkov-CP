@@ -119,9 +119,6 @@ namespace Citadel.Data
                 _tempItem = _equipItemList.Current;
                 value += _tempItem.Template.CreditsPrice;
 
-                if (GameUtils.IsMeleeWeapon(_tempItem.Name.Localized()))
-                    continue;
-
                 if (GameUtils.IsSpecialLootItem(_tempItem.TemplateId))
                     HasSpecialItem = true;
 
