@@ -70,9 +70,6 @@ namespace Citadel.Features.ESP
                                         if (player.Distance <= 50f)
                                             DrawSkeleton(player.Player);
 
-                                    //if ((player.IsAI && PlayerOptions.ScavChams) || (!player.IsAI && PlayerOptions.PlayerChams))
-                                    //CustomTexture(player);
-
                                     if (player.HasSpecialItem)
                                         Render.DrawString(new Vector2(player.HeadScreenPosition.x, player.HeadScreenPosition.y - 30f), "X", Color.red);
                                 }

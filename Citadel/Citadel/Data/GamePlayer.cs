@@ -24,7 +24,7 @@ namespace Citadel.Data
         public int Value { get; set; }
         public bool TeamMate { get; set; }
         public Color PlayerColor => _playerColor;
-        public bool  HasSpecialItem { get; set; }
+        public bool HasSpecialItem { get; set; }
 
         private static string Group = string.Empty;
 
@@ -117,21 +117,22 @@ namespace Citadel.Data
             while (_equipItemList.MoveNext())
             {
                 _tempItem = _equipItemList.Current;
-
-                if (GameUtils.IsMeleeWeapon(_tempItem.Name.Localized()))
-                    continue;
-
-                value += _tempItem.Template.CreditsPrice;
-
-                if (GameUtils.IsSpecialLootItem(_tempItem.TemplateId))
-                    HasSpecialItem = true;
-
-                if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
+                if (_tempItem != null)
                 {
-                    var x = _tempItem.GetAllItems().GetEnumerator();
-                    while (x.MoveNext())
+                    if (GameUtils.IsMeleeWeapon(_tempItem.Name.Localized()))
+                        continue;
+                    value += _tempItem.Template.CreditsPrice;
+
+                    if (GameUtils.IsSpecialLootItem(_tempItem.TemplateId))
+                        HasSpecialItem = true;
+
+                    if (_tempItem.Template._parent == "5448bf274bdc2dfc2f8b456a")
                     {
-                        value -= x.Current.Template.CreditsPrice;
+                        var x = _tempItem.GetAllItems().GetEnumerator();
+                        while (x.MoveNext())
+                        {
+                            if (x.Current != null) value -= x.Current.Template.CreditsPrice;
+                        }
                     }
                 }
             }

@@ -92,17 +92,19 @@ namespace Citadel
                             continue;
                         }
 
+
+                        //We don't have to do this that often. 
+                        //This might also cause some lag.
                         if (PlayerOptions.CustomTexture)
                         {
-                                Renderer[] rend2 = player.GetComponentsInChildren<Renderer>();
+                                Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
 
-                                foreach (Renderer renderer in rend2)
+                                Texture2D texture2D = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                                foreach (Renderer renderer in renderers)
                                 {
-                                    //DefaultShader = renderer.material.shader;
-                                    var test = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-                                    test.SetPixel(1, 1,Color.white);
-                                    test.Apply();
-                                    renderer.material.mainTexture = test;
+                                    texture2D.SetPixel(1, 1,Color.white);
+                                    texture2D.Apply();
+                                    renderer.material.mainTexture = texture2D;
                                 }
                         }
 
