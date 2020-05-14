@@ -24,9 +24,9 @@ namespace Citadel
 
         private void Start()
         {
-            //AllocConsoleHandler.Open();
-            ////Test test = new Test();
-            ////test.Main();
+            AllocConsoleHandler.Open();
+            NotABypass bypass = new NotABypass();
+            bypass.DoStuff();
 
             _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
