@@ -28,7 +28,12 @@ namespace Citadel.Bypass
                     try
                     {
                         NativeMemory memory = new LocalProcessMemory(process);
+                        //Console.WriteLine(memory.Read<UInt32>(pImage + 0x18));
+
                         memory.Write<UInt32>(pImage + 0x18, 0x7CEC98);
+
+                        //Console.WriteLine(memory.Read<UInt32>(pImage + 0x18));
+
                         break;
                     }
                     catch

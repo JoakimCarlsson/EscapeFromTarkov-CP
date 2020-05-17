@@ -43,6 +43,7 @@ namespace Citadel.Features
                     FullBrightUpdate();
                     FullBrightCreateObject();
                     AlwaysRunning();
+                    Test();
                 }
             }
             catch { }
@@ -67,6 +68,7 @@ namespace Citadel.Features
         {
             if (MiscOptions.InstantHit)
             {
+
             }
         }
 
