@@ -19,7 +19,7 @@ namespace Citadel
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "Big Wang Hung Long";
+        private string watermark = "Big Hung Wang Long";
         private string AimButton = "Bone: Head";
 
         private void Start()
