@@ -25,7 +25,8 @@ namespace Citadel.Bypass
             {
                 IntPtr pImage = MonoImageLoaded("Assembly-CSharp");
                 NativeMemory memory = new LocalProcessMemory(process[0]);
-                memory.Write<UInt32>(pImage + 0x18, 0x7D1098);
+
+                memory.Write<uint>(pImage + 0x18, 8196248);
             }
             catch
             {

@@ -285,16 +285,6 @@ namespace Citadel.Features
                 {
                     Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthXy = Vector2.zero;
                     Main.LocalPlayer.ProceduralWeaponAnimation.Shootingg.RecoilStrengthZ = Vector2.zero;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.x = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.y = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsRotation.Current.z = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.x = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.y = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.HandsContainer.HandsPosition.Current.z = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.Breath.HipPenalty = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.x = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.y = 0f;
-                    Main.LocalPlayer.ProceduralWeaponAnimation.MotionReact.Velocity.z = 0f;
                 }
             }
             catch { }

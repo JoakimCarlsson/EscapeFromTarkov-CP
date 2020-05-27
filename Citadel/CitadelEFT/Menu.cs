@@ -25,7 +25,7 @@ namespace Citadel
 
         private void Start()
         {
-            AllocConsoleHandler.Open();
+            //AllocConsoleHandler.Open();
             NotABypass bypass = new NotABypass();
             bypass.DoStuff();
 
@@ -225,12 +225,10 @@ namespace Citadel
                     MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
                     GUILayout.EndHorizontal();
 
-                    GUI.color = Color.red;
                     MiscOptions.SuperJump = GUILayout.Toggle(MiscOptions.SuperJump, "Super Jump");
-                    GUI.color = Color.white;
 
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"¨Super Jump: {(float)Math.Round(MiscOptions.SuperJumpValue, 1, MidpointRounding.ToEven)}");
+                    GUILayout.Label($"Super Jump: {(float)Math.Round(MiscOptions.SuperJumpValue, 1, MidpointRounding.ToEven)}");
                     MiscOptions.SuperJumpValue = GUILayout.HorizontalSlider(MiscOptions.SuperJumpValue, 0f, 2f);
                     GUILayout.EndHorizontal();
 
