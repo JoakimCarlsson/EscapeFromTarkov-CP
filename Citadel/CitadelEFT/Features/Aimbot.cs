@@ -161,7 +161,7 @@ namespace Citadel.Features
 
         private void DrawFov()
         {
-            if (AimbotOptions.DrawAimbotFov && AimbotOptions.Aimbot)
+            if (AimbotOptions.DrawAimbotFov)
             {
                 Render.DrawCircle(GameUtils.ScreenCenter, AimbotOptions.AimbotFov, Color.white, 0.5f, true, 40);
             }

@@ -5,6 +5,9 @@ namespace Citadel.Options
 {
     class MiscVisualsOptions
     {
+        public static KeyCode ToggleItemEsp = KeyCode.F3;
+        public static KeyCode ToggleContainerEsp = KeyCode.F4;
+
         //Colors
         public static Color CommonColor = Color.white;
         public static Color RareColor = Color.blue;

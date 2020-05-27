@@ -45,9 +45,31 @@ namespace Citadel.Features
                     FullBrightCreateObject();
                     AlwaysRunning();
                     SuperJump();
+                    HotKeys();
                 }
             }
             catch { }
+        }
+
+        private void HotKeys()
+        {
+            if (Input.GetKeyDown(PlayerOptions.TogglePlayerESP))
+                PlayerOptions.DrawPlayers = !PlayerOptions.DrawPlayers;
+
+            if (Input.GetKeyDown(PlayerOptions.ToggleScavESP))
+                PlayerOptions.DrawScavs = !PlayerOptions.DrawScavs;
+
+            if (Input.GetKeyDown(MiscVisualsOptions.ToggleItemEsp))
+                MiscVisualsOptions.DrawItems = !MiscVisualsOptions.DrawItems;
+
+            if (Input.GetKeyDown(MiscVisualsOptions.ToggleContainerEsp))
+                MiscVisualsOptions.DrawLootableContainers = !MiscVisualsOptions.DrawLootableContainers;
+
+            if (Input.GetKeyDown(MiscOptions.ThermalVisonKey))
+                MiscOptions.ThermalVison = !MiscOptions.ThermalVison;
+
+            if (Input.GetKeyDown(MiscOptions.NightVisonKey))
+                MiscOptions.NightVison = !MiscOptions.NightVison;
         }
 
         private void AlwaysRunning()

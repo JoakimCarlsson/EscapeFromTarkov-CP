@@ -49,7 +49,6 @@ namespace Citadel
                     _nextListCacheTime = Time.time + _cacheListInterval;
                 }
 
-
                 if (Time.time >= _nextPlayerCacheTime)
                 {
                     GetPlayers();

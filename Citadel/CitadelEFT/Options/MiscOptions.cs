@@ -4,10 +4,12 @@ namespace Citadel.Options
 {
     static class MiscOptions
     {
-        public static KeyCode ThermalVisonKey = KeyCode.F1;
-        public static KeyCode NightVisonKey = KeyCode.F2;
+        public static KeyCode ToggleMenu = KeyCode.Insert;
+
+        public static KeyCode ThermalVisonKey = KeyCode.F6;
+        public static KeyCode NightVisonKey = KeyCode.F7;
         public static KeyCode DoorUnlockerKey = KeyCode.Home;
-        public static KeyCode FlyHackKey = KeyCode.F3;
+        public static KeyCode FlyHackKey = KeyCode.F8;
 
         public static bool MaxSkills = true;
         public static bool DoorUnlocker = true;

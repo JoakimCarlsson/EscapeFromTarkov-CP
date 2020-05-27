@@ -13,11 +13,15 @@ namespace Citadel
         private Rect _itemVisuals;
         private Rect _aimbotVisualWindow;
         private Rect _miscFeatureslVisualWindow;
+        private Rect _hotKeysVisualWindow;
+
         public static bool Visible = true;
+
         private bool _playerEspVisualVisible;
         private bool _miscVisualVisible;
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
+        private bool _hotKeysVisible;
 
 
         private string watermark = "Interior Crocodile Alligator";
@@ -34,11 +38,12 @@ namespace Citadel
             _itemVisuals = new Rect(630f, 60f, 350f, 150f);
             _aimbotVisualWindow = new Rect(985f, 60f, 350f, 150f);
             _miscFeatureslVisualWindow = new Rect(1340f, 60f, 350f, 150f);
+            _hotKeysVisualWindow = new Rect(1690, 60f, 350f, 150f);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Insert))
+            if (Input.GetKeyDown(MiscOptions.ToggleMenu))
                 Visible = !Visible;
         }
 
@@ -57,6 +62,8 @@ namespace Citadel
                 _aimbotVisualWindow = GUILayout.Window(3, _aimbotVisualWindow, RenderUi, "Aimbot");
             if (_miscFeatureslVisible)
                 _miscFeatureslVisualWindow = GUILayout.Window(4, _miscFeatureslVisualWindow, RenderUi, "Miscellaneous");
+            if (_hotKeysVisible)
+                _hotKeysVisualWindow = GUILayout.Window(5, _hotKeysVisualWindow, RenderUi, "Hot Keys");
         }
 
         private void RenderUi(int id)
@@ -72,6 +79,8 @@ namespace Citadel
                         _aimbotVisualVisible = !_aimbotVisualVisible;
                     if (GUILayout.Button("Miscellaneous"))
                         _miscFeatureslVisible = !_miscFeatureslVisible;
+                    if (GUILayout.Button("Hot Keys"))
+                        _hotKeysVisible = !_hotKeysVisible;
                     break;
 
                 case 1:
@@ -255,8 +264,83 @@ namespace Citadel
                     MiscOptions.InstantHit = GUILayout.Toggle(MiscOptions.InstantHit, "Instant Hit");
                     MiscOptions.DontMoveWeaponCloser = GUILayout.Toggle(MiscOptions.DontMoveWeaponCloser, "Don't move weapon closer.");
                     break;
+
+                case 5:
+                    if (GUILayout.Button("Toogle Menu: " + MiscOptions.ToggleMenu))
+                        MiscOptions.ToggleMenu = KeyCode.None;
+
+                    if (GUILayout.Button("Player ESP: " + PlayerOptions.TogglePlayerESP))
+                        PlayerOptions.TogglePlayerESP = KeyCode.None;
+
+                    if (GUILayout.Button("Scav ESP: " + PlayerOptions.ToggleScavESP))
+                        PlayerOptions.ToggleScavESP = KeyCode.None;
+
+                    if (GUILayout.Button("Item ESP: " + MiscVisualsOptions.ToggleItemEsp))
+                        MiscVisualsOptions.ToggleItemEsp = KeyCode.None;
+
+                    if (GUILayout.Button("Lootable Container: " + MiscVisualsOptions.ToggleContainerEsp))
+                        MiscVisualsOptions.ToggleContainerEsp = KeyCode.None;
+
+                    if (GUILayout.Button("Unlock Doors: " + MiscOptions.DoorUnlockerKey))
+                        MiscOptions.DoorUnlockerKey = KeyCode.None;
+
+                    if (GUILayout.Button("Thermal Vison: " + MiscOptions.ThermalVisonKey))
+                        MiscOptions.ThermalVisonKey = KeyCode.None;
+
+                    if (GUILayout.Button("Night Vison: " + MiscOptions.NightVisonKey))
+                        MiscOptions.NightVisonKey = KeyCode.None;
+
+                    if (GUILayout.Button("Fly Hack: " + MiscOptions.FlyHackKey))
+                        MiscOptions.FlyHackKey = KeyCode.None;
+                    break;
             }
             GUI.DragWindow();
+
+            if (PlayerOptions.TogglePlayerESP == KeyCode.None)
+            {
+                Event e = Event.current;
+                PlayerOptions.TogglePlayerESP = e.keyCode;
+            }
+            if (PlayerOptions.ToggleScavESP == KeyCode.None)
+            {
+                Event e = Event.current;
+                PlayerOptions.ToggleScavESP = e.keyCode;
+            }
+            if (MiscOptions.ToggleMenu == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscOptions.ToggleMenu = e.keyCode;
+            }
+            if (MiscVisualsOptions.ToggleItemEsp == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscVisualsOptions.ToggleItemEsp = e.keyCode;
+            }
+            if (MiscVisualsOptions.ToggleContainerEsp == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscVisualsOptions.ToggleContainerEsp = e.keyCode;
+            }
+            if (MiscOptions.DoorUnlockerKey == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscOptions.DoorUnlockerKey = e.keyCode;
+            }
+            if (MiscOptions.ThermalVisonKey == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscOptions.ThermalVisonKey = e.keyCode;
+            }
+            if (MiscOptions.NightVisonKey == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscOptions.NightVisonKey = e.keyCode;
+            }
+            if (MiscOptions.FlyHackKey == KeyCode.None)
+            {
+                Event e = Event.current;
+                MiscOptions.FlyHackKey = e.keyCode;
+            }
 
             if (AimbotOptions.AimbotKey == KeyCode.None)
             {
