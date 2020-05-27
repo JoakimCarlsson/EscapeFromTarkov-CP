@@ -314,17 +314,11 @@ namespace Citadel.Features
 
         private void DoNightVison()
         {
-            if (Input.GetKeyDown(MiscOptions.NightVisonKey))
-                MiscOptions.NightVison = !MiscOptions.NightVison;
-
             Main.Camera.GetComponent<NightVision>().SetPrivateField("_on", MiscOptions.NightVison);
         }
 
         private void DoThermalVision()
         {
-            if (Input.GetKeyDown(MiscOptions.ThermalVisonKey))
-                MiscOptions.ThermalVison = !MiscOptions.ThermalVison;
-
             Main.Camera.GetComponent<ThermalVision>().On = MiscOptions.ThermalVison;
         }
 
