@@ -30,5 +30,7 @@ namespace Citadel.Options
         public static bool DrawHud = true;
         public static bool ForceLight = false;
         public static bool AlwaysSprint = true;
+        public static bool SuperJump = true;
+        public static float SuperJumpValue = 0f;
     }
 }

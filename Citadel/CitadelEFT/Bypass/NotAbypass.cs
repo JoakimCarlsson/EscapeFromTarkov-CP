@@ -19,37 +19,18 @@ namespace Citadel.Bypass
 
         public void DoStuff()
         {
-            IntPtr pImage = MonoImageLoaded("Assembly-CSharp");
+            Process[] process = Process.GetProcessesByName("EscapeFromTarkov");
 
-            foreach (Process process in Process.GetProcesses())
+            try
             {
-                if (process.ProcessName == "EscapeFromTarkov")
-                {
-                    try
-                    {
-                        NativeMemory memory = new LocalProcessMemory(process);
-
-                        memory.Write<UInt32>(pImage + 0x18, 0x7D1098);
-
-                        //Console.WriteLine(memory.Read<UInt32>(pImage + 0x18));
-
-                        break;
-                    }
-                    catch
-                    {
-                        process.Kill();
-                    }
-                }
+                IntPtr pImage = MonoImageLoaded("Assembly-CSharp");
+                NativeMemory memory = new LocalProcessMemory(process[0]);
+                memory.Write<UInt32>(pImage + 0x18, 0x7D1098);
+            }
+            catch
+            {
+                process[0].Kill();
             }
         }
     }
 }
-
-//AppDomain currentDomain = AppDomain.CurrentDomain;
-//Assembly[] assemblies = currentDomain.GetAssemblies();
-
-//Console.WriteLine("List of assemblies loaded in current appdomain:");
-//foreach (Assembly assembly in assemblies)
-//{
-
-//}

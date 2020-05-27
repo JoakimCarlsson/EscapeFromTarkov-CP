@@ -19,12 +19,13 @@ namespace Citadel
         private bool _aimbotVisualVisible;
         private bool _miscFeatureslVisible;
 
-        private string watermark = "Big Hung Wang Long";
+
+        private string watermark = "Interior Crocodile Alligator";
         private string AimButton = "Bone: Head";
 
         private void Start()
         {
-            //AllocConsoleHandler.Open();
+            AllocConsoleHandler.Open();
             NotABypass bypass = new NotABypass();
             bypass.DoStuff();
 
@@ -216,12 +217,21 @@ namespace Citadel
                     MiscOptions.InfiniteStamina = GUILayout.Toggle(MiscOptions.InfiniteStamina, "Infinite Stamina");
 
                     GUI.color = Color.red;
-                    MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "SpeedHack");
+                    MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "Speed Hack");
                     GUI.color = Color.white;
 
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Speed Hack: {(float)Math.Round(MiscOptions.SpeedHackValue, 1, MidpointRounding.ToEven)}");
                     MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
+                    GUILayout.EndHorizontal();
+
+                    GUI.color = Color.red;
+                    MiscOptions.SuperJump = GUILayout.Toggle(MiscOptions.SuperJump, "Super Jump");
+                    GUI.color = Color.white;
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label($"¨Super Jump: {(float)Math.Round(MiscOptions.SuperJumpValue, 1, MidpointRounding.ToEven)}");
+                    MiscOptions.SuperJumpValue = GUILayout.HorizontalSlider(MiscOptions.SuperJumpValue, 0f, 2f);
                     GUILayout.EndHorizontal();
 
                     GUI.color = Color.red;

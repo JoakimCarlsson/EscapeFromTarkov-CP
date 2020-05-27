@@ -18,7 +18,6 @@ namespace Citadel.Features
         private string _hud = string.Empty;
         public static bool NotHooked = true;
         public static TestHook BulletPenetrationHook;
-        private Color _ambientColor;
 
         private void FixedUpdate()
         {
@@ -26,6 +25,8 @@ namespace Citadel.Features
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
                 {
+                    MonoBehaviourSingleton<PreloaderUI>.Instance.SetSessionId("Penis");
+
                     DoThermalVision();
                     DoNightVison();
                     NoRecoil();
@@ -43,7 +44,7 @@ namespace Citadel.Features
                     FullBrightUpdate();
                     FullBrightCreateObject();
                     AlwaysRunning();
-                    Test();
+                    SuperJump();
                 }
             }
             catch { }
@@ -64,11 +65,11 @@ namespace Citadel.Features
             }
         }
 
-        private void Test()
+        private void SuperJump()
         {
-            if (MiscOptions.InstantHit)
+            if (MiscOptions.SuperJump)
             {
-
+                Main.LocalPlayer.Skills.StrengthBuffJumpHeightInc.Value = MiscOptions.SuperJumpValue;
             }
         }
 
