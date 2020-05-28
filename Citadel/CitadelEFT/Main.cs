@@ -33,10 +33,13 @@ namespace Citadel
         private float _nextMainCacheTime;
         private static readonly float _cacheMainInterval = 5f;
 
+        internal bool CanUpdate = false;
+
         private void LateUpdate()
         {
             try
             {
+                ShouldUpdate();
                 if (Time.time >= _nextMainCacheTime)
                 {
                     UpdateMain();
@@ -70,6 +73,19 @@ namespace Citadel
             catch { }
 
         }
+
+        private void ShouldUpdate()
+        {
+            if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Camera != null)
+            {
+                CanUpdate = true;
+            }
+            else
+            {
+                CanUpdate = false;
+            }
+        }
+
         private void GetPlayers()
         {
             try
@@ -91,22 +107,20 @@ namespace Citadel
                             continue;
                         }
 
-
                         //We don't have to do this that often. 
                         //This might also cause some lag.
                         if (PlayerOptions.CustomTexture)
                         {
-                                Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
+                            Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
 
-                                Texture2D texture2D = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-                                foreach (Renderer renderer in renderers)
-                                {
-                                    texture2D.SetPixel(1, 1,Color.white);
-                                    texture2D.Apply();
-                                    renderer.material.mainTexture = texture2D;
-                                }
+                            Texture2D texture2D = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                            foreach (Renderer renderer in renderers)
+                            {
+                                texture2D.SetPixel(1, 1, Color.white);
+                                texture2D.Apply();
+                                renderer.material.mainTexture = texture2D;
+                            }
                         }
-
 
                         if (50f > Vector3.Distance(player.Transform.position, Main.LocalPlayer.Transform.position))
                             ClosePlayers++;

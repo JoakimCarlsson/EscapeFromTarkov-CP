@@ -1,7 +1,5 @@
 ﻿using System;
-using Citadel.Bypass;
 using Citadel.Options;
-using Citadel.Utils;
 using UnityEngine;
 
 namespace Citadel
@@ -24,15 +22,11 @@ namespace Citadel
         private bool _hotKeysVisible;
 
 
-        private string watermark = "Interior Crocodile Alligator";
-        private string AimButton = "Bone: Head";
+        private readonly string _watermark = "Interior Crocodile Alligator";
+        private string _aimButton = "Bone: Head";
 
         private void Start()
         {
-            //AllocConsoleHandler.Open();
-            NotABypass bypass = new NotABypass();
-            bypass.DoStuff();
-
             _mainWindow = new Rect(20f, 60f, 250f, 50f);
             _playerVisualWindow = new Rect(275f, 60f, 350f, 150f);
             _itemVisuals = new Rect(630f, 60f, 350f, 150f);
@@ -52,7 +46,7 @@ namespace Citadel
             if (!Visible)
                 return;
 
-            _mainWindow = GUILayout.Window(0, _mainWindow, RenderUi, watermark);
+            _mainWindow = GUILayout.Window(0, _mainWindow, RenderUi, _watermark);
 
             if (_playerEspVisualVisible)
                 _playerVisualWindow = GUILayout.Window(1, _playerVisualWindow, RenderUi, "Player Visual");
@@ -181,27 +175,27 @@ namespace Citadel
                     if (GUILayout.Button("Aimbot Key: " + AimbotOptions.AimbotKey))
                         AimbotOptions.AimbotKey = KeyCode.None;
 
-                    if (GUILayout.Button(AimButton))
+                    if (GUILayout.Button(_aimButton))
                     {
-                        if (AimButton.Contains("Head"))
+                        if (_aimButton.Contains("Head"))
                         {
-                            AimButton = "Bone: Neck";
+                            _aimButton = "Bone: Neck";
                             AimbotOptions.AimbotBone = 132;
                         }
-                        else if (AimButton.Contains("Neck"))
+                        else if (_aimButton.Contains("Neck"))
                         {
-                            AimButton = "Bone: Body 1";
+                            _aimButton = "Bone: Body 1";
                             AimbotOptions.AimbotBone = 37;
 
                         }
-                        else if (AimButton.Contains("Body 1"))
+                        else if (_aimButton.Contains("Body 1"))
                         {
-                            AimButton = "Bone: Body 2";
+                            _aimButton = "Bone: Body 2";
                             AimbotOptions.AimbotBone = 36;
                         }
-                        else if (AimButton.Contains("Body 2"))
+                        else if (_aimButton.Contains("Body 2"))
                         {
-                            AimButton = "Bone: Head";
+                            _aimButton = "Bone: Head";
                             AimbotOptions.AimbotBone = 133;
                         }
                     }

@@ -1,5 +1,7 @@
-﻿using Citadel.Features;
+﻿using Citadel.Bypass;
+using Citadel.Features;
 using Citadel.Features.ESP;
+using Citadel.Utils;
 using UnityEngine;
 
 namespace Citadel
@@ -19,6 +21,10 @@ namespace Citadel
 
         public static void Load()
         {
+            AllocConsoleHandler.Open();
+            NotABypass bypass = new NotABypass();
+            bypass.DoStuff();
+
             MainObject = new GameObject();
             MenuObject = new GameObject();
             ExtractObject = new GameObject();
