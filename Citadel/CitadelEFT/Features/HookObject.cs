@@ -18,7 +18,7 @@ namespace Citadel.Features
                     GamePlayer target = Aimbot.Target;
                     if (target != null)
                     {
-                        Vector3 headPosition = GameUtils.FinalVector(target.Player, AimbotOptions.AimbotBone);
+                        Vector3 headPosition = GameUtils.FinalVector(target.Player, AimbotOptions.AimbotBone) + new Vector3(0f, 0.07246377f, 0f);
                         if (Main.LocalPlayer.Weapon != null)
                         {
                             direction = (headPosition - origin).normalized;

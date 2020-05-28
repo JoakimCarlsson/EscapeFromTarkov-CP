@@ -111,7 +111,7 @@ namespace Citadel.Features
                     return;
 
                 Vector3 aimPosition = Vector3.zero;
-                Vector3 headPosition = GameUtils.FinalVector(Target.Player, AimbotOptions.AimbotBone);
+                Vector3 headPosition = GameUtils.FinalVector(Target.Player, AimbotOptions.AimbotBone) + new Vector3(0f, 0.07246377f, 0f);
 
                 Weapon weapon = Main.LocalPlayer.Weapon;
                 if (weapon != null)

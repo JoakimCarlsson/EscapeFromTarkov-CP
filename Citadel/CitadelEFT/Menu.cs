@@ -75,8 +75,6 @@ namespace Citadel
                         _miscFeatureslVisible = !_miscFeatureslVisible;
                     if (GUILayout.Button("Hot Keys"))
                         _hotKeysVisible = !_hotKeysVisible;
-                    if (GUILayout.Button("Test"))
-                        _hotKeysVisible = !_hotKeysVisible;
                     break;
 
                 case 1:

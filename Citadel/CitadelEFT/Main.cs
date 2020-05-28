@@ -25,8 +25,8 @@ namespace Citadel
         internal static List<GameCorpse> Corpses = new List<GameCorpse>();
         internal static List<GamePlayer> Players = new List<GamePlayer>();
 
-        private float _nextListCacheTime;
-        private static readonly float _cacheListInterval = 1f;
+        //private float _nextListCacheTime;
+        //private static readonly float _cacheListInterval = 1f;
 
         private float _nextMainCacheTime;
         private static readonly float _cacheMainInterval = 5f;
