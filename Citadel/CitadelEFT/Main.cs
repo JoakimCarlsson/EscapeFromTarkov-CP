@@ -205,6 +205,7 @@ namespace Citadel
                 {
                     GameWorld = Singleton<GameWorld>.Instance;
                     Camera = Camera.main;
+                    MonoBehaviourSingleton<PreloaderUI>.Instance.SetSessionId("Penis");
                 }
             }
             catch

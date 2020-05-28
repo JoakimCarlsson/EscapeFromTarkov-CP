@@ -21,7 +21,7 @@ namespace Citadel
 
         public static void Load()
         {
-            AllocConsoleHandler.Open();
+            //AllocConsoleHandler.Open();
             NotABypass bypass = new NotABypass();
             bypass.DoStuff();
 

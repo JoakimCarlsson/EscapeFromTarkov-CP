@@ -25,8 +25,6 @@ namespace Citadel.Features
             {
                 if (Main.CanUpdate)
                 {
-                    MonoBehaviourSingleton<PreloaderUI>.Instance.SetSessionId("Penis");
-
                     DoThermalVision();
                     DoNightVison();
                     NoRecoil();

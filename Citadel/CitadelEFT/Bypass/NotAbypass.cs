@@ -35,7 +35,7 @@ namespace Citadel.Bypass
                 //}
 
                 //Console.WriteLine($"Old Size: {memory.Read<uint>(pImage + 0x18)}");
-                memory.Write<uint>(pImage + 0x18, 8196248);
+                memory.Write<uint>(pImage + 0x18, 8259224);
                 //Console.WriteLine($"New Size: {memory.Read<uint>(pImage + 0x18)}");
             }
             catch
