@@ -32,7 +32,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp && Main.Camera != null)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawExtractEsp)
                 {
                     int scavMask = 0;
                     if (Main.LocalPlayer is ClientPlayer player)
@@ -63,7 +63,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawExtractEsp && Main.Camera != null)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawExtractEsp)
                 {
                     //int y = 20;
                     foreach (GameExtractPoint exfiltrationPoint in exfiltrationPoints)

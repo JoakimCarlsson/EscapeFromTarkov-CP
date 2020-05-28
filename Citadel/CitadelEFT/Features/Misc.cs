@@ -23,7 +23,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
+                if (Main.CanUpdate)
                 {
                     MonoBehaviourSingleton<PreloaderUI>.Instance.SetSessionId("Penis");
 
@@ -326,7 +326,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                if (Main.CanUpdate)
                 {
                     DrawHud();
                     DrawCrossHair();
@@ -339,7 +339,7 @@ namespace Citadel.Features
 
         private void DrawHud()
         {
-            if (MiscOptions.DrawHud && Main.Camera != null)
+            if (MiscOptions.DrawHud && Main.CanUpdate)
             {
                 Render.DrawString(new Vector2(512, Screen.height - 78), $"{Main.ClosePlayers} Players closer than 50m", Color.white, false, 20);
                 Render.DrawString(new Vector2(512, Screen.height - 56), _hud, Color.white, false, 20);

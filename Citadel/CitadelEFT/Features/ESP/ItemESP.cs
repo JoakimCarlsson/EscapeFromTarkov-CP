@@ -12,7 +12,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawItems && Main.Camera != null)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawItems)
                 {
                     Render.DrawString(new Vector2(20, 40), $"Loot Items Amount: {Main.LootItems.Count}", Color.white, false);
 

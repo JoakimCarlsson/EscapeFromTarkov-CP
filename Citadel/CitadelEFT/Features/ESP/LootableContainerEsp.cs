@@ -12,7 +12,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawLootableContainers && Main.Camera != null)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawLootableContainers)
                 {
                     Render.DrawString(new Vector2(20, 60), $"Lootable Containres Amount: {Main.LootableContainers.Count}", Color.white, false);
 

@@ -17,8 +17,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive &&
-                    MiscVisualsOptions.DrawGrenadeEsp)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawGrenadeEsp)
                 {
                     if (Time.time >= _nextThorwableCacheTime)
                     {
@@ -39,7 +38,7 @@ namespace Citadel.Features.ESP
 
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawGrenadeEsp)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawGrenadeEsp)
                 {
                     _grenades.Clear();
                     var e = Main.GameWorld.Grenades.GetValuesEnumerator().GetEnumerator();
@@ -61,7 +60,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawGrenadeEsp)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawGrenadeEsp)
                 {
                     foreach (GameThrowable grenade in _grenades)
                     {

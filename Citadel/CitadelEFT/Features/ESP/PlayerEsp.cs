@@ -18,7 +18,7 @@ namespace Citadel.Features.ESP
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null)
+                if (Main.CanUpdate)
                 {
                     Render.DrawString(new Vector2(20, 20), $"Registerd Players: {Main.Players.Count}", Color.white, false);
                     foreach (var player in Main.Players)

@@ -13,7 +13,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawRadar && Main.Camera != null && Menu.Visible)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawRadar && Menu.Visible)
                 {
                     if (Input.GetKey(KeyCode.UpArrow))
                         MiscVisualsOptions.RadarY -= 0.5f;
@@ -32,7 +32,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && MiscVisualsOptions.DrawRadar)
+                if (Main.CanUpdate && MiscVisualsOptions.DrawRadar)
                 {
                     Render.BoxRect(new Rect(MiscVisualsOptions.RadarX + MiscVisualsOptions.RadarSize / 2f - 3f, MiscVisualsOptions.RadarY + MiscVisualsOptions.RadarSize / 2f - 3f, 6f, 6f), Color.white);
 

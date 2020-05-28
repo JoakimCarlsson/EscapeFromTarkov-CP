@@ -33,7 +33,7 @@ namespace Citadel
         private float _nextMainCacheTime;
         private static readonly float _cacheMainInterval = 5f;
 
-        internal bool CanUpdate = false;
+        internal static bool CanUpdate = false;
 
         private void LateUpdate()
         {
@@ -77,20 +77,16 @@ namespace Citadel
         private void ShouldUpdate()
         {
             if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Camera != null)
-            {
                 CanUpdate = true;
-            }
             else
-            {
                 CanUpdate = false;
-            }
         }
 
         private void GetPlayers()
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Camera != null)
+                if (CanUpdate)
                 {
                     Players.Clear();
                     ClosePlayers = 0;
@@ -137,7 +133,7 @@ namespace Citadel
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Camera != null)
+                if (CanUpdate)
                 {
                     var enumerator = GameWorld.LootList.FindAll(item => item is Corpse || item is LootableContainer || item is LootItem).GetEnumerator();
                     LootItems.Clear();
@@ -149,7 +145,7 @@ namespace Citadel
                         var current = enumerator.Current;
                         if (current is LootItem lootItem)
                         {
-                            if (lootItem.gameObject != null && MiscVisualsOptions.DrawItems)
+                            if (MiscVisualsOptions.DrawItems)
                             {
                                 if (MiscVisualsOptions.DrawQuestItems)
                                     if (lootItem.Item.QuestItem)
@@ -178,7 +174,7 @@ namespace Citadel
                         }
                         if (current is LootableContainer lootableContainer)
                         {
-                            if (lootableContainer.gameObject != null)
+                            if (MiscVisualsOptions.DrawLootableContainers)
                             {
                                 if (lootableContainer.ItemOwner.RootItem.GetAllItems().Any(item => GameUtils.IsSpecialLootItem(item.TemplateId)))
                                 {

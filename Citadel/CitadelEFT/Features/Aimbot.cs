@@ -23,7 +23,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive && Main.Camera != null && Main.LocalPlayer.HandsController.Item is Weapon)
+                if (Main.CanUpdate && Main.LocalPlayer.HandsController.Item is Weapon)
                 {
                     if (AimbotOptions.SilentAim && NotHooked)
                     {
@@ -93,7 +93,7 @@ namespace Citadel.Features
         {
             try
             {
-                if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)
+                if (Main.CanUpdate)
                 {
                     Render.DrawString(new Vector2(20, 100), Target != null ? $"Target: {Target.Player.Profile.Info.Nickname}" : $"Target: None", Color.white, false);
                     TargetSnapLine();
