@@ -75,6 +75,8 @@ namespace Citadel
                         _miscFeatureslVisible = !_miscFeatureslVisible;
                     if (GUILayout.Button("Hot Keys"))
                         _hotKeysVisible = !_hotKeysVisible;
+                    if (GUILayout.Button("Test"))
+                        _hotKeysVisible = !_hotKeysVisible;
                     break;
 
                 case 1:
@@ -141,7 +143,7 @@ namespace Citadel
                     GUILayout.EndHorizontal();
                     GUILayout.Space(20);
                     GUILayout.Label("Other Visuals");
-                    MiscOptions.DrawHud = GUILayout.Toggle(MiscOptions.DrawHud, "Draw Hud");//DrawExtractEspSwitches
+                    MiscOptions.DrawHud = GUILayout.Toggle(MiscOptions.DrawHud, "Draw Hud");
                     MiscVisualsOptions.DrawExtractEsp = GUILayout.Toggle(MiscVisualsOptions.DrawExtractEsp, "Draw Extracts");
                     MiscVisualsOptions.DrawExtractEspSwitches = GUILayout.Toggle(MiscVisualsOptions.DrawExtractEspSwitches, "Draw Extracts Switches");
                     MiscVisualsOptions.DrawGrenadeEsp = GUILayout.Toggle(MiscVisualsOptions.DrawGrenadeEsp, "Draw Grenades");

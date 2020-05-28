@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Citadel.Data;
 using Citadel.Options;
@@ -24,9 +25,6 @@ namespace Citadel
         internal static List<GameCorpse> Corpses = new List<GameCorpse>();
         internal static List<GamePlayer> Players = new List<GamePlayer>();
 
-        private float _nextPlayerCacheTime;
-        private static readonly float _cachePlayersInterval = 1f;
-
         private float _nextListCacheTime;
         private static readonly float _cacheListInterval = 1f;
 
@@ -34,29 +32,25 @@ namespace Citadel
         private static readonly float _cacheMainInterval = 5f;
 
         internal static bool CanUpdate = false;
+        private static int _listCount = 0;
 
         private void LateUpdate()
         {
             try
             {
-                ShouldUpdate();
                 if (Time.time >= _nextMainCacheTime)
                 {
                     UpdateMain();
                     _nextMainCacheTime = Time.time + _cacheMainInterval;
                 }
+                ShouldUpdate();
+                GetPlayers();
 
-                if (Time.time >= _nextListCacheTime)
-                {
+                //if (Time.time >= _nextListCacheTime)
+                //{
                     GetLists();
-                    _nextListCacheTime = Time.time + _cacheListInterval;
-                }
-
-                if (Time.time >= _nextPlayerCacheTime)
-                {
-                    GetPlayers();
-                    _nextPlayerCacheTime = Time.time + _cachePlayersInterval;
-                }
+                //    _nextListCacheTime = Time.time + _cacheListInterval;
+                //}
 
                 foreach (GamePlayer gamePlayer in Players)
                     gamePlayer.RecalculateDynamics();
@@ -86,7 +80,7 @@ namespace Citadel
         {
             try
             {
-                if (CanUpdate)
+                if (CanUpdate && Players.Count + 1 != Singleton<GameWorld>.Instance.RegisteredPlayers.Count)
                 {
                     Players.Clear();
                     ClosePlayers = 0;
@@ -94,6 +88,7 @@ namespace Citadel
                     while (enumerator.MoveNext())
                     {
                         Player player = enumerator.Current;
+
                         if (player == null)
                             continue;
 
@@ -103,8 +98,6 @@ namespace Citadel
                             continue;
                         }
 
-                        //We don't have to do this that often. 
-                        //This might also cause some lag.
                         if (PlayerOptions.CustomTexture)
                         {
                             Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
@@ -129,13 +122,15 @@ namespace Citadel
             {
             }
         }
-        private void GetLists()
+        internal static void GetLists()
         {
             try
             {
-                if (CanUpdate)
+                if (CanUpdate && _listCount != Singleton<GameWorld>.Instance.LootList.FindAll(item => item is Corpse || item is LootableContainer || item is LootItem).Count)
                 {
-                    var enumerator = GameWorld.LootList.FindAll(item => item is Corpse || item is LootableContainer || item is LootItem).GetEnumerator();
+                    var enumerator = Singleton<GameWorld>.Instance.LootList.FindAll(item => item is Corpse || item is LootableContainer || item is LootItem).GetEnumerator();
+                    _listCount = Singleton<GameWorld>.Instance.LootList.FindAll(item => item is Corpse || item is LootableContainer || item is LootItem).Count;
+
                     LootItems.Clear();
                     LootableContainers.Clear();
                     Corpses.Clear();
@@ -143,6 +138,7 @@ namespace Citadel
                     while (enumerator.MoveNext())
                     {
                         var current = enumerator.Current;
+
                         if (current is LootItem lootItem)
                         {
                             if (MiscVisualsOptions.DrawItems)
@@ -172,6 +168,7 @@ namespace Citadel
                                         LootItems.Add(new GameLootItem(lootItem));
                             }
                         }
+
                         if (current is LootableContainer lootableContainer)
                         {
                             if (MiscVisualsOptions.DrawLootableContainers)
@@ -182,6 +179,7 @@ namespace Citadel
                                 }
                             }
                         }
+
                         if (current is Corpse corpse)
                         {
                             if (PlayerOptions.DrawCorpses)
@@ -198,9 +196,9 @@ namespace Citadel
             }
             catch { }
         }
+
         private void UpdateMain()
         {
-
             try
             {
                 if (!MonoBehaviourSingleton<PreloaderUI>.Instance.IsBackgroundBlackActive)

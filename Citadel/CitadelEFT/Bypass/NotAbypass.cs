@@ -26,17 +26,17 @@ namespace Citadel.Bypass
                 IntPtr pImage = MonoImageLoaded("Assembly-CSharp");
                 NativeMemory memory = new LocalProcessMemory(process[0]);
 
-                foreach (ProcessModule processModule in process[0].Modules)
-                {
-                    if (processModule.ModuleName == "Assembly-CSharp")
-                    {
-                        Console.WriteLine($"File Name: {processModule.ModuleName}, Size: {processModule.ModuleMemorySize}");
-                    }
-                }
+                //foreach (ProcessModule processModule in process[0].Modules)
+                //{
+                //    if (processModule.ModuleName == "Assembly-CSharp")
+                //    {
+                //        Console.WriteLine($"File Name: {processModule.ModuleName}, Size: {processModule.ModuleMemorySize}");
+                //    }
+                //}
 
-                Console.WriteLine($"Old Size: {memory.Read<uint>(pImage + 0x18)}");
+                //Console.WriteLine($"Old Size: {memory.Read<uint>(pImage + 0x18)}");
                 memory.Write<uint>(pImage + 0x18, 8196248);
-                Console.WriteLine($"New Size: {memory.Read<uint>(pImage + 0x18)}");
+                //Console.WriteLine($"New Size: {memory.Read<uint>(pImage + 0x18)}");
             }
             catch
             {

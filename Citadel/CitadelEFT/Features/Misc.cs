@@ -101,7 +101,7 @@ namespace Citadel.Features
             {
                 GameFullBright.LightGameObject = new GameObject("Fullbright");
                 GameFullBright.FullBrightLight = GameFullBright.LightGameObject.AddComponent<Light>();
-                GameFullBright.FullBrightLight.color = new Color(1f, 0.839f, 0.66f, 1f);
+                GameFullBright.FullBrightLight.color = new Color(1f, 0.96f, 0.91f);
                 GameFullBright.FullBrightLight.range = 2000f;
                 GameFullBright.FullBrightLight.intensity = 0.6f;
                 GameFullBright.LightCalled = true;
