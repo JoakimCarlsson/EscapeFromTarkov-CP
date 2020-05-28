@@ -29,20 +29,11 @@ namespace Citadel.Features
                     DoNightVison();
                     NoRecoil();
                     NoSway();
-                    MaxSkills();
                     NoVisor();
-                    InfiniteStamina();
-                    SpeedHack();
-                    UnlockDoors();
-                    FlyHack();
-                    AlwaysAutomatic();
                     PrepareHud();
                     DontMoveWeaponCloser();
-                    BulletPenetration();
                     FullBrightUpdate();
                     FullBrightCreateObject();
-                    AlwaysRunning();
-                    SuperJump();
                     HotKeys();
                 }
             }
@@ -68,29 +59,6 @@ namespace Citadel.Features
 
             if (Input.GetKeyDown(MiscOptions.NightVisonKey))
                 MiscOptions.NightVison = !MiscOptions.NightVison;
-        }
-
-        private void AlwaysRunning()
-        {
-            if (MiscOptions.AlwaysSprint)
-            {
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.BarbedWire);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Armor);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.HealthCondition);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Shot);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.SurfaceNormal);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Swamp);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Weight);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Aiming);
-            }
-        }
-
-        private void SuperJump()
-        {
-            if (MiscOptions.SuperJump)
-            {
-                Main.LocalPlayer.Skills.StrengthBuffJumpHeightInc.Value = MiscOptions.SuperJumpValue;
-            }
         }
 
         private void FullBrightCreateObject()
@@ -142,17 +110,6 @@ namespace Citadel.Features
 
         }
 
-        private void BulletPenetration()
-        {
-            if (MiscOptions.BulletPenetration && NotHooked && Main.LocalPlayer.HandsController.Item is Weapon)
-            {
-                BulletPenetrationHook = new TestHook();
-                BulletPenetrationHook.Init(typeof(BallisticsCalculator).GetMethod("GetAmmoPenetrationPower"), typeof(HookObject).GetMethod("BulletPenetration"));
-                BulletPenetrationHook.Hook();
-                NotHooked = false;
-            }
-        }
-
         private void DontMoveWeaponCloser()
         {
             if (MiscOptions.DontMoveWeaponCloser)
@@ -190,84 +147,9 @@ namespace Citadel.Features
 
         }
 
-        private void AlwaysAutomatic()
-        {
-            if (MiscOptions.AlwaysAutomatic && Main.LocalPlayer.HandsController.Item is Weapon)
-            {
-                Main.LocalPlayer.Weapon.GetItemComponent<FireModeComponent>().FireMode = Weapon.EFireMode.fullauto;
-                Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.BoltAction = false;
-                Main.LocalPlayer.GetComponent<Player.FirearmController>().Item.Template.bFirerate = 1000;
-            }
-        }
-
-        private void FlyHack()
-        {
-            if (Input.GetKey(MiscOptions.FlyHackKey) && MiscOptions.FlyHack)
-            {
-                Main.LocalPlayer.MovementContext.FreefallTime = -0.2f;
-            }
-        }
-
-        private void UnlockDoors()
-        {
-            if (MiscOptions.DoorUnlocker)
-            {
-                if (Input.GetKeyDown(MiscOptions.DoorUnlockerKey))
-                {
-                    foreach (var door in LocationScene.GetAllObjects<WorldInteractiveObject>())
-                    {
-                        if (door.DoorState == EDoorState.Open || Vector3.Distance(door.transform.position, Main.LocalPlayer.Position) > 10f)
-                            continue;
-
-                        door.DoorState = EDoorState.Shut;
-                    }
-                }
-            }
-
-        }
-
-        private void SpeedHack()
-        {
-            if (MiscOptions.SpeedHack)
-            {
-                if (Input.GetKey(KeyCode.W))
-                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.forward / 5f * MiscOptions.SpeedHackValue;
-                if (Input.GetKey(KeyCode.S))
-                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.forward / 5f * MiscOptions.SpeedHackValue;
-                if (Input.GetKey(KeyCode.A))
-                    Main.LocalPlayer.Transform.position -= Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
-                if (Input.GetKey(KeyCode.D))
-                    Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
-            }
-
-        }
-
-        private void InfiniteStamina()
-        {
-            if (MiscOptions.InfiniteStamina)
-            {
-                Main.LocalPlayer.Physical.StaminaParameters.AimDrainRate = 0f;
-                Main.LocalPlayer.Physical.StaminaParameters.SprintDrainRate = 0f;
-                Main.LocalPlayer.Physical.StaminaParameters.JumpConsumption = 0f;
-                Main.LocalPlayer.Physical.StaminaParameters.ExhaustedMeleeSpeed = 10000f;
-            }
-        }
-
         private void NoVisor()
         {
             Main.Camera.GetComponent<VisorEffect>().Intensity = MiscOptions.NoVisor ? 0f : 1f;
-        }
-
-        private void MaxSkills()
-        {
-            if (MiscOptions.MaxSkills)
-            {
-                foreach (var skill in Main.LocalPlayer.Skills.Skills)
-                {
-                    if (!skill.IsEliteLevel)
-                        skill.SetLevel(51);
-                }
-            }
         }
 
         private void NoSway()

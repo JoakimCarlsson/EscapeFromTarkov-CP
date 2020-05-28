@@ -25,45 +25,13 @@ namespace Citadel.Features
             {
                 if (Main.CanUpdate && Main.LocalPlayer.HandsController.Item is Weapon)
                 {
-                    if (AimbotOptions.SilentAim && NotHooked)
-                    {
-                        CreateShotHook = new TestHook();
-                        CreateShotHook.Init(typeof(BallisticsCalculator).GetMethod("CreateShot"), typeof(HookObject).GetMethod("SilentAimHook"));
-                        CreateShotHook.Hook();
-                        NotHooked = false;
-                    }
-
-                    //Target = Main.Players.Where(p => p.DistanceFromCenter <= AimbotOptions.AimbotFov && p.Distance <= AimbotOptions.Distnace && p.IsOnScreen).OrderBy(p => p.DistanceFromCenter).First();
-                    //if (Target.DistanceFromCenter > AimbotOptions.AimbotFov || !GameUtils.IsPlayerAlive(Target.Player))
-                    //    Target = null;
-
                     Target = GetTarget();
-
                     DoAimbot();
-                    AutoShoot();
-
                 }
             }
             catch
             {
             }
-        }
-
-        private static void AutoShoot()
-        {
-            if (Target != null && AimbotOptions.AutoShoot)
-            {
-                if (!Main.LocalPlayer.IsInventoryOpened || Main.LocalPlayer.Weapon != null)
-                {
-                    if (_nextShot < Time.time && RayCast.IsBodyPartVisible(Target.Player, 132))
-                    {
-                        Main.LocalPlayer.GetComponent<Player.FirearmController>().SetTriggerPressed(true);
-                        _nextShot = Time.time + 0.064f;
-                        Main.LocalPlayer.GetComponent<Player.FirearmController>().SetTriggerPressed(false);
-                    }
-                }
-            }
-
         }
 
         private GamePlayer GetTarget()

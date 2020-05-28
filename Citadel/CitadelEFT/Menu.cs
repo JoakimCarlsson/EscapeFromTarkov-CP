@@ -199,11 +199,6 @@ namespace Citadel
                             AimbotOptions.AimbotBone = 133;
                         }
                     }
-                    GUI.color = Color.red;
-                    AimbotOptions.SilentAim = GUILayout.Toggle(AimbotOptions.SilentAim, "Silent Aim");
-                    GUI.color = Color.white;
-
-                    AimbotOptions.AutoShoot = GUILayout.Toggle(AimbotOptions.AutoShoot, "Auto Shoot");
                     AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");
 
                     GUILayout.BeginHorizontal();
@@ -213,50 +208,19 @@ namespace Citadel
                     break;
 
                 case 4:
-                    GUI.color = Color.red;
-                    MiscOptions.MaxSkills = GUILayout.Toggle(MiscOptions.MaxSkills, "Max Skills");
-                    GUI.color = Color.white;
-
-                    MiscOptions.InfiniteStamina = GUILayout.Toggle(MiscOptions.InfiniteStamina, "Infinite Stamina");
-
-                    GUI.color = Color.red;
-                    MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "Speed Hack");
-                    GUI.color = Color.white;
-
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Speed Hack: {(float)Math.Round(MiscOptions.SpeedHackValue, 1, MidpointRounding.ToEven)}");
                     MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
                     GUILayout.EndHorizontal();
 
-                    MiscOptions.SuperJump = GUILayout.Toggle(MiscOptions.SuperJump, "Super Jump");
-
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Super Jump: {(float)Math.Round(MiscOptions.SuperJumpValue, 1, MidpointRounding.ToEven)}");
-                    MiscOptions.SuperJumpValue = GUILayout.HorizontalSlider(MiscOptions.SuperJumpValue, 0f, 2f);
-                    GUILayout.EndHorizontal();
-
-                    GUI.color = Color.red;
-                    MiscOptions.DoorUnlocker = GUILayout.Toggle(MiscOptions.DoorUnlocker, $"DoorUnlocker: {MiscOptions.DoorUnlockerKey}");
-                    GUI.color = Color.white;
-
-                    MiscOptions.ThermalVison = GUILayout.Toggle(MiscOptions.ThermalVison, $"Thermal Vison: {MiscOptions.ThermalVisonKey}");
                     MiscOptions.NightVison = GUILayout.Toggle(MiscOptions.NightVison, $"Night Vison: {MiscOptions.NightVisonKey}");
                     MiscOptions.NoVisor = GUILayout.Toggle(MiscOptions.NoVisor, "No Visor");
                     MiscOptions.ForceLight = GUILayout.Toggle(MiscOptions.ForceLight, "Force Light");
-                    MiscOptions.AlwaysSprint = GUILayout.Toggle(MiscOptions.AlwaysSprint, "Always Max Speed");
-
-                    GUI.color = Color.red;
-                    MiscOptions.FlyHack = GUILayout.Toggle(MiscOptions.FlyHack, $"Fly Hack: {MiscOptions.FlyHackKey}");
-                    GUI.color = Color.white;
 
                     GUILayout.Space(20);
                     GUILayout.Label("Weapon Options");
                     MiscOptions.NoRecoil = GUILayout.Toggle(MiscOptions.NoRecoil, "No Recoil");
                     MiscOptions.NoSway = GUILayout.Toggle(MiscOptions.NoSway, "No Sway");
-                    MiscOptions.AlwaysAutomatic = GUILayout.Toggle(MiscOptions.AlwaysAutomatic, "Always Automatic");
-                    MiscOptions.BulletPenetration = GUILayout.Toggle(MiscOptions.BulletPenetration, "Bullet Penetration");
-                    MiscOptions.InstantHit = GUILayout.Toggle(MiscOptions.InstantHit, "Instant Hit");
-                    MiscOptions.DontMoveWeaponCloser = GUILayout.Toggle(MiscOptions.DontMoveWeaponCloser, "Don't move weapon closer.");
                     break;
 
                 case 5:
@@ -275,17 +239,12 @@ namespace Citadel
                     if (GUILayout.Button("Lootable Container: " + MiscVisualsOptions.ToggleContainerEsp))
                         MiscVisualsOptions.ToggleContainerEsp = KeyCode.None;
 
-                    if (GUILayout.Button("Unlock Doors: " + MiscOptions.DoorUnlockerKey))
-                        MiscOptions.DoorUnlockerKey = KeyCode.None;
-
                     if (GUILayout.Button("Thermal Vison: " + MiscOptions.ThermalVisonKey))
                         MiscOptions.ThermalVisonKey = KeyCode.None;
 
                     if (GUILayout.Button("Night Vison: " + MiscOptions.NightVisonKey))
                         MiscOptions.NightVisonKey = KeyCode.None;
 
-                    if (GUILayout.Button("Fly Hack: " + MiscOptions.FlyHackKey))
-                        MiscOptions.FlyHackKey = KeyCode.None;
                     break;
             }
             GUI.DragWindow();
@@ -315,11 +274,6 @@ namespace Citadel
                 Event e = Event.current;
                 MiscVisualsOptions.ToggleContainerEsp = e.keyCode;
             }
-            if (MiscOptions.DoorUnlockerKey == KeyCode.None)
-            {
-                Event e = Event.current;
-                MiscOptions.DoorUnlockerKey = e.keyCode;
-            }
             if (MiscOptions.ThermalVisonKey == KeyCode.None)
             {
                 Event e = Event.current;
@@ -329,11 +283,6 @@ namespace Citadel
             {
                 Event e = Event.current;
                 MiscOptions.NightVisonKey = e.keyCode;
-            }
-            if (MiscOptions.FlyHackKey == KeyCode.None)
-            {
-                Event e = Event.current;
-                MiscOptions.FlyHackKey = e.keyCode;
             }
 
             if (AimbotOptions.AimbotKey == KeyCode.None)
