@@ -53,10 +53,10 @@ namespace Citadel.Features
 
         private void HotKeys()
         {
-            if (Input.GetKeyDown(PlayerOptions.TogglePlayerESP))
+            if (Input.GetKeyDown(PlayerOptions.TogglePlayerEsp))
                 PlayerOptions.DrawPlayers = !PlayerOptions.DrawPlayers;
 
-            if (Input.GetKeyDown(PlayerOptions.ToggleScavESP))
+            if (Input.GetKeyDown(PlayerOptions.ToggleScavEsp))
                 PlayerOptions.DrawScavs = !PlayerOptions.DrawScavs;
 
             if (Input.GetKeyDown(MiscVisualsOptions.ToggleItemEsp))
@@ -170,21 +170,21 @@ namespace Citadel.Features
         {
             if (MiscOptions.DrawHud)
             {
-                    string tempMag = string.Empty;
+                string tempMag = string.Empty;
 
-                    if (Main.LocalPlayer.HandsController.Item is Weapon)
+                if (Main.LocalPlayer.HandsController.Item is Weapon)
+                {
+                    var weapon = Main.LocalPlayer.Weapon;
+                    var mag = weapon.GetCurrentMagazine();
+                    if (mag != null)
                     {
-                        var weapon = Main.LocalPlayer.Weapon;
-                        var mag = weapon.GetCurrentMagazine();
-                        if (mag != null)
-                        {
-                            tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
-                        }
+                        tempMag = $"{mag.Count}+{weapon.ChamberAmmoCount}/{mag.MaxCount}";
                     }
-                    else
-                    {
-                        tempMag = "unkown";
-                    }
+                }
+                else
+                {
+                    tempMag = "unkown";
+                }
 
                 string tempHealth = $"{Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Current} / {Main.LocalPlayer.HealthController.GetBodyPartHealth(EBodyPart.Common, true).Maximum}";
                 _hud = $"HP: {tempHealth} Ammo: {tempMag}";

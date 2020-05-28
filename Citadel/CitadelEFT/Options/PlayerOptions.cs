@@ -4,9 +4,8 @@ namespace Citadel.Options
 {
     static class PlayerOptions
     {
-        internal static KeyCode TogglePlayerESP = KeyCode.F1;
-        internal static KeyCode ToggleScavESP = KeyCode.F2;
-
+        internal static KeyCode TogglePlayerEsp = KeyCode.F1;
+        internal static KeyCode ToggleScavEsp = KeyCode.F2;
 
         public static Color PlayerColor = new Color(0.75f, 0f, 0f);
         public static Color ScavColor = new Color(1f, 0.81f, 0f);
@@ -18,7 +17,7 @@ namespace Citadel.Options
         public static float DrawPlayerRange = 300f;
         public static bool DrawPlayers = true;
         public static bool DrawPlayerHealth = true;
-        public static bool DrawPlayerHealthBar = true;
+        public static bool DrawPlayerHealthBar = false;
         public static bool DrawPlayerName = true;
         public static bool DrawPlayerLevel = true;
         public static bool DrawPlayerWeapon = true;
@@ -27,19 +26,18 @@ namespace Citadel.Options
         public static bool DrawPlayerDistance = true;
         public static bool DrawPlayerAimPos = false;
         public static bool DrawPlayerValue = true;
-        public static bool PlayerChams = false;
 
         public static float DrawScavsRange = 300f;
         public static bool DrawScavs = true;
         public static bool DrawScavHealth = true;
-        public static bool DrawScavHealthBar = true;
+        public static bool DrawScavHealthBar = false;
         public static bool DrawScavName = true;
         public static bool DrawScavWeapon = true;
         public static bool DrawScavCornerBox = true;
         public static bool DrawScavSkeleton = false;
         public static bool DrawScavDistance = true;
         public static bool DrawScavAimPos = false;
-        public static bool DrawScavValue = true;
-        public static bool CustomTexture = true;
+        public static bool DrawScavValue = false;
+        public static bool CustomTexture = false;
     }
 }

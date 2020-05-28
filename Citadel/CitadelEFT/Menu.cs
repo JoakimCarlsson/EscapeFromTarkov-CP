@@ -86,8 +86,8 @@ namespace Citadel
                 case 1:
                     GUILayout.Label("Players");
                     PlayerOptions.DrawPlayers = GUILayout.Toggle(PlayerOptions.DrawPlayers, "Draw Players");
-                    PlayerOptions.DrawPlayerHealth = GUILayout.Toggle(PlayerOptions.DrawPlayerHealth, "Draw Player Health Bar");
-                    PlayerOptions.DrawPlayerHealthBar = GUILayout.Toggle(PlayerOptions.DrawPlayerHealthBar, "Draw Player Health");
+                    PlayerOptions.DrawPlayerHealthBar = GUILayout.Toggle(PlayerOptions.DrawPlayerHealthBar, "Draw Player Health Bar");
+                    PlayerOptions.DrawPlayerHealth = GUILayout.Toggle(PlayerOptions.DrawPlayerHealth, "Draw Player Health");
                     PlayerOptions.DrawPlayerName = GUILayout.Toggle(PlayerOptions.DrawPlayerName, "Draw Player Name");
                     PlayerOptions.DrawPlayerLevel = GUILayout.Toggle(PlayerOptions.DrawPlayerLevel, "Draw Player Level");
                     PlayerOptions.DrawPlayerWeapon = GUILayout.Toggle(PlayerOptions.DrawPlayerWeapon, "Draw Player Weapon");
@@ -269,11 +269,11 @@ namespace Citadel
                     if (GUILayout.Button("Toogle Menu: " + MiscOptions.ToggleMenu))
                         MiscOptions.ToggleMenu = KeyCode.None;
 
-                    if (GUILayout.Button("Player ESP: " + PlayerOptions.TogglePlayerESP))
-                        PlayerOptions.TogglePlayerESP = KeyCode.None;
+                    if (GUILayout.Button("Player ESP: " + PlayerOptions.TogglePlayerEsp))
+                        PlayerOptions.TogglePlayerEsp = KeyCode.None;
 
-                    if (GUILayout.Button("Scav ESP: " + PlayerOptions.ToggleScavESP))
-                        PlayerOptions.ToggleScavESP = KeyCode.None;
+                    if (GUILayout.Button("Scav ESP: " + PlayerOptions.ToggleScavEsp))
+                        PlayerOptions.ToggleScavEsp = KeyCode.None;
 
                     if (GUILayout.Button("Item ESP: " + MiscVisualsOptions.ToggleItemEsp))
                         MiscVisualsOptions.ToggleItemEsp = KeyCode.None;
@@ -296,15 +296,15 @@ namespace Citadel
             }
             GUI.DragWindow();
 
-            if (PlayerOptions.TogglePlayerESP == KeyCode.None)
+            if (PlayerOptions.TogglePlayerEsp == KeyCode.None)
             {
                 Event e = Event.current;
-                PlayerOptions.TogglePlayerESP = e.keyCode;
+                PlayerOptions.TogglePlayerEsp = e.keyCode;
             }
-            if (PlayerOptions.ToggleScavESP == KeyCode.None)
+            if (PlayerOptions.ToggleScavEsp == KeyCode.None)
             {
                 Event e = Event.current;
-                PlayerOptions.ToggleScavESP = e.keyCode;
+                PlayerOptions.ToggleScavEsp = e.keyCode;
             }
             if (MiscOptions.ToggleMenu == KeyCode.None)
             {
