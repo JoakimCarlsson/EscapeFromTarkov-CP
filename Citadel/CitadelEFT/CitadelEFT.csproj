@@ -77,7 +77,6 @@
     <Compile Include="Features\ESP\LootableContainerEsp.cs" />
     <Compile Include="Features\ESP\PlayerEsp.cs" />
     <Compile Include="Features\Misc.cs" />
-    <Compile Include="Features\HookObject.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Menu.cs" />
