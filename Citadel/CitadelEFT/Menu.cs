@@ -21,8 +21,7 @@ namespace Citadel
         private bool _miscFeatureslVisible;
         private bool _hotKeysVisible;
 
-
-        private readonly string _watermark = "Interior Crocodile Alligator";
+        private readonly string _watermark = "Pussy Destroyer";
         private string _aimButton = "Bone: Head";
 
         private void Start()

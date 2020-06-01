@@ -8,56 +8,27 @@ namespace Citadel
 {
     public class Loader
     {
-        public static GameObject MainObject;
-        public static GameObject MenuObject;
-        public static GameObject ExtractObject;
-        public static GameObject ItemObject;
-        public static GameObject LootObject;
-        public static GameObject PlayerObject;
-        public static GameObject MiscObject;
-        public static GameObject CorpseObject;
-        public static GameObject AimbotObject;
-        public static GameObject GrenadeObject;
+        public static GameObject HookObject;
 
         public static void Load()
         {
-            //AllocConsoleHandler.Open();
             NotABypass bypass = new NotABypass();
             bypass.DoStuff();
 
-            MainObject = new GameObject();
-            MenuObject = new GameObject();
-            ExtractObject = new GameObject();
-            ItemObject = new GameObject();
-            LootObject = new GameObject();
-            PlayerObject = new GameObject();
-            MiscObject = new GameObject();
-            CorpseObject = new GameObject();
-            AimbotObject = new GameObject();
-            GrenadeObject = new GameObject();
+            HookObject = new GameObject();
+            HookObject.AddComponent<Main>();
+            HookObject.AddComponent<Menu>();
+            HookObject.AddComponent<ExtractEsp>();
+            HookObject.AddComponent<ItemEsp>();
+            HookObject.AddComponent<LootableContainerEsp>();
+            HookObject.AddComponent<PlayerEsp>();
+            HookObject.AddComponent<Misc>();
+            HookObject.AddComponent<Radar>();
+            HookObject.AddComponent<CorpseEsp>();
+            HookObject.AddComponent<Aimbot>();
+            HookObject.AddComponent<GrenadeEsp>();
 
-            MainObject.AddComponent<Main>();
-            MenuObject.AddComponent<Menu>();
-            ExtractObject.AddComponent<ExtractEsp>();
-            ItemObject.AddComponent<ItemEsp>();
-            LootObject.AddComponent<LootableContainerEsp>();
-            PlayerObject.AddComponent<PlayerEsp>();
-            MiscObject.AddComponent<Misc>();
-            MiscObject.AddComponent<Radar>();
-            CorpseObject.AddComponent<CorpseEsp>();
-            AimbotObject.AddComponent<Aimbot>();
-            GrenadeObject.AddComponent<GrenadeEsp>();
-
-            Object.DontDestroyOnLoad(MainObject);
-            Object.DontDestroyOnLoad(MenuObject);
-            Object.DontDestroyOnLoad(ExtractObject);
-            Object.DontDestroyOnLoad(ItemObject);
-            Object.DontDestroyOnLoad(LootObject);
-            Object.DontDestroyOnLoad(PlayerObject);
-            Object.DontDestroyOnLoad(MiscObject);
-            Object.DontDestroyOnLoad(CorpseObject);
-            Object.DontDestroyOnLoad(AimbotObject);
-            Object.DontDestroyOnLoad(GrenadeObject);
+            Object.DontDestroyOnLoad(HookObject);
         }
     }
 }
