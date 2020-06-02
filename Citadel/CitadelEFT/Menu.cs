@@ -21,7 +21,8 @@ namespace Citadel
         private bool _miscFeatureslVisible;
         private bool _hotKeysVisible;
 
-        private readonly string _watermark = "Big Penis";
+
+        private readonly string _watermark = "CITADEL 0.752";
         private string _aimButton = "Bone: Head";
 
         private void Start()
@@ -206,8 +207,8 @@ namespace Citadel
                     AimbotOptions.TargetSnapLine = GUILayout.Toggle(AimbotOptions.TargetSnapLine, "Target Snapline");
 
                     GUILayout.BeginHorizontal();
-                    GUILayout.Label($"Distance {(int)AimbotOptions.Distnace} m");
-                    AimbotOptions.Distnace = GUILayout.HorizontalSlider(AimbotOptions.Distnace, 0f, 1000);
+                    GUILayout.Label($"Distance {(int)AimbotOptions.Distance} m");
+                    AimbotOptions.Distance = GUILayout.HorizontalSlider(AimbotOptions.Distance, 0f, 1000);
                     GUILayout.EndHorizontal();
                     break;
 
@@ -222,10 +223,12 @@ namespace Citadel
                     MiscOptions.SpeedHack = GUILayout.Toggle(MiscOptions.SpeedHack, "Speed Hack");
                     GUI.color = Color.white;
 
+                    GUI.color = Color.red;
                     GUILayout.BeginHorizontal();
                     GUILayout.Label($"Speed Hack: {(float)Math.Round(MiscOptions.SpeedHackValue, 1, MidpointRounding.ToEven)}");
                     MiscOptions.SpeedHackValue = GUILayout.HorizontalSlider(MiscOptions.SpeedHackValue, 0f, 1f);
                     GUILayout.EndHorizontal();
+                    GUI.color = Color.white;
 
                     MiscOptions.SuperJump = GUILayout.Toggle(MiscOptions.SuperJump, "Super Jump");
 

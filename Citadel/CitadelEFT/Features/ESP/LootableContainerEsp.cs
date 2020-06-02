@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Citadel.Options;
 using Citadel.Utils;
-using EFT.UI;
 using UnityEngine;
 
 namespace Citadel.Features.ESP

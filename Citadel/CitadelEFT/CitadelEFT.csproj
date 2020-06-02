@@ -34,6 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -86,7 +87,7 @@
     <Compile Include="Options\MiscOptions.cs" />
     <Compile Include="Options\PlayerOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\AllocConsoleHandler.cs" />
+    <Compile Include="Utils\ACH.cs" />
     <Compile Include="Utils\GameUtils.cs" />
     <Compile Include="Utils\RayCast.cs" />
     <Compile Include="Utils\Render.cs" />
@@ -97,41 +98,41 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Software\de4dot\Assembly-CSharp.dll</HintPath>
+      <HintPath>C:\Users\chris\Documents\Repositories\infinitycheats\EFTPaks\EFTEsp\WORKSPACE\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Comfort">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
     </Reference>
     <Reference Include="Comfort.Unity">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\Comfort.Unity.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\EFT-Logging.dll</HintPath>
     </Reference>
-    <Reference Include="EFT-Logging">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\EFT-Logging.dll</HintPath>
+    <Reference Include="Comfort.Unity">
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\Comfort.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Memory">
-      <HintPath>..\..\..\CSGO-Simple-External-Cheat\SimpleExternal\Memory\bin\Release\Memory.dll</HintPath>
+      <HintPath>C:\Users\chris\Documents\Repositories\infinitycheats\EscapeFromTarkov\Memory.dll</HintPath>
     </Reference>
     <Reference Include="PlayerEnums">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\PlayerEnums.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\PlayerEnums.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

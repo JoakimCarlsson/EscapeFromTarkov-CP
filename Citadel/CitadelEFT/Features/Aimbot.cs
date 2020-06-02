@@ -7,7 +7,6 @@ using Citadel.Utils;
 using EFT;
 using EFT.Ballistics;
 using EFT.InventoryLogic;
-using EFT.UI;
 using UnityEngine;
 
 namespace Citadel.Features
@@ -75,7 +74,7 @@ namespace Citadel.Features
                     continue;
 
                 Vector3 vector2 = player.Player.Transform.position - Main.Camera.transform.position;
-                if (player.Distance <= AimbotOptions.Distnace && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
+                if (player.Distance <= AimbotOptions.Distance && player.DistanceFromCenter <= AimbotOptions.AimbotFov && Vector3.Dot(Main.Camera.transform.TransformDirection(Vector3.forward), vector2) > 0f)
                 {
                     dictionary.Add(player, (int)player.DistanceFromCenter);
                 }

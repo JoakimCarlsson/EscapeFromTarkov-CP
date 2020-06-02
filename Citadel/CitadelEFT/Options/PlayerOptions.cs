@@ -13,7 +13,7 @@ namespace Citadel.Options
         public static Color FriendColor = new Color(0f, 0.7f, 1f);
         public static Color BossColor = Color.red;
 
-        public static bool DrawCorpses = true;
+        public static bool DrawCorpses = false;
         public static float DrawPlayerRange = 300f;
         public static bool DrawPlayers = true;
         public static bool DrawPlayerHealth = true;

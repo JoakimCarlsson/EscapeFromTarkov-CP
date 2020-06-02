@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Citadel.Data;
 using Citadel.Enums;
@@ -7,7 +6,6 @@ using Citadel.Options;
 using Citadel.Utils;
 using EFT;
 using EFT.InventoryLogic;
-using EFT.UI;
 using UnityEngine;
 
 namespace Citadel.Features.ESP

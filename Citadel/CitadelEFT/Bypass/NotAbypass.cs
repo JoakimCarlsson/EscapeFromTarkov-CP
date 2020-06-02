@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using Citadel.Utils;
 using Memory;
 
 namespace Citadel.Bypass
@@ -35,7 +28,7 @@ namespace Citadel.Bypass
                 //}
 
                 //Console.WriteLine($"Old Size: {memory.Read<uint>(pImage + 0x18)}");
-                memory.Write<uint>(pImage + 0x18, 8259224);
+                memory.Write<uint>(pImage + 0x18, 0x7E0698);
                 //Console.WriteLine($"New Size: {memory.Read<uint>(pImage + 0x18)}");
             }
             catch

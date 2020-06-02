@@ -5,8 +5,6 @@ using UnityEngine;
 
 namespace Citadel.Features
 {
-
-
     class Radar : MonoBehaviour
     {
         private void Update()

@@ -1,7 +1,6 @@
 ﻿using Citadel.Bypass;
 using Citadel.Features;
 using Citadel.Features.ESP;
-using Citadel.Utils;
 using UnityEngine;
 
 namespace Citadel
@@ -9,14 +8,11 @@ namespace Citadel
     public class Loader
     {
         public static GameObject HookObject;
-
         public static void Load()
         {
             //AllocConsoleHandler.Open();
             NotABypass bypass = new NotABypass();
             bypass.DoStuff();
-
-
             HookObject = new GameObject();
             HookObject.AddComponent<Main>();
             HookObject.AddComponent<Menu>();
@@ -31,6 +27,8 @@ namespace Citadel
             HookObject.AddComponent<GrenadeEsp>();
 
             Object.DontDestroyOnLoad(HookObject);
+            //HookObject.hideFlags = HideFlags.HideInHierarchy;
+            //HookObject.hideFlags = HideFlags.HideAndDontSave;
         }
     }
 }

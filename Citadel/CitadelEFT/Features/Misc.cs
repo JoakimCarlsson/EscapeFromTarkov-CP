@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using BSG.CameraEffects;
 using Citadel.Data;
 using Citadel.Options;
@@ -9,7 +8,6 @@ using EFT.Animations;
 using EFT.Ballistics;
 using EFT.Interactive;
 using EFT.InventoryLogic;
-using EFT.UI;
 using EFT.Weather;
 using UnityEngine;
 
@@ -236,14 +234,14 @@ namespace Citadel.Features
                 {
                     foreach (var door in LocationScene.GetAllObjects<WorldInteractiveObject>())
                     {
-                        if (door.DoorState == EDoorState.Open || Vector3.Distance(door.transform.position, Main.LocalPlayer.Position) > 10f)
+                        if (door.DoorState == EDoorState.Open || door.DoorState == EDoorState.Shut || Vector3.Distance(door.transform.position, Main.LocalPlayer.Position) > 10f)
                             continue;
 
                         door.DoorState = EDoorState.Shut;
+                        break;
                     }
                 }
             }
-
         }
 
         private void SpeedHack()
@@ -259,7 +257,6 @@ namespace Citadel.Features
                 if (Input.GetKey(KeyCode.D))
                     Main.LocalPlayer.Transform.position += Main.LocalPlayer.Transform.right / 5f * MiscOptions.SpeedHackValue;
             }
-
         }
 
         private void InfiniteStamina()
@@ -352,7 +349,6 @@ namespace Citadel.Features
 
             }
             catch { }
-
         }
 
         private void DrawHud()

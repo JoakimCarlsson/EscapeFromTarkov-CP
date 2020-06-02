@@ -1,6 +1,5 @@
 ﻿using Citadel.Options;
 using Citadel.Utils;
-using EFT.UI;
 using JsonType;
 using UnityEngine;
 
