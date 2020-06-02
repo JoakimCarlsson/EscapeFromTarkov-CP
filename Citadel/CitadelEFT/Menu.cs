@@ -21,7 +21,7 @@ namespace Citadel
         private bool _miscFeatureslVisible;
         private bool _hotKeysVisible;
 
-        private readonly string _watermark = "Pussy Destroyer";
+        private readonly string _watermark = "Big Penis";
         private string _aimButton = "Bone: Head";
 
         private void Start()

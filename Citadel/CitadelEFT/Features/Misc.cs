@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using BSG.CameraEffects;
 using Citadel.Data;
 using Citadel.Options;
@@ -9,6 +10,7 @@ using EFT.Ballistics;
 using EFT.Interactive;
 using EFT.InventoryLogic;
 using EFT.UI;
+using EFT.Weather;
 using UnityEngine;
 
 namespace Citadel.Features
@@ -18,6 +20,7 @@ namespace Citadel.Features
         private string _hud = string.Empty;
         public static bool NotHooked = true;
         public static TestHook BulletPenetrationHook;
+        private Vector3 _tempPosition;
 
         private void FixedUpdate()
         {
@@ -44,9 +47,28 @@ namespace Citadel.Features
                     AlwaysRunning();
                     SuperJump();
                     HotKeys();
+                    ChangeWeather();
                 }
             }
-            catch { }
+            catch
+            {
+
+            }
+        }
+
+        private void ChangeWeather()
+        {
+            if (Input.GetKeyDown(KeyCode.Home))
+            {
+                TOD_Sky.Instance.Components.Time.GameDateTime = null;
+                TOD_Sky Sky_Obj = (TOD_Sky)FindObjectOfType(typeof(TOD_Sky));
+                WeatherController.Instance.RainController.SetIntensity(0f);
+                WeatherController.Instance.GlobalFogOvercast = 0f;
+                WeatherController.Instance.LightningSummonBandWidth = 0f;
+                WeatherController.Instance.RainController.enabled = false;
+                Sky_Obj.Cycle.Hour = 12f;
+            }
+
         }
 
         private void HotKeys()
@@ -74,14 +96,13 @@ namespace Citadel.Features
         {
             if (MiscOptions.AlwaysSprint)
             {
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.BarbedWire);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Armor);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.HealthCondition);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Shot);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.SurfaceNormal);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Swamp);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Weight);
-                Main.LocalPlayer.RemoveStateSpeedLimit(Player.ESpeedLimit.Aiming);
+                foreach (Player.ESpeedLimit speedlimit in Enum.GetValues(typeof(EFT.Player.ESpeedLimit)))
+                {
+                    if (speedlimit != Player.ESpeedLimit.SurfaceNormal)
+                    {
+                        Main.LocalPlayer.RemoveStateSpeedLimit(speedlimit);
+                    }
+                }
             }
         }
 
@@ -105,8 +126,6 @@ namespace Citadel.Features
                 GameFullBright.LightCalled = true;
             }
         }
-
-        private Vector3 _tempPosition;
 
         private void FullBrightUpdate()
         {
@@ -204,6 +223,7 @@ namespace Citadel.Features
         {
             if (Input.GetKey(MiscOptions.FlyHackKey) && MiscOptions.FlyHack)
             {
+                Main.LocalPlayer.MovementContext.IsGrounded = true;
                 Main.LocalPlayer.MovementContext.FreefallTime = -0.2f;
             }
         }

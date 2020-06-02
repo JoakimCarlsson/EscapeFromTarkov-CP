@@ -34,6 +34,12 @@ namespace Citadel
         internal static bool CanUpdate = false;
         private static int _listCount = 0;
 
+        private void Start()
+        {
+            Debug.unityLogger.logEnabled = false;
+            AbstractLogger.IsLogsEnabled = false;
+        }
+
         private void LateUpdate()
         {
             try
@@ -205,6 +211,7 @@ namespace Citadel
                 {
                     GameWorld = Singleton<GameWorld>.Instance;
                     Camera = Camera.main;
+                    LocalPlayer = GameWorld.RegisteredPlayers.First(p => p.IsYourPlayer());
                 }
             }
             catch

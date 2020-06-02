@@ -105,6 +105,9 @@
     <Reference Include="Comfort.Unity">
       <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\Comfort.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="EFT-Logging">
+      <HintPath>..\..\..\..\..\..\..\Games\EscapeFromTarkov\EscapeFromTarkov_Data\Managed\EFT-Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Memory">
       <HintPath>..\..\..\CSGO-Simple-External-Cheat\SimpleExternal\Memory\bin\Release\Memory.dll</HintPath>
     </Reference>
