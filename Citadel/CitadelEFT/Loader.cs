@@ -11,8 +11,10 @@ namespace Citadel
         public static void Load()
         {
             //AllocConsoleHandler.Open();
+
             NotABypass bypass = new NotABypass();
             bypass.DoStuff();
+
             HookObject = new GameObject();
             HookObject.AddComponent<Main>();
             HookObject.AddComponent<Menu>();

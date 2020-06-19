@@ -22,7 +22,7 @@ namespace Citadel
         private bool _hotKeysVisible;
 
 
-        private readonly string _watermark = "CITADEL 0.752";
+        private readonly string _watermark = "CITADEL 0.12.6.7865";
         private string _aimButton = "Bone: Head";
 
         private void Start()

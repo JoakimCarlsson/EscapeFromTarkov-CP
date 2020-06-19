@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Citadel</RootNamespace>
-    <AssemblyName>CitadelEFT</AssemblyName>
+    <AssemblyName>System.Memory</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -98,7 +98,7 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\chris\Documents\Repositories\infinitycheats\EFTPaks\EFTEsp\WORKSPACE\Assembly-CSharp.dll</HintPath>
+      <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Comfort">
       <HintPath>D:\Battlestate Games\EFT (live)\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
