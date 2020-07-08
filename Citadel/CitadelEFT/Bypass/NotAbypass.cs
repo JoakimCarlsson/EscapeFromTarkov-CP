@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using Memory;
 
@@ -16,20 +17,35 @@ namespace Citadel.Bypass
 
             try
             {
-                IntPtr pImage = MonoImageLoaded("Assembly-CSharp");
+                
                 NativeMemory memory = new LocalProcessMemory(process[0]);
 
-                //foreach (ProcessModule processModule in process[0].Modules)
-                //{
-                //    if (processModule.ModuleName == "Assembly-CSharp")
-                //    {
-                //        Console.WriteLine($"File Name: {processModule.ModuleName}, Size: {processModule.ModuleMemorySize}");
-                //    }
-                //}
+                string xx = "";
 
-                //Console.WriteLine($"Old Size: {memory.Read<uint>(pImage + 0x18)}");
-                memory.Write<uint>(pImage + 0x18, 0x7E0698);
-                //Console.WriteLine($"New Size: {memory.Read<uint>(pImage + 0x18)}");
+
+                IntPtr pImage1 = MonoImageLoaded("System.Memory");
+                xx += $"1 Image size: {memory.Read<uint>(pImage1 + 0x18)}" + "\n";
+                memory.Write<uint>(pImage1 + 0x18, 0);
+                xx += $"1 New image Size: {memory.Read<uint>(pImage1 + 0x18)}" + "\n";
+                xx += "----------" + "\n";
+
+
+                IntPtr pImage2 = MonoImageLoaded("EFT-Logging");
+                xx += $"2 Image size: {memory.Read<uint>(pImage2 + 0x18)}" + "\n";
+                memory.Write<uint>(pImage2 + 0x18, 0x5298);
+                xx += $"2 New image Size: {memory.Read<uint>(pImage2 + 0x18)}" + "\n";
+                xx += "----------" + "\n";
+
+
+                foreach (ProcessModule processModule in process[0].Modules)
+                {
+                    xx += $"Module Name: {processModule.ModuleName}, Module Memory Size: {processModule.ModuleMemorySize}" + "\n";
+                }
+                //File.WriteAllText(Path.Combine(Path.GetTempPath(), "Modules.txt"), xx);
+                if (File.Exists(Path.Combine(Path.GetTempPath(), "Modules.txt")))
+                {
+                    File.Delete(Path.Combine(Path.GetTempPath(), "Modules.txt"));
+                }
             }
             catch
             {
