@@ -46,12 +46,17 @@ namespace Citadel.Features
                     SuperJump();
                     HotKeys();
                     ChangeWeather();
+                    Test();
                 }
             }
             catch
             {
 
             }
+        }
+
+        private void Test()
+        {
         }
 
         private void ChangeWeather()

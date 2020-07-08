@@ -6,6 +6,7 @@ namespace Citadel
 {
     public class Menu : MonoBehaviour
     {
+        //Add Debug Window
         private Rect _mainWindow;
         private Rect _playerVisualWindow;
         private Rect _itemVisuals;
